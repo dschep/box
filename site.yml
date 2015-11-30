@@ -1,31 +1,31 @@
-#---
-#- hosts: all
-#  connection: local
-#  sudo: yes
-#  roles:
-#    - ansible_dep
-#- hosts: argon
-#  connection: local
-#  sudo: yes
-#  roles:
-#    - debian_sid
-#- hosts: all
-#  connection: local
-#  sudo: yes
-#  roles:
-#    - apt_upgrade
-#    - user
-#    - base
-#- hosts: all
-#  connection: local
-#  sudo: yes
-#  roles:
-#    - build_dep
-#    - python
-#    - docker
-#    - netsec
-#      #- docgen
-#    - browsers
+---
+- hosts: all
+  connection: local
+  sudo: yes
+  roles:
+    - ansible_dep
+- hosts: argon
+  connection: local
+  sudo: yes
+  roles:
+    - debian_sid
+- hosts: all
+  connection: local
+  sudo: yes
+  roles:
+    - apt_upgrade
+    - user
+    - base
+- hosts: all
+  connection: local
+  sudo: yes
+  roles:
+    - build_dep
+    - python
+    - docker
+    - netsec
+      #- docgen
+    - browsers
 - hosts: endgames
   connection: local
   sudo: yes
