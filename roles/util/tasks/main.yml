@@ -10,6 +10,8 @@
     # basic file tools
     - dos2unix
     - inotify-tools
+    # curl. duh
+    - curl
     # compression tools
     - unrar-free
     - p7zip-full
