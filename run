@@ -1,6 +1,6 @@
 #!/bin/bash
 if ! type -p ansible-playbook &> /dev/null ; then
-    sudo apt-get install -y software-properties-common python-pip python-dev
+    sudo apt-get install -y python-pip python-dev
     sudo pip install ansible
 fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
