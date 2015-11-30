@@ -1,0 +1,2 @@
+- name: Install apt_repository dep
+  apt: pkg=python-pycurl

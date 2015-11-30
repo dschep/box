@@ -1,0 +1,33 @@
+- name: Install Browsers (from Ubuntu)
+  apt: pkg={{ item }}
+  with_items:
+    - firefox
+    - chromium-browser
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Browsers (from Debian)
+  apt: pkg={{ item }}
+  with_items:
+    - iceweasel
+    - chromium
+  when: ansible_distribution == 'Debian'
+
+- name: Install Flash
+  apt: pkg={{ item }}
+  with_items:
+    - flashplugin-nonfree
+    - pepperflashplugin-nonfree
+#- name: Get Pepper Flash status (for Chromium)
+#  shell: '[ "$(update-pepperflashplugin-nonfree --status|cut -d: -f2|uniq|wc -l)" -eq 1 ]'
+#  register: pepper_flash_status
+#  ignore_errors: True
+#  changed_when: False
+#- name: Update Pepper Flash Plugin (for Chromium)
+#  command: update-pepperflashplugin-nonfree --install
+#  when: pepper_flash_status|failed
+
+- include: mozilla.yml ff_dl_product=firefox-latest ff_dest=/opt/firefox ff_link_name=firefox-mozilla
+- include: mozilla.yml ff_dl_product=firefox-aurora-latest ff_dest=/opt/firefox-de ff_link_name=firefox-developer-edition
+
+- name: set default browser (firefox-mozilla)
+  alternatives: name=x-www-browser path=/usr/bin/firefox

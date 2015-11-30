@@ -1,0 +1,4 @@
+set editing-mode vi
+set keymap vi-insert
+"\C-l": clear-screen # CTRL-L
+set keymap vi-command

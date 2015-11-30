@@ -1,0 +1,8 @@
+- name: Check if avahi is installed
+  shell: 'ls /etc/avahi/avahi-daemon.conf'
+  register: avahi
+  ignore_errors: True
+  changed_when: False
+- name: Change Avahi domain (Endgame uses .local)
+  lineinfile: dest=/etc/avahi/avahi-daemon.conf line="domain-name=avahi" insertafter="#domain-name"
+  when: avahi|success

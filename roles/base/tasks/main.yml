@@ -1,0 +1,20 @@
+- name: Install Base tools
+  apt: pkg={{ item }}
+  with_items:
+    - screen
+    - vim
+    - git
+
+- name: Install Base dotfiles
+  sudo_user: dschep
+  copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
+  with_items:
+    - bashrc
+    - bash_profile
+    - bash_logout
+    - liquidprompt/
+    - vimrc
+    - gitignore
+    - gitconfig
+    - inputrc
+    - screenrc

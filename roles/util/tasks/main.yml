@@ -1,0 +1,23 @@
+- name: Install custom pushover util
+  copy: src=pushover/pushover dest=/usr/bin/pushover mode=755
+
+- name: Link custom pushover notify-done util
+  file: src=/usr/bin/pushover dest=/usr/bin/notify-done state=link
+
+- name: Install CLI tools
+  apt: pkg={{ item }}
+  with_items:
+    # basic file tools
+    - dos2unix
+    - inotify-tools
+    # compression tools
+    - unrar-free
+    - p7zip-full
+    - dtrx
+    # system tools
+    - htop
+    - apt-file
+    # network
+    - ethtool
+    # disc encryption
+    - encfs

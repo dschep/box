@@ -1,0 +1,23 @@
+- name: make firefox prefix dir
+  file: state=directory path={{ ff_dest }}
+
+- name: Download Firefox ({{ ff_dl_product }})
+  get_url: url=https://download.mozilla.org/?product={{ ff_dl_product }}&os=linux64&lang=en-US dest=/opt/{{ ff_dl_product }}.tar.bz2
+  register: ff_download
+
+- name: Install Firefox ({{ ff_dl_product }})
+  unarchive: src={{ ff_download.dest }} dest={{ ff_dest }}
+#unarchive: src={{ ff_download.dest }} dest={{ ff_dest }} group=sudo mode='g+w'
+  when: ff_download.changed
+  register: ff_install
+
+# NOTE: should be able to use mode in ansible >= 1.8
+- name: Set firefox group ({{ ff_dl_product }})
+  command: chgrp -R sudo {{ ff_dest }}/firefox
+  when: ff_install.changed
+- name: Set firefox perms ({{ ff_dl_product }})
+  command: chmod -R g+w {{ ff_dest }}/firefox
+  when: ff_install.changed
+
+- name: Make Firefox symlink (/usr/bin/{{ ff_link_name }})
+  file: src={{ ff_dest }}/firefox/firefox dest=/usr/bin/{{ ff_link_name }} state=link force=yes

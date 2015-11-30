@@ -1,0 +1,5 @@
+- name: Configure Apt for Debian Sid
+  copy: src=sources.list dest=/etc/apt/sources.list
+
+- name: Install HTTPS transport
+  apt: pkg=apt-transport-https

@@ -1,0 +1,13 @@
+- name: Check if SSH is installed
+  shell: 'which sshd'
+  register: ssh
+  ignore_errors: True
+  changed_when: False
+- name: Disallow root SSH access
+  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
+  notify: Restart sshd
+  when: ssh|success
+
+#- name: Disallow password authentication
+#  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+#  notify: Restart sshd

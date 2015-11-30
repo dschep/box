@@ -1,0 +1,15 @@
+- name: Install OpenConnect client
+  apt: pkg=openconnect
+
+- name: Check if avahi is installed
+  shell: 'ls /etc/avahi/avahi-daemon.conf'
+  register: avahi
+  ignore_errors: True
+  changed_when: False
+
+- name: Change DNS resolution order to work with OpenConnect
+  lineinfile: "dest=/etc/avahi/avahi-daemon.conf line='hosts: files dns mdns4_minimal' regexp='^hosts:\\s*files\\s+mdns.*$'"
+  when: avahi|success
+
+- name: Install VPN client
+  apt: pkg=network-manager-openconnect-gnome

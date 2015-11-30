@@ -1,0 +1,5 @@
+- name: disable error reporting
+  service: name={{ item }} enabled=no state=stopped
+  with_items:
+      - apport
+      - whoopsie

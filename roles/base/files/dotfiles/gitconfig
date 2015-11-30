@@ -1,0 +1,28 @@
+[user]
+    name = Daniel Schep
+    email = dschep@gmail.com
+[github]
+    user = dschep
+    token = !cat ~/.github-token
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[diff]
+    tool = vimdiff
+[merge]
+    tool = vimdiff
+[difftool]
+    prompt = false
+[mergetool]
+    prompt = false
+[alias]
+    stat = status -sb
+	meld = difftool -t meld -d
+
+[core]
+	excludesfile = ~/.gitignore
+[push]
+	default = simple
+[help]
+	autocorrect = 10

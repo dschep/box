@@ -1,0 +1,99 @@
+# vim: tw=0
+
+# do nothing for noninteractive environments
+#[ -z "$PS1" ] && return
+[[ $- != *i* ]] && return
+
+
+###choose editor
+if type -P vim &> /dev/null; then
+    export EDITOR='vim -p'
+elif type -P vi &> /dev/null; then
+    export EDITOR=vi
+else
+    echo 'Vi/Vim not found, EDITOR not set'
+fi
+
+###choose pager
+if type -P less &> /dev/null; then
+    export PAGER=less
+else
+    export PAGER=more
+fi
+
+###ubuntu calls ack ack-grep
+if type -P ack-grep &> /dev/null; then
+    alias ack=ack-grep
+fi
+
+#### gnome 256 colors
+if [ "$COLORTERM" == "gnome-terminal" ]; then
+    export TERM="xterm-256color"
+fi
+
+
+#### Vi mode & emacs-style clear
+set -o vi
+bind -m vi-insert "\C-l":clear-screen
+
+#### bash4 ** support
+shopt -s globstar
+
+# bash completion
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+
+#for ls:
+type -p dircolors > /dev/null && eval $(dircolors -b)
+
+
+#date utilities
+alias today='date +%F'
+alias now="date +%FT%T"
+
+#.env utility
+alias dotenv='eval $(sed -e "s/^/export /" .env|tr "\n" ";")'
+
+#default behaviours
+alias grep='grep --color=auto'
+alias df='df -h'
+if ls --version 2> /dev/null | grep GNU > /dev/null; then
+    alias ls='ls --indicator-style=slash --human-readable --ignore-backups --color=auto --time-style=long-iso'
+else
+    alias ls='ls -p -h -G'
+fi
+
+#common mistakes
+alias cd..='cd ..'
+
+#short cuts
+alias ll='ls -l'
+alias la='ls -la'
+
+if [ $(type -p dtrx) ]; then
+    alias x=dtrx
+else
+    alias x='tar xvf'
+fi
+
+# simple way to do reverse ssh tunnels
+function rssh-proxy () {
+    host=${2%:*}
+    rport=${2#*:}
+    ssh -R 0.0.0.0:$rport:127.0.0.1:$1 $host "echo tunnel available at $2&&cat"
+}
+
+
+if [ -f ~/.bashrc.local_ext ]; then
+    . ~/.bashrc.local_ext
+fi
+
+export CDPATH=$HOME/code
+
+LP_USER_ALWAYS=0
+LP_SHOW_DIFF=0
+LP_SHORT_PATH=1
+. ~/.liquidprompt/liquidprompt
+PROMPT_COMMAND='_lp_set_prompt;echo -ne "\033]0;$USER@$HOSTNAME:${PWD/#$HOME/\~}\007"'

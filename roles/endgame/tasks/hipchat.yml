@@ -1,0 +1,8 @@
+- name: Add HipChat repo key
+  apt_key: url=https://www.hipchat.com/keys/hipchat-linux.key
+
+- name: Add HipChat Repo
+  apt_repository: repo="deb http://downloads.hipchat.com/linux/apt stable main" update_cache=yes
+
+- name: Install HipChat
+  apt: pkg=hipchat force=yes

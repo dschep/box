@@ -1,0 +1,8 @@
+- name: Install various netsec Tools
+  apt: pkg={{ item }}
+  with_items:
+    - nmap
+    - libssl-dev
+    - libffi-dev
+    - dsniff
+    - mitmproxy

@@ -1,0 +1,23 @@
+# basics
+vbell off
+startup_message off
+
+# keybindings
+bindkey "^j" prev
+bindkey "^k" next
+bind j focus down
+bind k focus up
+bind h focus top
+bind l focus bottom
+
+# red BG on current window and show all windows
+caption always "%-w%{+ .r}%n %t%{+ .d}%+w "
+
+# mouse support
+mousetrack on
+
+# 256 colors
+attrcolor b ".I"
+defbce "on"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+term xterm-256color

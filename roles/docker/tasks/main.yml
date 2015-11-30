@@ -1,0 +1,22 @@
+- name: Add Docker repository key
+  apt_key: url=https://apt.dockerproject.org/gpg validate_certs=no
+  register: add_repository_key
+  ignore_errors: true
+
+# the above can fail..?? So, took this from:
+# https://github.com/angstwad/docker.ubuntu/blob/master/tasks/main.yml#L20
+- name: Alternative | Add Docker repository key
+  shell: curl -sSL https://apt.dockerproject.org/gpg | sudo apt-key add -
+  when: add_repository_key|failed
+
+- name: Add Docker repository
+  apt_repository: repo="deb https://apt.dockerproject.org/repo {{ ansible_distribution.lower() }}-{{ ansible_distribution_release }} main" update_cache=yes
+
+- name: Install Docker
+  apt: pkg={{ item }}
+  with_items:
+    - linux-image-extra-virtual
+    - docker-engine
+
+- name: Install Docker Compose
+  pip: name=docker-compose state=latest

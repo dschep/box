@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ `basename "$0"` == 'notify-done' ] || [ "$1" == '--notify-done' ] ; then
+    start=$(date +%s)
+
+    [ `basename "$0"` == 'notify-done' ] && "${@:1}" || "${@:2}"
+
+    ret=$( [ $? -eq 0 ] && echo succeeded || echo failed )
+    end=$(date +%s)
+
+    durat=$(echo "($end - $start) / 60" | bc)
+
+    if [ `basename "$0"` == 'notify-done' ] ; then
+        msg="'${*:1}' $ret in $durat min"
+    else
+        msg="'${*:2}' $ret in $durat min"
+    fi
+else
+    msg="$*"
+fi
+
+curl -s https://api.pushover.net/1/messages.json \
+    -d token=$PUSHOVER_APP_TOKEN \
+    -d user=$PUSHOVER_USER_TOKEN \
+    -d title=$USER@$HOSTNAME \
+    -d message="$msg" > /dev/null
