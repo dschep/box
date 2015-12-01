@@ -14,6 +14,7 @@
     - netsec
       #- docgen
     - browsers
+    - i3
 
 - hosts: endgames
   connection: local

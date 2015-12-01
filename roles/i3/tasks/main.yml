@@ -1,0 +1,17 @@
+- name: Install i3 & desktop env parts
+  apt: pkg={{ item }}
+  with_items:
+   - i3
+   - network-manager-gnome
+   - xfce4-notifyd
+   - xfce4-power-manager
+
+- name: Purge dunst
+  apt: pkg=dunst state=purged
+
+- name: Install i3 dotfiles
+  sudo_user: dschep
+  copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
+  with_items:
+    - i3/
+    - i3status.conf
