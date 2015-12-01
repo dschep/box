@@ -25,3 +25,19 @@
     - encfs
     # search
     - silversearcher-ag
+
+- name: Install GUI tools
+  apt: pkg={{ item }}
+  with_items:
+    - keepassx
+    - vim-gnome
+    - gitk
+    - git-gui
+    - meld
+    - gimp
+    - inkscape
+    - mplayer
+
+
+- name: install imgur screenshot script
+  get_url: url=https://raw.githubusercontent.com/dschep/img/master/img.sh dest=/usr/bin/img.sh mode=755
