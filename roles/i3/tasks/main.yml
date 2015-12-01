@@ -6,6 +6,8 @@
    - xfce4-notifyd
    - xfce4-power-manager
    - blueman
+   - volumeicon-alsa
+   - pavucontrol
 
 - name: Purge dunst
   apt: pkg=dunst state=absent

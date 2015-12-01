@@ -174,4 +174,5 @@ exec --no-startup-id i3-msg 'workspace number 5' # just bc otherwise $WS1 is jus
 exec nm-applet
 exec xfce4-power-manager
 exec blueman-applet
+exec volumeicon
 exec xsetroot -solid black -cursor_name left_ptr
