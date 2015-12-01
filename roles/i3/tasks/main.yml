@@ -12,7 +12,7 @@
 
 - name: Install i3 dotfiles
   sudo_user: dschep
-  copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
+  copy: src={{ item }} dest=~/.{{ item }}
   with_items:
     - i3/
     - i3status.conf
