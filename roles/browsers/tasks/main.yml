@@ -12,11 +12,16 @@
     - chromium
   when: ansible_distribution == 'Debian'
 
-- name: Install Flash
-  apt: pkg={{ item }}
-  with_items:
-    - flashplugin-nonfree
-    - pepperflashplugin-nonfree
+- name: Install Flash (for Firefox/Ubuntu)
+  apt: pkg=flashplugin-installer
+  when: ansible_distribution == 'Ubuntu'
+- name: Install Flash (for Firefox/Debian)
+  apt: pkg=flashplugin-nonfree
+  when: ansible_distribution == 'Debian'
+
+- name: Install Flash (for Chromium)
+  apt: pkg=pepperflashplugin-nonfree
+
 #- name: Get Pepper Flash status (for Chromium)
 #  shell: '[ "$(update-pepperflashplugin-nonfree --status|cut -d: -f2|uniq|wc -l)" -eq 1 ]'
 #  register: pepper_flash_status
