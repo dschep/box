@@ -20,7 +20,7 @@ else
 fi
 
 curl -s https://api.pushover.net/1/messages.json \
-    -d token=$PUSHOVER_APP_TOKEN \
-    -d user=$PUSHOVER_USER_TOKEN \
+    -d token={{ PUSHOVER_APP_TOKEN }} \
+    -d user={{ PUSHOVER_USER_TOKEN }} \
     -d title=$USER@$HOSTNAME \
     -d message="$msg" > /dev/null

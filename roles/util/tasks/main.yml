@@ -1,5 +1,7 @@
+- include_vars: "pushover_tokens.yml"
+
 - name: Install custom pushover util
-  copy: src=pushover dest=/usr/bin/pushover mode=755
+  template: src=pushover dest=/usr/bin/pushover mode=755
 
 - name: Link custom pushover notify-done util
   file: src=/usr/bin/pushover dest=/usr/bin/notify-done state=link
