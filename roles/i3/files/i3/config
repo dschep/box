@@ -27,7 +27,7 @@ floating_modifier $mod
 bindsym $mod+Shift+Return exec i3-sensible-terminal
 
 # lock screen
-bindsym $mod+Control+l exec lxlock
+bindsym $mod+Control+l exec xscreensaver-command -lock
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -176,3 +176,4 @@ exec xfce4-power-manager
 exec blueman-applet
 exec volumeicon
 exec xsetroot -solid black -cursor_name left_ptr
+exec xscreensaver -no-splash

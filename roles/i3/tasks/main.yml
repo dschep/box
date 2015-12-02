@@ -8,6 +8,7 @@
    - blueman
    - volumeicon-alsa
    - pavucontrol
+   - xscreensaver
 
 - name: Purge dunst
   apt: pkg=dunst state=absent
