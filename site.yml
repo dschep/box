@@ -14,6 +14,7 @@
     - netsec
       #- docgen
     - util
+    - {role: gui_util, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: browsers, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: i3, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: terminal, when: "{{ 'DISPLAY' in ansible_env }}"}
