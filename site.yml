@@ -22,3 +22,9 @@
   sudo: yes
   roles:
     - endgame
+
+- hosts: argon
+  connection: local
+  sudo: yes
+  roles:
+    - lenovo_x1c
