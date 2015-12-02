@@ -13,6 +13,13 @@
   notify:
     - rebuild font cache
 
+- name: Install XFCE4 Terminal
+  apt: pkg=xfce4-terminal
+
+- name: ensure xfce term config dir
+  sudo_user: dschep
+  file: path=~/.config/xfce4/terminal state=directory
+
 - name: copy xfce terminal config
   sudo_user: dschep
   copy: src=terminalrc dest=~/.config/xfce4/terminal/terminalrc
