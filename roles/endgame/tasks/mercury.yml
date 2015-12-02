@@ -1,5 +1,17 @@
-- name: disable error reporting
-  service: name={{ item }} enabled=no state=stopped
-  with_items:
-      - apport
-      - whoopsie
+- name: Check if apport is installed
+  command: dpkg-query -l apport
+  ignore_errors: True
+  changed_when: False
+  register: apport_check
+- name: Disable apport
+  service: name=apport enabled=no state=stopped
+  when: apport_check.rc == 0
+
+- name: Check if whoopsie is installed
+  command: dpkg-query -l whoopsie
+  ignore_errors: True
+  changed_when: False
+  register: whoopsie_check
+- name: Disable whoopsie
+  service: name=whoopsie enabled=no state=stopped
+  when: whoopsie_check.rc == 0
