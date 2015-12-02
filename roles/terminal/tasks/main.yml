@@ -1,0 +1,18 @@
+- name: ensure user font dir
+  sudo_user: dschepo
+  file: path=~/.fonts state=directory
+
+- name: install Hack font
+  sudo_user: dschep
+  copy: src=fonts/{{ item }} dest=~/.fonts/{{ item }}
+  with_items:
+    - Hack-BoldOblique.otf
+    - Hack-Bold.otf
+    - Hack-RegularOblique.otf
+    - Hack-Regular.otf
+  notify:
+    - rebuild font cache
+
+- name: copy xfce terminal config
+  sudo_user: dschep
+  copy: src=terminalrc dest=~.config/xfce4/terminal/terminalrc

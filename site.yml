@@ -15,6 +15,7 @@
       #- docgen
     - browsers
     - i3
+    - terminal
 
 - hosts: endgames
   connection: local
