@@ -1,5 +1,8 @@
 - name: Configure Apt for Debian Sid
   copy: src=sources.list dest=/etc/apt/sources.list
 
+- name: Update package cache
+  apt: update_cache=yes cache_valid_time=3600
+
 - name: Install HTTPS transport
   apt: pkg=apt-transport-https
