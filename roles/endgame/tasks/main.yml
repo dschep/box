@@ -1,5 +1,8 @@
 - include: "torchpoint.yml"
 - include: "mercury.yml"
 - include: "vpn.yml"
+  when: "'DISPLAY' in ansible_env"
 - include: "hipchat.yml"
+  when: "'DISPLAY' in ansible_env"
 - include: "email.yml"
+  when: "'DISPLAY' in ansible_env"
