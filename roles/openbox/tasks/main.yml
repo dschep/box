@@ -1,0 +1,37 @@
+- name: Install openbox build deps
+  apt: pkg=openbox state=build-dep
+
+- name: Get openbox-multihead source
+  git:
+    repo: https://github.com/BurntSushi/openbox-multihead
+    dest: /usr/local/src/openbox-multihead
+
+- name: Bootstrap openbox-multihead build
+  command: ./bootstrap
+  args:
+    chdir: /usr/local/src/openbox-multihead
+    creates: /usr/local/src/openbox-multihead/configure
+
+- name: Configure openbox-multihead build
+  command: ./configure
+  args:
+    chdir: /usr/local/src/openbox-multihead
+    creates: /usr/local/src/openbox-multihead/Makefile
+
+- name: Build openbox-multihead
+  command: make
+  args:
+    chdir: /usr/local/src/openbox-multihead
+    creates: /usr/local/src/openbox-multihead/openbox/openbox
+
+- name: Install openbox-multihead
+  command: make install
+  args:
+    chdir: /usr/local/src/openbox-multihead
+    creates: /usr/local/bin/openbox
+
+#- name: Install openbox dotfiles
+#  sudo_user: dschep
+#  copy: src={{ item }} dest=~/.{{ item }}
+#  with_items:
+#    - config/openbox
