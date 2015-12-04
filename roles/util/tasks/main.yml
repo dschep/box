@@ -18,6 +18,7 @@
     - dtrx
     # system tools
     - htop
+    - glances
     - apt-file
     # network
     - ethtool
