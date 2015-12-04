@@ -18,7 +18,6 @@
     - dtrx
     # system tools
     - htop
-    - glances
     - apt-file
     # network
     - ethtool
@@ -26,3 +25,5 @@
     - encfs
     # search
     - silversearcher-ag
+
+- pip: name=glances
