@@ -1,8 +1,0 @@
-#!/bin/bash
-if ! type -p ansible-playbook &> /dev/null ; then
-    sudo apt-get install -y python-pip python-dev
-    sudo pip install ansible
-fi
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-ansible-playbook $([ $UID -eq 0 ] || echo -K) -i $HOSTNAME, $DIR/site.yml \
-    "$@"
