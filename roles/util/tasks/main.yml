@@ -1,5 +1,3 @@
-- include_vars: "pushover_tokens.yml"
-
 - name: Install custom pushover util
   template: src=pushover dest=/usr/bin/pushover mode=755
 

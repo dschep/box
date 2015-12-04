@@ -5,4 +5,4 @@ if ! type -p ansible-playbook &> /dev/null ; then
 fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ansible-playbook $([ $UID -eq 0 ] || echo -K) -i $HOSTNAME, $DIR/site.yml \
-    --ask-vault-pass "$@"
+    "$@"
