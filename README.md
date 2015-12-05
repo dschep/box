@@ -18,3 +18,26 @@ or
 ```
 wget -qO- http://schep.me/box-redux/install | bash -x
 ```
+
+## Ways of running (after quick install or cloning)
+You can obviously use a global inventory file, but often that's not
+convenient so it's easier to use `-i hostname,`. It's best to use the real
+hostname instead of localhost because like that the paybook can easily use
+that name to decide what to install.
+
+### Sudo, no secrets(ansble-vault) no docgen
+This is what the quick install runs if non-root.
+```
+ansible-playbook -i $HOSTNAME, -K site.yml
+```
+
+### No sudo, no secrets(ansble-vault) no docgen
+This is what the quick install runs if root.
+```
+ansible-playbook -i $HOSTNAME, site.yml
+```
+
+### Sudo, Full install
+```
+ansible-playbook -i $HOSTNAME, -K --ask-vault-pass secrets.yml site.yml
+```

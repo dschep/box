@@ -3,6 +3,7 @@
   connection: local
   sudo: yes
   roles:
+      #- secrets
     - ansible_dep
     - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
     - apt_upgrade
