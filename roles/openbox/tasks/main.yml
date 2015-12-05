@@ -30,8 +30,13 @@
     chdir: /usr/local/src/openbox-multihead
     creates: /usr/local/bin/openbox
 
-#- name: Install openbox dotfiles
-#  sudo_user: dschep
-#  copy: src={{ item }} dest=~/.{{ item }}
-#  with_items:
-#    - config/openbox
+- apt: pkg=dmenu
+
+- file: ~/.config/openbox state=directory
+- name: Install openbox dotfiles
+  sudo_user: dschep
+  copy: src=rc.xml dest=~/.config/openbox/rc.xml
+
+- name: set window manager to openbox for xfce4 
+  command: xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -t string -s "/usr/local/bin/openbox" -a
+  on
