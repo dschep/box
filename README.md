@@ -26,13 +26,13 @@ hostname instead of localhost because like that the paybook can easily use
 that name to decide what to install.
 
 ### Quick install
-This is what the quick install runs if non-root. Remove `-K` if run as root.
+This is what the quick install runs.
 ```
-ansible-playbook -i $HOSTNAME, -K site.yml
+ansible-playbook -i $HOSTNAME, site.yml
 ```
 
 ### Install Secrets
 This installs any secrets that are encrypted with ansible-vault
 ```
-ansible-playbook -i $HOSTNAME, -K --ask-vault-pass secrets.yml
+ansible-playbook -i $HOSTNAME, --ask-vault-pass secrets.yml
 ```
