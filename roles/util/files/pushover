@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -e ~/.secrets/pushover ] && source ~/.secrets/pushover
+
 if [ `basename "$0"` == 'notify-done' ] || [ "$1" == '--notify-done' ] ; then
     start=$(date +%s)
 
@@ -20,7 +22,7 @@ else
 fi
 
 curl -s https://api.pushover.net/1/messages.json \
-    -d token={{ PUSHOVER_APP_TOKEN|d('$PUSHOVER_APP_TOKEN') }} \
-    -d user={{ PUSHOVER_USER_TOKEN|d('$PUSHOVER_USER_TOKEN') }} \
+    -d token=$PUSHOVER_APP_TOKEN \
+    -d user=$PUSHOVER_USER_TOKEN \
     -d title=$USER@$HOSTNAME \
     -d message="$msg" > /dev/null

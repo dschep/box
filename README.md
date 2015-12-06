@@ -25,19 +25,14 @@ convenient so it's easier to use `-i hostname,`. It's best to use the real
 hostname instead of localhost because like that the paybook can easily use
 that name to decide what to install.
 
-### Sudo, no secrets(ansble-vault) no docgen
-This is what the quick install runs if non-root.
+### Quick install
+This is what the quick install runs if non-root. Remove `-K` if run as root.
 ```
 ansible-playbook -i $HOSTNAME, -K site.yml
 ```
 
-### No sudo, no secrets(ansble-vault) no docgen
-This is what the quick install runs if root.
+### Install Secrets
+This installs any secrets that are encrypted with ansible-vault
 ```
-ansible-playbook -i $HOSTNAME, site.yml
-```
-
-### Sudo, Full install
-```
-ansible-playbook -i $HOSTNAME, -K --ask-vault-pass secrets.yml site.yml
+ansible-playbook -i $HOSTNAME, -K --ask-vault-pass secrets.yml
 ```
