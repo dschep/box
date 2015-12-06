@@ -15,6 +15,7 @@
     - netsec
       #- docgen
     - util
+    - custom_util
     - {role: gui_util, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: browsers, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: openbox, when: "{{ 'DISPLAY' in ansible_env }}"}
