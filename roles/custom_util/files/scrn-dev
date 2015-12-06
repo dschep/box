@@ -1,0 +1,13 @@
+source ~/.screenrc
+
+screen vim
+
+split -v
+focus right
+screen
+
+split
+focus down
+screen
+
+focus left

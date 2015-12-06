@@ -3,3 +3,11 @@
 
 - name: Link custom pushover notify-done util
   file: src=/usr/bin/pushover dest=/usr/bin/notify-done state=link
+
+- name: Install custom screen profile util (scrn)
+  copy: src=scrn dest=/usr/bin/scrn mode=755
+
+- file: path=~/.scrn state=directory
+- name: Install dev screen profile
+  sudo_user: dschep
+  copy: src=scrn-dev dest=~/.scrn/dev
