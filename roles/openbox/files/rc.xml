@@ -51,7 +51,7 @@
        or workspace from monitor to monitor. -->
   </placement>
   <theme>
-    <name>Nightmare-02</name>
+    <name>Numix</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -364,6 +364,11 @@
     <keybind key="S-A-Return">
       <action name="Execute">
         <command>xfce4-terminal</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-l">
+      <action name="Execute">
+        <command>dm-tool lock</command>
       </action>
     </keybind>
   </keyboard>

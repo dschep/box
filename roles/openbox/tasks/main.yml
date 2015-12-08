@@ -30,7 +30,13 @@
     chdir: /usr/local/src/openbox-multihead
     creates: /usr/local/bin/openbox
 
-- apt: pkg=dmenu
+- name: Remove xscreensaver (in favor of light-locker)
+  apt: pkg=xscreensaver state=removed
+- name: Install dmenu & light-locker
+  apt: pkg={{ item }}
+  with_items:
+    - dmenu
+    - light-locker
 
 - file: path=~/.config/openbox state=directory
 - name: Install openbox dotfiles
