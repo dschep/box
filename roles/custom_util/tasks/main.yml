@@ -8,6 +8,7 @@
   copy: src=scrn dest=/usr/bin/scrn mode=755
 
 - file: path=~/.scrn state=directory
+  sudo_user: dschep
 - name: Install dev screen profile
   sudo_user: dschep
   copy: src=scrn-dev dest=~/.scrn/dev
