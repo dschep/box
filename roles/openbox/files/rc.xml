@@ -141,7 +141,7 @@
     <popupTime>0</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
        desktops.  Set this to 0 to disable the popup. -->
-    <greedy>yes</greedy>
+    <greedy>no</greedy>
     <!-- When enabled, switching to a desktop that is visible replaces the
        current desktop -->
   </desktops>
