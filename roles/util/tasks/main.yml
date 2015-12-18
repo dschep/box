@@ -21,3 +21,5 @@
     - silversearcher-ag
 
 - pip: name=glances
+
+- pip: name=ntfy executable=pip3
