@@ -12,11 +12,11 @@ roles.
 ## Quick Install
 
 ```
-curl http://schep.me/box-redux/install | bash -x
+curl http://schep.me/box/install | bash -x
 ```
 or
 ```
-wget -qO- http://schep.me/box-redux/install | bash -x
+wget -qO- http://schep.me/box/install | bash -x
 ```
 
 ## Ways of running (after quick install or cloning)
