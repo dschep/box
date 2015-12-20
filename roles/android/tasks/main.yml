@@ -1,0 +1,5 @@
+name: Install Android tools
+apt: pkg={{ item }}
+with_items:
+  - android-tools-adb
+  - android-tools-fastboot

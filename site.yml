@@ -32,4 +32,5 @@
   connection: local
   sudo: yes
   roles:
+    - android
     - lenovo_x1c
