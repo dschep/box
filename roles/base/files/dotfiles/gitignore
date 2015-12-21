@@ -2,3 +2,4 @@
 .DS_Store
 .ropeproject
 .coverage
+.cs_files
