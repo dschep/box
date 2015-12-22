@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  connection: local
   sudo: yes
   roles:
       #- secrets
@@ -23,13 +22,11 @@
     - {role: terminal, when: "{{ 'DISPLAY' in ansible_env }}"}
 
 - hosts: endgames
-  connection: local
   sudo: yes
   roles:
     - endgame
 
 - hosts: argon
-  connection: local
   sudo: yes
   roles:
     - android
