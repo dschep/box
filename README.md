@@ -19,6 +19,11 @@ or
 wget -qO- http://schep.me/box/install | bash -x
 ```
 
+### Advanced Quick Install (using git & checking out a specific branch)
+```
+curl http://schep.me/box/install | bash -x -s -- --git-https branch-name
+```
+
 ## Ways of running (after quick install or cloning)
 You can obviously use a global inventory file, but often that's not
 convenient so it's easier to use `-i hostname,`. It's best to use the real
