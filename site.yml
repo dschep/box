@@ -31,3 +31,8 @@
   roles:
     - android
     - lenovo_x1c
+
+- hosts: default # the inventory name of the Vagrant VM
+  sudo: yes
+  roles:
+    - swapfile
