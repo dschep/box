@@ -15,6 +15,9 @@
     - liquidprompt/
     - vimrc
     - gitignore
-    - gitconfig
     - inputrc
     - screenrc
+
+- name: Install gitconfig
+  sudo_user: "{{ user }}"
+  template: src=gitconfig dest=~/.gitconfig
