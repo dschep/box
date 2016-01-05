@@ -20,6 +20,6 @@
     # search
     - silversearcher-ag
 
-- pip: name=glances
+- pip: name=glances state=latest
 
-- pip: name=ntfy executable=pip3
+- pip: name=ntfy executable=pip3 state=latest
