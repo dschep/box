@@ -40,7 +40,7 @@
 
 - file: path=~/.config/openbox state=directory
 - name: Install openbox dotfiles
-  sudo_user: dschep
+  sudo_user: "{{ user }}"
   copy: src=rc.xml dest=~/.config/openbox/rc.xml
 
 #- name: set window manager to openbox for xfce4 

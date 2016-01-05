@@ -1,12 +1,12 @@
 - name: Create user
   user:
-    name: dschep
-    comment: "Daniel Schep"
+    name: "{{ user }}"
+    comment: "{{ full_name }}"
     shell: /bin/bash
     groups: adm,cdrom,sudo,dip,plugdev
     append: yes
     update_password: on_create
-    password: "$6$JWe9jC8eZs$D.GtnsqSFp09lOFLUfKdCO6eTZ/SbB6dilHCst5SlnYCMzUyQAO/EQYsse1XqwspTDIvtXmTWGcI2N89I0jid/"
+    password: "{{ hashed_unix_password }}"
 
 - name: Lock down root user
   user: name=root password="!"

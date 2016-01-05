@@ -6,7 +6,7 @@
     - git
 
 - name: Install Base dotfiles
-  sudo_user: dschep
+  sudo_user: "{{ user }}"
   copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
   with_items:
     - bashrc

@@ -1,9 +1,6 @@
 [user]
-    name = Daniel Schep
-    email = dschep@gmail.com
-[github]
-    user = dschep
-    token = !cat ~/.github-token
+    name = {{ git_name }}
+    email = {{ git_email }}
 [color]
     diff = auto
     status = auto
