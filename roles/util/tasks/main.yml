@@ -15,7 +15,7 @@
     - apt-file
     # network
     - ethtool
-    - dig
+    - dnsutils
     # disc encryption
     - encfs
     # search
