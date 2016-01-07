@@ -21,7 +21,7 @@
     - {role: openbox, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: terminal, when: "{{ 'DISPLAY' in ansible_env }}"}
 
-- hosts: endgames
+- hosts: endgame
   sudo: yes
   roles:
     - endgame
