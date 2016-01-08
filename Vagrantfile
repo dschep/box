@@ -3,6 +3,8 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
+  # on old versions of vagrant:
+  # vagrant box add ubuntu/trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
 
   config.vm.network "private_network", ip: "10.42.42.42"
 
