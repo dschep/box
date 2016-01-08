@@ -4,6 +4,7 @@
     # basic file tools
     - dos2unix
     - inotify-tools
+    - jq
     # curl. duh
     - curl
     # compression tools
