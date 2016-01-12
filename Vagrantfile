@@ -11,8 +11,10 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = 'box'
 
   config.vm.provider "virtualbox" do |vb|
-    # Customize the amount of memory on the VM:
+    # Customize the amount of memory & cpus on the VM:
     vb.memory = "4096"
+    vb.cpus = "2"
+    vb.customize ["modifyvm", :id, "--cpus", "2"] # Old verisons of vagrant
     # Speed optimization
     vb.linked_clone = true if Vagrant::VERSION =~ /^1.8/
   end
