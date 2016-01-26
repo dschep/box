@@ -7,3 +7,6 @@
     - python3-pip
     - python-virtualenv
     - virtualenvwrapper
+- name: Install Python tools
+  apt: pkg=python3-venv
+  when: "{{ (ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('15.10', '>=')) or ansible_distribution == 'Debian' }}"
