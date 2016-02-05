@@ -26,6 +26,11 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "private_network", ip: "10.42.42.42"
 
+  config.vm.define :vagrant do |vm|
+  end
+  config.vm.provider :virtualbox do |vb|
+    vb.name = 'box'
+  end
   config.vm.hostname = 'box'
 
   config.vm.provider "virtualbox" do |vb|
@@ -41,5 +46,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
+    ansible.raw_arguments = ["-e", "user=vagrant"]
   end
 end
