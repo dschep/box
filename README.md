@@ -44,3 +44,9 @@ ansible-playbook -i $HOSTNAME, --ask-vault-pass secrets.yml
 
 ### Vagrant
 A `Vagrantfile` is included that properly overrides a few options for easily setting up a development VM. This is useful for making crappy OSes(Windows/MacOS) usable. It includes a private hostonly interface for easy network connectivity. It has the IP `10.42.42.42` which is nice and easy to remember, It just requires setting up a host-only NIC in VBox in that subnet.
+
+### TODO
+ - [ ] office
+ - [ ] multimedia (creation, gimp, inkscape, etc)
+ - [ ] multimedia (consume, mplayer, etc)
+ - [ ] netstuff (tsocks, rdesktop)
