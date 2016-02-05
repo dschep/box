@@ -39,6 +39,8 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--cpus", (Host.cpus/2).to_s]
     # Speed optimization
     vb.linked_clone = true if Vagrant::VERSION =~ /^1.8/
+    # Place in Vagrant group
+    vb.customize ["modifyvm", :id, "--groups", "/Vagrant"]
   end
 
   # disable included ansible.cfg
