@@ -15,7 +15,6 @@
     prompt = false
 [alias]
     stat = status -sb
-	meld = difftool -t meld -d
 
 [core]
 	excludesfile = ~/.gitignore
