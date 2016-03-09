@@ -17,6 +17,7 @@
     # network
     - ethtool
     - dnsutils
+    - socat
     # disc encryption
     - encfs
     # search
