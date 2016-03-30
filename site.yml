@@ -14,7 +14,6 @@
     - netsec
       #- docgen
     - util
-    - custom_util
     - {role: virt, when: "{{ ansible_virtualization_role == 'host' }}"}
     - {role: gui_util, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: browsers, when: "{{ 'DISPLAY' in ansible_env }}"}
