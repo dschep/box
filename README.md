@@ -12,16 +12,16 @@ roles.
 ## Quick Install
 
 ```
-curl http://schep.me/box/install | bash -x
+curl http://dschep.github.io/box/install | bash -x
 ```
 or
 ```
-wget -qO- http://schep.me/box/install | bash -x
+wget -qO- http://dschep.github.io/box/install | bash -x
 ```
 
 ### Advanced Quick Install (using git & checking out a specific branch)
 ```
-curl http://schep.me/box/install | bash -x -s -- --git-https branch-name
+curl http://dschep.github.io/box/install | bash -x -s -- --git-https branch-name
 ```
 
 ## Ways of running (after quick install or cloning)
