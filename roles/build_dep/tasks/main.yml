@@ -1,6 +1,6 @@
 - name: Install common build deps
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
-    - libxml2-dev
-    - libxslt1-dev
-    - libjpeg-dev
+    - libxml2-{{ 'devel' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'dev' }}
+    - "{{ 'libxslt-devel' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'libxslt1-dev' }}"
+    - libjpeg-{{ 'devel' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'dev' }}

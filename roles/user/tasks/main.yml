@@ -3,7 +3,7 @@
     name: "{{ user }}"
     comment: "{{ full_name }}"
     shell: /bin/bash
-    groups: adm,cdrom,sudo,dip,plugdev
+    groups: "{{ 'adm,cdrom,sudo,dip,plugdev' if ansible_distribution in ('Ubuntu', 'Debian') else '' }}"
     append: yes
     update_password: on_create
     password: "{{ hashed_unix_password }}"

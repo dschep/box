@@ -1,5 +1,5 @@
 - name: Install CLI tools
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
     # basic file tools
     - dos2unix
@@ -8,21 +8,22 @@
     # curl. duh
     - curl
     # compression tools
-    - unrar-free
-    - p7zip-full
-    - dtrx
+    - "{{ 'p7zip' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'p7zip-full' }}"
     # system tools
     - htop
-    - apt-file
     # network
     - ethtool
-    - dnsutils
     - socat
     # disc encryption
     - encfs
     # search
-    - silversearcher-ag
+    - "{{ 'the_silver_searcher' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'silversearcher-ag' }}"
+    - the_silver_searcher
 
 - pip: name=glances state=latest
 
-- pip: name=ntfy executable=pip3 state=latest
+- pip: name=ntfy executable=pip state=latest
+
+- name: install apt-file
+  apt: name=apt-file
+  when: ansible_distribution in ('Debian', 'Ubuntu')

@@ -3,9 +3,9 @@
   sudo: yes
   roles:
       #- secrets
-    - ansible_dep
+    - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
-    - apt_upgrade
+    - {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - user
     - base
     - build_dep
