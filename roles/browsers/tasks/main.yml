@@ -13,7 +13,7 @@
   when: ansible_distribution == 'Debian'
 
 - name: Install Browsers (from Fedora/CentOS/RedHat)
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
     - firefox
   when: ansible_distribution in ('CentOS', 'RedHat', 'Fedora')
