@@ -8,7 +8,7 @@
     - meld
     - gimp
     - inkscape
-    - mplayer
+    - "{{ 'mplayer' if ansible_distribution in ('Debian', 'Ubuntu') else 'kmplayer' }}"
       #- ssh-askpass-gnome
 
 - name: install imgur screenshot script
