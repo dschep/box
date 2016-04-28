@@ -14,7 +14,7 @@
     - rebuild font cache
 
 - name: Install XFCE4 Terminal
-  apt: pkg=xfce4-terminal
+  package: name=xfce4-terminal
 
 - name: ensure xfce term config dir
   sudo_user: "{{ user }}"
