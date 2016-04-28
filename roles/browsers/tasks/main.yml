@@ -43,3 +43,4 @@
 
 - name: set default browser (firefox-mozilla)
   alternatives: name=x-www-browser path=/usr/bin/firefox
+  when: ansible_distribution in ('Debian', 'Ubuntu')
