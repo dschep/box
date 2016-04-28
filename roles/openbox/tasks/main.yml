@@ -1,5 +1,7 @@
 - name: Install openbox
   package: name=openbox
+- name: Install dmenu
+  package: name=dmenu
 - file: path=~/.config/openbox state=directory
   sudo_user: "{{ user }}"
 - name: Install openbox dotfiles
