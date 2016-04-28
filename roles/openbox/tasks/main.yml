@@ -1,49 +1,7 @@
-- name: Install openbox build deps
-  apt: pkg=openbox state=build-dep
-
-- name: Get openbox-multihead source
-  git:
-    repo: https://github.com/BurntSushi/openbox-multihead
-    dest: /usr/local/src/openbox-multihead
-
-- name: Bootstrap openbox-multihead build
-  command: ./bootstrap
-  args:
-    chdir: /usr/local/src/openbox-multihead
-    creates: /usr/local/src/openbox-multihead/configure
-
-- name: Configure openbox-multihead build
-  command: ./configure
-  args:
-    chdir: /usr/local/src/openbox-multihead
-    creates: /usr/local/src/openbox-multihead/Makefile
-
-- name: Build openbox-multihead
-  command: make
-  args:
-    chdir: /usr/local/src/openbox-multihead
-    creates: /usr/local/src/openbox-multihead/openbox/openbox
-
-- name: Install openbox-multihead
-  command: make install
-  args:
-    chdir: /usr/local/src/openbox-multihead
-    creates: /usr/local/bin/openbox
-
-- name: Remove xscreensaver (in favor of light-locker)
-  apt: pkg=xscreensaver state=removed
-- name: Install dmenu & light-locker
-  apt: pkg={{ item }}
-  with_items:
-    - dmenu
-    - light-locker
-
+- name: Install openbox
+  package: name=openbox
 - file: path=~/.config/openbox state=directory
   sudo_user: "{{ user }}"
 - name: Install openbox dotfiles
   sudo_user: "{{ user }}"
   copy: src=rc.xml dest=~/.config/openbox/rc.xml
-
-#- name: set window manager to openbox for xfce4 
-#  command: xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -t string -s "/usr/local/bin/openbox" -a
-#  on
