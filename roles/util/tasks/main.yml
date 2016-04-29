@@ -18,7 +18,6 @@
     - encfs
     # search
     - "{{ 'the_silver_searcher' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'silversearcher-ag' }}"
-    - the_silver_searcher
 
 - pip: name=glances state=latest
 
