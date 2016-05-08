@@ -1,5 +1,5 @@
 - name: Install virtualization tools
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
     - virtualbox
     - vagrant
