@@ -90,6 +90,10 @@ if [ -f ~/.bashrc.local_ext ]; then
     . ~/.bashrc.local_ext
 fi
 
+if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+    . /usr/bin/virtualenvwrapper.sh
+fi
+
 export CDPATH=$HOME/code
 
 LP_USER_ALWAYS=0
