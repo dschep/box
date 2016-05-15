@@ -1,6 +1,16 @@
-- name: Install common build deps
-  apt: pkg={{ item }}
+- name: Install common build deps (deb)
+  package: name={{ item }}
   with_items:
+    - build-essential
     - libxml2-dev
     - libxslt1-dev
     - libjpeg-dev
+  when: ansible_distribution in ('Debian', 'Ubuntu')
+- name: Install common build deps (rpm)
+  package: name={{ item }}
+  with_items:
+    - gcc
+    - libxml2-devel
+    - libxslt-devel
+    - libjpeg-devel
+  when: ansible_distribution in ('CentOS', 'RedHat', 'Ubuntu')

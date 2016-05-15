@@ -50,3 +50,9 @@ A `Vagrantfile` is included that properly overrides a few options for easily set
  - [ ] multimedia (creation, gimp, inkscape, etc)
  - [ ] multimedia (consume, mplayer, etc)
  - [ ] netstuff (tsocks, rdesktop)
+
+# WIP: RPM distros
+## Fedora
+```
+dnf install dnf-python libselinux-python
+``

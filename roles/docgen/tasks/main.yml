@@ -1,5 +1,5 @@
 - name: Install document creation tools
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
     - pandoc
     - texlive

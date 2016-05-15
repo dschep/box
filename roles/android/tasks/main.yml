@@ -1,5 +1,10 @@
-- name: Install Android tools
+- name: Install Android tools (deb)
   apt: pkg={{ item }}
   with_items:
     - android-tools-adb
     - android-tools-fastboot
+  when: ansible_distribution in ('Debian', 'Ubuntu')
+
+- name: Install Android tools (rpm
+  apt: pkg=android-tools
+  when: ansible_distribution in ('CentOS', 'RedHat', 'Ubuntu')

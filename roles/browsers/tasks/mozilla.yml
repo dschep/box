@@ -13,7 +13,7 @@
 
 # NOTE: should be able to use mode in ansible >= 1.8
 - name: Set firefox group ({{ ff_dl_product }})
-  command: chgrp -R sudo {{ ff_dest }}/firefox
+  command: chgrp -R {{ 'sudo' if ansible_distribution in ('Debian', 'Ubuntu') else 'wheel' }} {{ ff_dest }}/firefox
   when: ff_install.changed
 - name: Set firefox perms ({{ ff_dl_product }})
   command: chmod -R g+w {{ ff_dest }}/firefox

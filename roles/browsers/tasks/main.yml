@@ -12,6 +12,12 @@
     - chromium
   when: ansible_distribution == 'Debian'
 
+- name: Install Browsers (from Fedora/CentOS/RedHat)
+  package: name={{ item }}
+  with_items:
+    - firefox
+  when: ansible_distribution in ('CentOS', 'RedHat', 'Fedora')
+
 - name: Install Flash (for Firefox/Ubuntu)
   apt: pkg=flashplugin-installer
   when: ansible_distribution == 'Ubuntu'
@@ -19,8 +25,9 @@
   apt: pkg=flashplugin-nonfree
   when: ansible_distribution == 'Debian'
 
-- name: Install Flash (for Chromium)
+- name: Install Flash (for Chromium, deb only)
   apt: pkg=pepperflashplugin-nonfree
+  when: ansible_distribution in ('Debian', 'Ubuntu')
 
 #- name: Get Pepper Flash status (for Chromium)
 #  shell: '[ "$(update-pepperflashplugin-nonfree --status|cut -d: -f2|uniq|wc -l)" -eq 1 ]'
@@ -36,3 +43,4 @@
 
 - name: set default browser (firefox-mozilla)
   alternatives: name=x-www-browser path=/usr/bin/firefox
+  when: ansible_distribution in ('Debian', 'Ubuntu')

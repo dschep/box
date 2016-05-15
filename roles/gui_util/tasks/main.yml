@@ -1,15 +1,15 @@
 - name: Install GUI tools
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
     - keepassx
-    - vim-gnome
+      #- vim-gnome
     - gitk
     - git-gui
     - meld
     - gimp
     - inkscape
-    - mplayer
-    - ssh-askpass-gnome
+    - "{{ 'mplayer' if ansible_distribution in ('Debian', 'Ubuntu') else 'kmplayer' }}"
+      #- ssh-askpass-gnome
 
 - name: install imgur screenshot script
   get_url: url=https://raw.githubusercontent.com/dschep/img/master/img.sh dest=/usr/bin/img.sh mode=755

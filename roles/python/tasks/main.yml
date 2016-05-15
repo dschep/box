@@ -1,4 +1,4 @@
-- name: Install Python tools
+- name: Install Python tools (deb)
   apt: pkg={{ item }}
   with_items:
     - python-dev
@@ -7,6 +7,30 @@
     - python3-pip
     - python-virtualenv
     - virtualenvwrapper
-- name: Install Python tools
+  when: "{{ ansible_distribution in ('Debian', 'Ubuntu') }}"
+- name: Install Python3 tools (deb)
   apt: pkg=python3-venv
   when: "{{ (ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('15.10', '>=')) or ansible_distribution == 'Debian' }}"
+
+- name: Install Python tools (yum)
+  yum: name={{ item }}
+  with_items:
+    - python-devel
+    - python-pip
+    - python27-python-virtualenv
+    - python34-devel
+    - rh-python34-python-pip
+    - rh-python34-python-virtualenv
+    - python-virtualenvwrapper
+  when: ansible_distribution in ('CentOS', 'RedHat')
+
+- name: Install Python tools (dnf)
+  dnf: name={{ item }}
+  with_items:
+    - python-devel
+    - python-pip
+    - python-virtualenv
+    - python3-devel
+    - python3-pip
+    - python3-virtualenv
+  when: ansible_distribution in ('Fedora')

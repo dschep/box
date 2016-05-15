@@ -1,8 +1,10 @@
 - name: Install various netsec Tools
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
     - nmap
-    - libssl-dev
-    - libffi-dev
+    - "{{ 'openssl-devel' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'libssl-dev' }}"
+    - libffi-{{ 'devel' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'dev' }}
     - dsniff
-    - mitmproxy
+
+- name: Install mitmproxy
+  pip: name=mitmproxy

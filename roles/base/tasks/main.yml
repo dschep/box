@@ -1,5 +1,5 @@
 - name: Install Base tools
-  apt: pkg={{ item }}
+  package: name={{ item }}
   with_items:
     - screen
     - vim
