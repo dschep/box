@@ -36,6 +36,7 @@ Plugin 'jnurmine/Zenburn'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ciaranm/detectindent'
 Plugin 'klen/python-mode'
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 
