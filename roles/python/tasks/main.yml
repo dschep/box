@@ -33,4 +33,5 @@
     - python3-devel
     - python3-pip
     - python3-virtualenv
+    - python-virtualenvwrapper
   when: ansible_distribution in ('Fedora')
