@@ -103,5 +103,4 @@ LP_SHORT_PATH=1
 PROMPT_COMMAND='_lp_set_prompt;echo -ne "\033]0;$USER@$HOSTNAME:${PWD/#$HOME/\~}\007"'
 if type -p ntfy &> /dev/null ; then
     eval "$(ntfy shell-integration)"
-    PROMPT_COMMAND='! __bp_precmd_invoke_cmd; _lp_set_prompt;echo -ne "\033]0;$USER@$HOSTNAME:${PWD/#$HOME/\~}\007"; __bp_interactive_mode;'
 fi
