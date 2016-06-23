@@ -1,7 +1,9 @@
-- name: Install openbox
-  package: name=openbox
-- name: Install dmenu
-  package: name=dmenu
+- name: Install openbox and utils used in config
+  package: name={{ item }}
+  with_items:
+    - openbox
+    - dmenu
+    - xbacklight
 - file: path=~/.config/openbox state=directory
   sudo_user: "{{ user }}"
 - name: Install openbox dotfiles
