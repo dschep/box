@@ -13,4 +13,4 @@
     - libxml2-devel
     - libxslt-devel
     - libjpeg-devel
-  when: ansible_distribution in ('CentOS', 'RedHat', 'Ubuntu')
+  when: ansible_distribution in ('CentOS', 'RedHat', 'Fedora')
