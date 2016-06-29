@@ -10,7 +10,7 @@
     - base
     - build_dep
     - python
-    - docker
+    - os-docker
     - netsec
       #- docgen
     - util

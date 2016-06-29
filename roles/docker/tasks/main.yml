@@ -29,8 +29,6 @@
 
 - name: Install Docker
   package: name=docker-engine
-  when: ansible_distribution in ('CentOS', 'RedHat', 'Fedora')
-
 
 - name: Install Docker Compose
   pip: name=docker-compose state=latest

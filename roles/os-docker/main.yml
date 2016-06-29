@@ -1,0 +1,6 @@
+- name: Install OS provided docker & docker-compose
+  package: name={{ item }}
+  with_items:
+    - docker
+    - docker-compose
+
