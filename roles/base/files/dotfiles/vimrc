@@ -126,6 +126,8 @@ autocmd BufNewFile,BufReadPost Makefile,makefile,*.mk setlocal noexpandtab
 autocmd BufNewFile,BufReadPost *.json setlocal ft=json
 " detect markdown files
 autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
+autocmd BufNewFile,BufReadPost *.md setlocal spell
+autocmd BufNewFile,BufReadPost *.rst setlocal spell
 " use modelines
 set modeline
 
