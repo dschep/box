@@ -123,9 +123,9 @@ filetype plugin indent on
 " use real tabs for makefiles
 autocmd BufNewFile,BufReadPost Makefile,makefile,*.mk setlocal noexpandtab
 " detect json files
-autocmd BufNewFile,BufReadPost *.json set ft=json
+autocmd BufNewFile,BufReadPost *.json setlocal ft=json
 " detect markdown files
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
 " use modelines
 set modeline
 
