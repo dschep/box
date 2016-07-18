@@ -23,6 +23,11 @@
 
 - pip: name=ntfy executable=pip state=latest
 
+- pip: name=horseshit state=latest
+- name: Install horseshit config
+  sudo_user: "{{ user }}"
+  copy: src=horseshits dest=~/.config/horseshits
+
 - name: install apt-file
   apt: name=apt-file
   when: ansible_distribution in ('Debian', 'Ubuntu')
