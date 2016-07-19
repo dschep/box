@@ -4,6 +4,7 @@
     - openbox
     - dmenu
     - xbacklight
+    - xcompmgr
 - file: path=~/.config/openbox state=directory
   sudo_user: "{{ user }}"
 - name: Install openbox dotfiles

@@ -1,0 +1,52 @@
+{% set SOCIAL = '$title =~ /.*(Facebook|Twitter|Instagram|Hacker News).*/' %}
+{% set PERSONAL_EMAIL = '$title =~ /.*( - Gmail - |Zoho Mail .daniel@schep.me.).*/' %}
+{% set PERSONAL_CODE = '$title =~ /^Terminal - .*~.code.me/' %}
+{% set THREDE_SLACK = '$title =~ /.*Threde Slack.*/' %}
+{% set THREDE_EMAIL = '$title =~ /.*Zoho Mail .dschep@threde.com..*/' %}
+{% set THREDE_CODE = '$title =~ /^Terminal - .*~.code.threde/' %}
+{% set WAPO_SLACK = '$title =~ /.*Washington Post Slack.*/' %}
+{% set WAPO_EMAIL = '$title =~ /.*Mail - Schep,Daniel - Outlook -.*/' %}
+{% set WAPO_CODE = '$title =~ /^Terminal - .*~.code.wapo/' %}
+
+--Convert program executable names to recognizable names
+aliases (
+  "Navigator"         -> "Firefox",
+  "chromium-browser"  -> "Chromish",
+  "google-chrome"     -> "Chromish",
+  "xfce4-terminal"    -> "Terminal",
+  "Mail"              -> "Thunderbird",
+  "Msgcompose"        -> "Thunderbird",
+  "nautilus"          -> "FileManager",
+  "pcmanfm"           -> "FileManager",
+  "evince"            -> "PDF reader",
+  "crx_fhbjgbiflinjbdggehcddcbncdddomop" -> "Postman",
+  "crx_bikioccmkafdpakkkcpdbppfkghcmihk" -> "Signal",
+)
+
+--Mark any samples captured after 5 minutes of inactivity with the "inactive" tag
+$idle > 300                     ==> tag inactive,
+
+--Tag each program with its executable name (filtered by the aliases above)
+tag Program:$current.program,
+
+--Tag each program with its window title (filtered by the aliases above)
+-- tag Title:$current.title,
+
+current window ($program == ["Navigator"] && ! (({{PERSONAL_EMAIL}}) || ({{SOCIAL}}))) ==> tag Activity:PersonalBrowsing,
+current window ($program == ["Navigator"] && {{PERSONAL_EMAIL}}) ==> tag Activity:PersonalEmail,
+current window ($program == ["Navigator"] && {{SOCIAL}}) ==> tag Activity:Social,
+current window ($program == ["xfce4-terminal"] && {{PERSONAL_CODE}}) ==> tag Activity:PersonalCoding,
+current window ($program == ["xfce4-terminal"] && !({{THREDE_CODE}} || {{WAPO_CODE}} || {{PERSONAL_CODE}})) ==> tag Activity:NonCodingShell,
+
+
+current window ($program == ["chromium-browser", "google-chrome"] && ! (({{THREDE_EMAIL}}) || ({{THREDE_SLACK}}) || ({{WAPO_SLACK}}) || ({{WAPO_EMAIL}}))) ==> tag Activity:WorkBrowsing,
+
+current window ({{THREDE_SLACK}}) ==> tag Activity:ThredeChat,
+current window ({{THREDE_EMAIL}}) ==> tag Activity:ThredeEmail,
+current window ($program == ["xfce4-terminal"] && {{THREDE_CODE}}) ==> tag Activity:ThredeCoding,
+
+current window ({{WAPO_SLACK}}) ==> tag Activity:WapoChat,
+current window ({{WAPO_EMAIL}}) ==> tag Activity:WapoEmail,
+current window ($program == ["xfce4-terminal"] && {{WAPO_CODE}}) ==> tag Activity:WapoCoding,
+
+current window ! ($program == ["xfce4-terminal", "Mail", "Msgcompose", "hipchat", "chromium-browser", "google-chrome", "xfce4-terminal", "Navigator"]) ==> tag Activity:$current.program,

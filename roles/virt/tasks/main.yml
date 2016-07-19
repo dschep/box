@@ -1,5 +1,5 @@
 - name: Install virtualization tools
   package: name={{ item }}
   with_items:
-    - {{ 'VirtualBox' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'virtualbox' }}
+    - "{{ 'VirtualBox' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'virtualbox' }}"
     - vagrant

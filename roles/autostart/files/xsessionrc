@@ -1,2 +1,4 @@
 #!/bin/bash
 xmodmap -e 'keycode 9 = Escape asciitilde Escape'
+arbtt-capture &
+xcompmgr &

@@ -1,0 +1,16 @@
+- name: Install AutomaticRuleBasedTimeTracker dependencies
+  package: name=cabal-install
+
+- name: Install AutomaticRuleBasedTimeTracker
+  sudo_user: "{{user}}"
+  command: cabal update && cabal install arbtt
+  args:
+    creates: ~/.cabal/bin/arbtt-capture
+
+- name: ensure AutomaticRuleBasedTimeTracker config dir
+  sudo_user: "{{user}}"
+  file: path=~/.arbtt state=directory 
+
+- name: Install AutomaticRuleBasedTimeTracker config
+  sudo_user: "{{user}}"
+  template: src=categorize.cfg.j2 dest=~/.arbtt/categorize.cfg
