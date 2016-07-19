@@ -1,3 +1,6 @@
-- name: fixup tilda
+- name: autostart scripts
   sudo_user: "{{ user }}"
-  copy: src=xsessionrc dest=~/.xsessionrc
+  copy: src=xsessionrc dest=~/.autostart
+- name: autostart .desktop file
+  sudo_user: "{{ user }}"
+  copy: src=autostart.desktop dest=~/.config/autostart.desktop
