@@ -1,0 +1,9 @@
+- name: install power-mgmt tools
+  package: name={{ item }}
+  with_items:
+    - tlp
+    - tlp-rdw
+    - powertop
+
+- name: enable powertop
+  service: name=powertop enabled=yes state=started
