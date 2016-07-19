@@ -1,6 +1,19 @@
 - name: Install AutomaticRuleBasedTimeTracker dependencies
   package: name=cabal-install
 
+
+- name: install other arbtt deps (deb)
+  apt: pkg=arbtt state=build-dep
+  when: "{{ ansible_distribution in ('Debian', 'Ubuntu') }}"
+
+    # TODO
+  #- name: install other arbtt deps (yum)
+  #  yum: pkg=arbtt state=build-deps
+  #  when: ansible_distribution in ('CentOS', 'RedHat')
+  #- name: install other arbtt deps (dnf)
+  #  dnf: pkg=arbtt state=build-deps
+  #  when: ansible_distribution in ('Fedora')
+
 - name: Install AutomaticRuleBasedTimeTracker
   sudo_user: "{{user}}"
   command: cabal update && cabal install arbtt
