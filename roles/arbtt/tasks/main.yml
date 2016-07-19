@@ -14,9 +14,14 @@
   #  dnf: pkg=arbtt state=build-deps
   #  when: ansible_distribution in ('Fedora')
 
+- name: update cabal cache
+  sudo_user: "{{user}}"
+  command: cabal update
+  args:
+    creates: ~/.cabal
 - name: Install AutomaticRuleBasedTimeTracker
   sudo_user: "{{user}}"
-  command: cabal update && cabal install arbtt
+  command: cabal install arbtt
   args:
     creates: ~/.cabal/bin/arbtt-capture
 
