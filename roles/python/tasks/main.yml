@@ -12,9 +12,6 @@
   apt: pkg=python3-venv
   when: "{{ (ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('15.10', '>=')) or ansible_distribution == 'Debian' }}"
 
-- name: use pip to upgrade itself
-  pip: name=pip state=latest
-
 - name: Install Python tools (yum)
   yum: name={{ item }}
   with_items:
@@ -38,3 +35,6 @@
     - python3-virtualenv
     - python-virtualenvwrapper
   when: ansible_distribution in ('Fedora')
+
+- name: use pip to upgrade itself
+  pip: name=pip state=latest
