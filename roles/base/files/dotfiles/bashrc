@@ -94,6 +94,10 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
     . /usr/bin/virtualenvwrapper.sh
 fi
 
+if [ -f ~/.nvm/nvm.sh ]; then
+    . ~/.nvm/nvm.sh
+fi
+
 export CDPATH=$HOME/code
 
 LP_USER_ALWAYS=0
