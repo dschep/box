@@ -10,3 +10,6 @@
 - name: Install openbox dotfiles
   sudo_user: "{{ user }}"
   copy: src=rc.xml dest=~/.config/openbox/rc.xml
+- name: Install openbox dotfiles for lubuntu
+  sudo_user: "{{ user }}"
+  copy: src=rc.xml dest=~/.config/openbox/lubuntu-rc.xml
