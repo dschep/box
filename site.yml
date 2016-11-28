@@ -11,6 +11,7 @@
     - build_dep
     - python
     - nodejs
+    - devops
     - os-docker
     - netsec
       #- docgen
