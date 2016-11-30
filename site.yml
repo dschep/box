@@ -11,6 +11,7 @@
     - build_dep
     - python
     - nodejs
+    - java
     - devops
     - os-docker
     - netsec

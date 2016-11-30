@@ -1,0 +1,3 @@
+- name: Install JDK
+  apt: pkg=default-jdk
+  when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"
