@@ -1,0 +1,9 @@
+- name: Install autorandr
+  pip: name='git+http://github.com/dschep/autorandr' editable=false
+- name: autorandr to /usr/bin for official scripts to work
+  file: src=/usr/local/bin/autorandr dest=/usr/bin/autorandr state=link
+- copy: dest=/etc/xdg/autostart/autorandr.desktop src=autorandr.desktop
+- copy: dest=/usr/lib/pm-utils/sleep.d/40autorandr src=40autorandr
+- file: path=/usr/lib/pm-utils/sleep.d/40autorandr mode=755
+- copy: dest=/lib/systemd/system/autorandr-resume.service src=autorandr-resume.service
+- copy: dest=/etc/udev/rules.d/98-autorandr.rules src=98-autorandr.rules

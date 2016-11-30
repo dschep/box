@@ -22,6 +22,7 @@
     - {role: gui_util, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: browsers, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: openbox, when: "{{ 'DISPLAY' in ansible_env }}"}
+    - {role: autorandr, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: terminal, when: "{{ 'DISPLAY' in ansible_env }}"}
       #- {role: arbtt, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: autostart, when: "{{ 'DISPLAY' in ansible_env }}"}

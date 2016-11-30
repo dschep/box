@@ -1,0 +1,2 @@
+#  detect monitor [un]plug events, and call autorandr
+SUBSYSTEM=="drm", ACTION=="change", RUN+="/bin/bash -c '/usr/bin/autorandr -c -d default --batch'"
