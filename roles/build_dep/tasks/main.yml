@@ -5,6 +5,7 @@
     - libxml2-dev
     - libxslt1-dev
     - libjpeg-dev
+    - pkg-config
   when: ansible_distribution in ('Debian', 'Ubuntu')
 - name: Install common build deps (rpm)
   package: name={{ item }}
