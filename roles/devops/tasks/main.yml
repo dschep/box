@@ -11,4 +11,4 @@
   apt: name=heroku-toolbelt
 
 - name: Install psql
-  apt: name=postgresql-client-common
+  apt: name=postgresql-client
