@@ -206,3 +206,10 @@ set foldlevel=99
 if has("nvim")
   tnoremap <Esc><Esc> <C-\><C-n>
 endif
+
+"""
+""" use ag for finding files with ctrl-space (respects gitignore, etc)
+"""
+if executable("ag")
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
