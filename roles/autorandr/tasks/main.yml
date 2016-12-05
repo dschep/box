@@ -1,5 +1,5 @@
 - name: Install autorandr
-  pip: name='git+http://github.com/dschep/autorandr' editable=false
+  pip: name='git+http://github.com/phillipberndt/autorandr' editable=false
 - name: autorandr to /usr/bin for official scripts to work
   file: src=/usr/local/bin/autorandr dest=/usr/bin/autorandr state=link
 - copy: dest=/etc/xdg/autostart/autorandr.desktop src=autorandr.desktop
