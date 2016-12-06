@@ -5,8 +5,10 @@
     - dos2unix
     - inotify-tools
     - jq
-    # curl. duh
+    # HTTP clients
+    - wget
     - curl
+    - httpie
     # compression tools
     - "{{ 'p7zip' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'p7zip-full' }}"
     # system tools
