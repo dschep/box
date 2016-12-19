@@ -37,6 +37,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'ciaranm/detectindent'
 Plugin 'klen/python-mode'
 Plugin 'fatih/vim-go'
+Plugin 'embear/vim-localvimrc'
 
 call vundle#end()
 
