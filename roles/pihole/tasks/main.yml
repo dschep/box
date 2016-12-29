@@ -26,4 +26,4 @@
 - name: set DNS to localhost
   copy:
     dest: /etc/resolv.conf
-    content: "nameserver: 127.0.0.1"
+    content: "nameserver 127.0.0.1"
