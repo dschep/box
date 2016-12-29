@@ -6,6 +6,7 @@
     - libxslt1-dev
     - libjpeg-dev
     - pkg-config
+    - libpq-dev
   when: ansible_distribution in ('Debian', 'Ubuntu')
 - name: Install common build deps (rpm)
   package: name={{ item }}
