@@ -16,6 +16,7 @@
     image: diginc/pi-hole
     name: pihole
     state: started
+    restart_policy: always
     ports:
       - "127.0.0.1:53:53/udp"
       - "127.0.0.1:53:53/tcp"
