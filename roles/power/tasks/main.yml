@@ -4,6 +4,6 @@
     - tlp
     - tlp-rdw
     - powertop
-
-- name: enable powertop
-  service: name=powertop enabled=yes state=started
+      #
+      #- name: enable powertop
+      #  service: name=powertop enabled=yes state=started
