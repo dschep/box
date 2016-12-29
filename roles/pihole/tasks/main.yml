@@ -1,0 +1,28 @@
+- name: Disable NetworkManager DNS
+  ini_file:
+    dest: /etc/NetworkManager/NetworkManager.conf
+    section: main
+    option: dns
+    value: none
+    backup: yes
+  register: nm_config
+- name: restart NetworkManager
+  service: name=network-manager state=restarted
+  when: nm_config.changed
+  #- name: Disable dnsmasq
+  #  service: name=dnsmasq state=stopped enabled=no
+- name: Docker Pi-Hole!
+  docker_container:
+    image: diginc/pi-hole
+    name: pihole
+    state: started
+    ports:
+      - "127.0.0.1:53:53/udp"
+      - "127.0.0.1:53:53/tcp"
+      - "127.0.0.1:80:80/tcp"
+    env:
+      ServerIP: 127.0.0.1
+- name: set DNS to localhost
+  copy:
+    dest: /etc/resolv.conf
+    content: "nameserver: 127.0.0.1"
