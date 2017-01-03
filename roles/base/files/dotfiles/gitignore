@@ -4,3 +4,4 @@
 .coverage
 .cs_files
 .lvimrc
+screenlog.*
