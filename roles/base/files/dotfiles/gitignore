@@ -3,3 +3,4 @@
 .ropeproject
 .coverage
 .cs_files
+.lvimrc
