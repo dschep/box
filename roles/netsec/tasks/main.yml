@@ -7,4 +7,4 @@
     - dsniff
 
 - name: Install mitmproxy
-  pip: name=mitmproxy
+  pip3: name=mitmproxy
