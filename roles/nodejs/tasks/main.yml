@@ -1,3 +1,12 @@
 - name: Install NVM
   sudo_user: "{{ user }}"
   git: repo=https://github.com/creationix/nvm.git dest=~/.nvm update=no
+
+- name: Install Yarn Repo Key
+  apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg
+
+- name: Install yarn Repo
+  apt_repository: repo="deb https://dl.yarnpkg.com/debian/ stable main" update_cache=yes
+
+- name: Install Yarn
+  apt: name=yarn
