@@ -214,3 +214,8 @@ endif
 if executable("ag")
   let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
+
+"""
+""" local vimrc don't ask
+"""
+g:localvimrc_ask=0
