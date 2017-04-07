@@ -218,4 +218,4 @@ endif
 """
 """ local vimrc don't ask
 """
-g:localvimrc_ask=0
+let g:localvimrc_ask=0
