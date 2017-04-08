@@ -44,3 +44,16 @@
 - name: set default browser (firefox-mozilla)
   alternatives: name=x-www-browser path=/usr/bin/firefox
   when: ansible_distribution in ('Debian', 'Ubuntu')
+
+
+- name: Google Chrome key
+  apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub
+  when: ansible_distribution in ('Debian', 'Ubuntu')
+
+- name: Google Chrome repo
+  apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' update_cache=yes
+  when: ansible_distribution in ('Debian', 'Ubuntu')
+
+- name: Install Google Chrome
+  apt: pkg=google-chrome-stable state=installed
+  when: ansible_distribution in ('Debian', 'Ubuntu')
