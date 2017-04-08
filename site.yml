@@ -35,8 +35,7 @@
 - hosts: argon
   sudo: yes
   roles:
-    - {role: openbox, when: "{{ 'DISPLAY' in ansible_env }}"}
-    - {role: xfceterminal, when: "{{ 'DISPLAY' in ansible_env }}"}
+    - {role: gnome, when: "{{ 'DISPLAY' in ansible_env }}"}
 
 - hosts: vagrant
   sudo: yes
