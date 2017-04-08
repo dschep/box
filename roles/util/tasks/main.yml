@@ -20,6 +20,7 @@
     - encfs
     # search
     - "{{ 'the_silver_searcher' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'silversearcher-ag' }}"
+    - python-dbus # needed for ntfy
 
 - pip: name=glances state=latest
 
