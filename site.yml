@@ -2,12 +2,16 @@
 - hosts: all
   become: yes
   roles:
-      #- secrets
     - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
     - {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - user
     - base
+
+- hosts: ui
+  become: yes
+  roles:
+    - gnome
     - build_dep
     - python
     - nodejs
@@ -15,30 +19,42 @@
     - devops
     - os-docker
     - netsec
-      #- docgen
+    - virt
+    - gui_util
+    - browsers
     - util
     - power
-      #- pihole
-    - {role: virt, when: "{{ ansible_virtualization_role == 'host' }}"}
-    - {role: gui_util, when: "{{ 'DISPLAY' in ansible_env }}"}
-    - {role: browsers, when: "{{ 'DISPLAY' in ansible_env }}"}
-    #    - {role: autorandr, when: "{{ 'DISPLAY' in ansible_env }}"}
-    - {role: hackfont, when: "{{ 'DISPLAY' in ansible_env }}"}
-    #      #- {role: arbtt, when: "{{ 'DISPLAY' in ansible_env }}"}
-    #    - {role: autostart, when: "{{ 'DISPLAY' in ansible_env }}"}
-
-- hosts: ui
-  become: yes
-  roles:
-    - gnome
+    - hackfont
 
 - hosts: argon
   become: yes
   roles:
     - gnome
     - portainer
+    - build_dep
+    - python
+    - nodejs
+    - java
+    - devops
+    - os-docker
+    - netsec
+    - virt
+    - gui_util
+    - browsers
+    - util
+    - power
+    - hackfont
 
 - hosts: vagrant
   become: yes
   roles:
     - swapfile
+
+
+# old roles
+      #- docgen
+      #- pihole
+    #    - {role: autorandr, when: "{{ 'DISPLAY' in ansible_env }}"}
+    #      #- {role: arbtt, when: "{{ 'DISPLAY' in ansible_env }}"}
+    #    - {role: autostart, when: "{{ 'DISPLAY' in ansible_env }}"}
+      #- secrets
