@@ -1,0 +1,49 @@
+- name: lockscreen shortcut
+  become_user: "{{ user }}"
+  dconf: key=/org/gnome/settings-daemon/plugins/media-keys/screensaver value="'<Shift><Alt>l'"
+
+- name: terminal shortcut
+  become_user: "{{ user }}"
+  dconf: key=/org/gnome/settings-daemon/plugins/media-keys/terminal value="'<Shift><Alt>Return'"
+
+- name: sloppy focus
+  become_user: "{{ user }}"
+  dconf: key=/org/gnome/desktop/wm/preferences/focus-mode value="'sloppy'"
+
+- name: Virtual desktop settings
+  become_user: "{{ user }}"
+  dconf: key={{ item.key }} value={{ item.value }}
+  with_items: 
+    - {key: '/org/gnome/desktop/wm/preferences/num-workspaces', value: 9}
+    - {key: '/org/gnome/shell/overrides/dynamic-workspaces', value: 'false'}
+
+- name: Virtual Desktkop Shorcuts
+  become_user: "{{ user }}"
+  dconf: key={{ item.key }} value={{ item.value }}
+  with_items: 
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-1', value: "['<Alt>1']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-2', value: "['<Alt>2']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-3', value: "['<Alt>3']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-4', value: "['<Alt>4']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-5', value: "['<Alt>5']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-6', value: "['<Alt>6']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-7', value: "['<Alt>7']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-8', value: "['<Alt>8']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/switch-to-workspace-9', value: "['<Alt>9']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-1', value: "['<Shift><Alt>1']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-2', value: "['<Shift><Alt>2']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-3', value: "['<Shift><Alt>3']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-4', value: "['<Shift><Alt>4']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-5', value: "['<Shift><Alt>5']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-6', value: "['<Shift><Alt>6']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-7', value: "['<Shift><Alt>7']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-8', value: "['<Shift><Alt>8']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-9', value: "['<Shift><Alt>9']"}
+
+- name: Window Shorcuts and run panel
+  become_user: "{{ user }}"
+  dconf: key={{ item.key }} value={{ item.value }}
+  with_items: 
+    - {key: '/org/gnome/desktop/wm/keybindings/close', value: "['<Shift><Alt>c']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/toggle-maximized', value: "['<Alt>f']"}
+    - {key: '/org/gnome/desktop/wm/keybindings/panel-run-dialog', value: "['<Alt>p']"}
