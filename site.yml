@@ -30,12 +30,12 @@
 - hosts: ui
   become: yes
   roles:
-    - {role: gnome, when: "{{ 'DISPLAY' in ansible_env }}"}
+    - gnome
 
 - hosts: argon
   become: yes
   roles:
-    - {role: gnome, when: "{{ 'DISPLAY' in ansible_env }}"}
+    - gnome
     - portainer
 
 - hosts: vagrant
