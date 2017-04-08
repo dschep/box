@@ -2,6 +2,7 @@
 - hosts: all
   sudo: yes
   roles:
+    - gnome
       #- secrets
     - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
@@ -22,11 +23,12 @@
     - {role: virt, when: "{{ ansible_virtualization_role == 'host' }}"}
     - {role: gui_util, when: "{{ 'DISPLAY' in ansible_env }}"}
     - {role: browsers, when: "{{ 'DISPLAY' in ansible_env }}"}
-    - {role: openbox, when: "{{ 'DISPLAY' in ansible_env }}"}
-    - {role: autorandr, when: "{{ 'DISPLAY' in ansible_env }}"}
-    - {role: terminal, when: "{{ 'DISPLAY' in ansible_env }}"}
-      #- {role: arbtt, when: "{{ 'DISPLAY' in ansible_env }}"}
-    - {role: autostart, when: "{{ 'DISPLAY' in ansible_env }}"}
+    #    - {role: openbox, when: "{{ 'DISPLAY' in ansible_env }}"}
+    #    - {role: autorandr, when: "{{ 'DISPLAY' in ansible_env }}"}
+    #- {role: xfceterminal, when: "{{ 'DISPLAY' in ansible_env }}"}
+    - {role: hackfont, when: "{{ 'DISPLAY' in ansible_env }}"}
+    #      #- {role: arbtt, when: "{{ 'DISPLAY' in ansible_env }}"}
+    #    - {role: autostart, when: "{{ 'DISPLAY' in ansible_env }}"}
 
 - hosts: vagrant
   sudo: yes
