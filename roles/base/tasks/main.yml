@@ -6,7 +6,7 @@
     - git
 
 - name: Install Base dotfiles
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
   with_items:
     - bashrc
@@ -19,5 +19,5 @@
     - screenrc
 
 - name: Install gitconfig
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   template: src=gitconfig dest=~/.gitconfig

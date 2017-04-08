@@ -1,9 +1,9 @@
 - name: ensure user font dir
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   file: path=~/.fonts state=directory
 
 - name: install Hack font
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=fonts/{{ item }} dest=~/.fonts/{{ item }}
   with_items:
     - Hack-BoldOblique.otf

@@ -1,5 +1,5 @@
 - name: Install NVM
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   git: repo=https://github.com/creationix/nvm.git dest=~/.nvm update=no
 
 - name: Install Yarn Repo Key

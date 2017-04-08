@@ -1,9 +1,9 @@
 - name: autostart scripts
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=xsessionrc dest=~/.autostart
 
 - file: path=~/.config/autostart state=directory
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
 - name: autostart .desktop file
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=autostart.desktop dest=~/.config/autostart/autostart.desktop

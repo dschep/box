@@ -14,7 +14,7 @@
   apt: pkg=dunst state=absent
 
 - name: Install i3 dotfiles
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src={{ item }} dest=~/.{{ item }}
   with_items:
     - i3/

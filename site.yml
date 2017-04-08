@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: yes
+  become: yes
   roles:
       #- secrets
     - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
@@ -28,16 +28,16 @@
     #    - {role: autostart, when: "{{ 'DISPLAY' in ansible_env }}"}
 
 - hosts: ui
-  sudo: yes
+  become: yes
   roles:
     - {role: gnome, when: "{{ 'DISPLAY' in ansible_env }}"}
 
 - hosts: argon
-  sudo: yes
+  become: yes
   roles:
     - {role: gnome, when: "{{ 'DISPLAY' in ansible_env }}"}
 
 - hosts: vagrant
-  sudo: yes
+  become: yes
   roles:
     - swapfile

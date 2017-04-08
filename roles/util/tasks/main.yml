@@ -29,7 +29,7 @@
 
 - pip: name=horseshit state=latest
 - name: Install horseshit config
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=horseshits dest=~/.config/horseshits
 
 - name: install apt-file

@@ -15,20 +15,20 @@
   #  when: ansible_distribution in ('Fedora')
 
 - name: update cabal cache
-  sudo_user: "{{user}}"
+  become_user: "{{user}}"
   command: cabal update
   args:
     creates: ~/.cabal
 - name: Install AutomaticRuleBasedTimeTracker
-  sudo_user: "{{user}}"
+  become_user: "{{user}}"
   command: cabal install arbtt
   args:
     creates: ~/.cabal/bin/arbtt-capture
 
 - name: ensure AutomaticRuleBasedTimeTracker config dir
-  sudo_user: "{{user}}"
+  become_user: "{{user}}"
   file: path=~/.arbtt state=directory 
 
 - name: Install AutomaticRuleBasedTimeTracker config
-  sudo_user: "{{user}}"
+  become_user: "{{user}}"
   template: src=categorize.cfg.j2 dest=~/.arbtt/categorize.cfg

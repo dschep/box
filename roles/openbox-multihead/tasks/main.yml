@@ -39,9 +39,9 @@
     - light-locker
 
 - file: path=~/.config/openbox state=directory
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
 - name: Install openbox dotfiles
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=rc.xml dest=~/.config/openbox/rc.xml
 
 #- name: set window manager to openbox for xfce4 

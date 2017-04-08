@@ -6,10 +6,10 @@
     - xbacklight
     - xcompmgr
 - file: path=~/.config/openbox state=directory
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
 - name: Install openbox dotfiles
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=rc.xml dest=~/.config/openbox/rc.xml
 - name: Install openbox dotfiles for lubuntu
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   copy: src=rc.xml dest=~/.config/openbox/lubuntu-rc.xml
