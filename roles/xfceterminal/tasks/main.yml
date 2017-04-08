@@ -1,0 +1,10 @@
+- name: Install XFCE4 Terminal
+  package: name=xfce4-terminal
+
+- name: ensure xfce term config dir
+  sudo_user: "{{ user }}"
+  file: path=~/.config/xfce4/terminal state=directory
+
+- name: copy xfce terminal config
+  sudo_user: "{{ user }}"
+  copy: src=terminalrc dest=~/.config/xfce4/terminal/terminalrc
