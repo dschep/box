@@ -1,0 +1,10 @@
+- name: Portainer
+  docker_container:
+    name: portainer
+    image: portainer/portainer
+    state: started
+    restart_policy: unless-stopped
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+      - "9000:9000"

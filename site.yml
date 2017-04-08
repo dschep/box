@@ -36,6 +36,7 @@
   become: yes
   roles:
     - {role: gnome, when: "{{ 'DISPLAY' in ansible_env }}"}
+    - portainer
 
 - hosts: vagrant
   become: yes
