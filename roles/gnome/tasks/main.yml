@@ -47,3 +47,10 @@
     - {key: '/org/gnome/desktop/wm/keybindings/close', value: "['<Shift><Alt>c']"}
     - {key: '/org/gnome/desktop/wm/keybindings/toggle-maximized', value: "['<Alt>f']"}
     - {key: '/org/gnome/desktop/wm/keybindings/panel-run-dialog', value: "['<Alt>p']"}
+
+- name: normal scrolling
+  become_user: "{{ user }}"
+  dconf: key={{ item.key }} value={{ item.value }}
+  with_items:
+    - {key: '/org/gnome/desktop/peripherals/touchpad/natural-scroll', value: "false"}
+    - {key: '/org/gnome/desktop/peripherals/mouse/natural-scroll', value: "false"}
