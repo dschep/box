@@ -1,10 +1,10 @@
-- name: lockscreen shortcut
+- name: terminal & lock & run shortcuts
   become_user: "{{ user }}"
-  dconf: key=/org/gnome/settings-daemon/plugins/media-keys/screensaver value="'<Shift><Alt>l'"
-
-- name: terminal shortcut
-  become_user: "{{ user }}"
-  dconf: key=/org/gnome/settings-daemon/plugins/media-keys/terminal value="'<Shift><Alt>Return'"
+  dconf: key={{ item.key }} value={{ item.value }}
+  with_items:
+    - {key: '/org/gnome/settings-daemon/plugins/media-keys/screensaver', value: "'<Shift><Alt>l'"}
+    - {key: '/org/gnome/settings-daemon/plugins/media-keys/terminal', value: "'<Shift><Alt>Return'"}
+    - {key: '/org/gnome/desktop/wm/keybindings/panel-run-dialog', value: "['<Alt>p']"}
 
 - name: sloppy focus
   become_user: "{{ user }}"
@@ -47,13 +47,12 @@
     - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-8', value: "['<Shift><Alt>8']"}
     - {key: '/org/gnome/desktop/wm/keybindings/move-to-workspace-9', value: "['<Shift><Alt>9']"}
 
-- name: Window Shorcuts and run panel
+- name: Window Shorcuts
   become_user: "{{ user }}"
   dconf: key={{ item.key }} value={{ item.value }}
   with_items:
     - {key: '/org/gnome/desktop/wm/keybindings/close', value: "['<Shift><Alt>c']"}
     - {key: '/org/gnome/desktop/wm/keybindings/toggle-maximized', value: "['<Alt>f']"}
-    - {key: '/org/gnome/desktop/wm/keybindings/panel-run-dialog', value: "['<Alt>p']"}
 
 - name: normal scrolling
   become_user: "{{ user }}"
