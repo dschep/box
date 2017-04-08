@@ -5,7 +5,6 @@
     - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
     - {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
-    - user
     - base
 
 - hosts: ui
@@ -58,3 +57,4 @@
     #      #- {role: arbtt, when: "{{ 'DISPLAY' in ansible_env }}"}
     #    - {role: autostart, when: "{{ 'DISPLAY' in ansible_env }}"}
       #- secrets
+      #- user
