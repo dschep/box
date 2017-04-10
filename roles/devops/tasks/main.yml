@@ -12,3 +12,6 @@
 
 - name: Install psql
   apt: name=postgresql-client
+
+- name: Install Gui DB clien (dbeaver)
+  apt: deb=http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb
