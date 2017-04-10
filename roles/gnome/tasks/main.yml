@@ -2,7 +2,7 @@
   become_user: "{{ user }}"
   dconf: key={{ item.key }} value={{ item.value }}
   with_items:
-    - {key: '/org/gnome/settings-daemon/plugins/media-keys/screensaver', value: "'<Shift><Alt>l'"}
+    - {key: '/org/gnome/settings-daemon/plugins/media-keys/screensaver', value: "'<Ctrl><Alt>l'"}
     - {key: '/org/gnome/settings-daemon/plugins/media-keys/terminal', value: "'<Shift><Alt>Return'"}
     - {key: '/org/gnome/desktop/wm/keybindings/panel-run-dialog', value: "['<Alt>p']"}
 
