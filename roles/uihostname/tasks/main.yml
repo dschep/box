@@ -1,0 +1,2 @@
+- name: add locahost.unitedincome.com to hostfile
+  lineinfile: dest=/etc/hosts line="127.0.0.1 localhost.unitedincome.com"

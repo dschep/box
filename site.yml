@@ -10,6 +10,7 @@
 - hosts: ui
   become: yes
   roles:
+    - uihostname
     - gnome
     - build_dep
     - python
