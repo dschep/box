@@ -10,6 +10,7 @@
 - hosts: ui
   become: yes
   roles:
+    - tree
     - uihostname
     - gnome
     - build_dep
