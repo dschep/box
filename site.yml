@@ -10,8 +10,8 @@
 - hosts: ui
   become: yes
   roles:
-    - graphviz
-    - tree
+    - {role: pkg, pkg: graphviz}
+    - {role: pkg, pkg: tree}
     - uihostname
     - gnome
     - build_dep
