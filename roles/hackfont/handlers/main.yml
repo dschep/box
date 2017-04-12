@@ -1,3 +1,0 @@
-- name: rebuild font cache
-  become_user: "{{ user }}"
-  command: fc-cache
