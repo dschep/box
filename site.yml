@@ -39,6 +39,7 @@
     - gnome
     - {role: pkg, pkg: gir1.2-gtop-2.0 } # needed for gnome shell sysmon extension
     - {role: pkg, pkg: libgtop2-dev } # needed for gnome shell sysmon extension
+    - {role: pkg, pkg: arc-theme }
     - portainer
     - build_dep
     - python
