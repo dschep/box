@@ -1,0 +1,11 @@
+- name: Jupyter
+  docker_container:
+    name: jupyter
+    image: jupyter/minimal-notebook
+    state: started
+    restart_policy: unless-stopped
+    command: start-notebook.sh --NotebookApp.token=''
+    volumes:
+      - "/home/{{ user }}:/home/jovyan/work"
+    ports:
+      - "8888:8888"
