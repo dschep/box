@@ -49,7 +49,7 @@
     - browsers
     - util
     - power
-    - hackfont
+    - {role: pkg, pkg: fonts-hack-otf}
 
 - hosts: vagrant
   become: yes
