@@ -14,6 +14,7 @@
     - {role: pkg, pkg: tree}
     - {role: pkg, pkg: gir1.2-gtop-2.0}  # for sysmon gnome panel extension
     - {role: pkg, pkg: libgtop2-dev}  # for sysmon gnome panel extension
+    - flyway
     - portainer
     - "jupyter-notebook"
     - uihostname

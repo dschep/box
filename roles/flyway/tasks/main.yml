@@ -1,0 +1,10 @@
+- name: Flyway package
+  unarchive:
+      src: "https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/{{ flyway_version  }}/flyway-commandline-{{ flyway_version  }}.tar.gz"
+      remote_src: yes
+      dest: /opt/
+      creates: "/opt/flyway-{{ flyway_version }}"
+- name: Flyway bin perms
+  file: path="/opt/flyway-{{ flyway_version  }}/flyway" mode=755
+- name: Flyway bin perms
+  file: src="/opt/flyway-{{ flyway_version  }}/flyway" dest=/usr/bin/flyway state=link
