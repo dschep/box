@@ -38,3 +38,7 @@
 
 - name: use pip to upgrade itself
   pip: name=pip state=latest
+
+- name: flake8
+  pip: name={{ item }}
+  with_items: [flake8, flake8-docstrings, 'pydocstyle<2']
