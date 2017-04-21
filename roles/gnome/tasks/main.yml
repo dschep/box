@@ -60,3 +60,7 @@
   with_items:
     - {key: '/org/gnome/desktop/peripherals/touchpad/natural-scroll', value: "false"}
     - {key: '/org/gnome/desktop/peripherals/mouse/natural-scroll', value: "false"}
+
+- name: 2 & 3 finger right & middle click
+  become_user: "{{ user }}"
+  dconf: key=/org/gnome/desktop/peripherals/touchpad/click-method value="'fingers'"
