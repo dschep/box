@@ -41,6 +41,7 @@
     - {role: pkg, pkg: libgtop2-dev } # needed for gnome shell sysmon extension
     - {role: pkg, pkg: arc-theme }
     - {role: pkg, pkg: libgdal-dev }
+    - {role: pkg, pkg: calibre }
     - portainer
     - build_dep
     - python
