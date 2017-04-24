@@ -1,0 +1,2 @@
+- apt_repository: repo=ppa:peek-developers/stable update_cache=yes
+- apt: name=peek
