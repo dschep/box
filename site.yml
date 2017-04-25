@@ -1,38 +1,38 @@
 ---
-#- hosts: all
-#  become: yes
-#  roles:
-#    - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
-#    - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
-#    - {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
-#    - base
+- hosts: all
+  become: yes
+  roles:
+    - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
+    - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
+    - {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
+    - base
 
 - hosts: ui
   become: yes
   roles:
-    #    - {role: pkg, pkg: graphviz}
-    #    - {role: pkg, pkg: tree}
-    #    - {role: pkg, pkg: gir1.2-gtop-2.0}  # for sysmon gnome panel extension
-    #    - {role: pkg, pkg: libgtop2-dev}  # for sysmon gnome panel extension
+        - {role: pkg, pkg: graphviz}
+        - {role: pkg, pkg: tree}
+        - {role: pkg, pkg: gir1.2-gtop-2.0}  # for sysmon gnome panel extension
+        - {role: pkg, pkg: libgtop2-dev}  # for sysmon gnome panel extension
     - peek
-      #    - flyway
-      #    - portainer
-      #    - "jupyter-notebook"
-      #    - uihostname
-      #    - gnome
-      #    - build_dep
-      #    - python
-      #    - nodejs
-      #    - java
-      #    - devops
-      #    - os-docker
-      #    - netsec
-      #    - virt
-      #    - gui_util
-      #    - browsers
-      #    - util
-      #    - power
-      #    - {role: pkg, pkg: fonts-hack-otf}
+    - flyway
+    - portainer
+    - "jupyter-notebook"
+    - uihostname
+    - gnome
+    - build_dep
+    - python
+    - nodejs
+    - java
+    - devops
+    - os-docker
+    - netsec
+    - virt
+    - gui_util
+    - browsers
+    - util
+    - power
+    - {role: pkg, pkg: fonts-hack-otf}
 
 - hosts: argon
   become: yes
