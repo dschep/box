@@ -9,6 +9,7 @@
     - gimp
     - inkscape
     - "{{ 'mplayer' if ansible_distribution in ('Debian', 'Ubuntu') else 'kmplayer' }}"
+    - ubuntu-restricted-extras
       #- ssh-askpass-gnome
     - xclip
 
