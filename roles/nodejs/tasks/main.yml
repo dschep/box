@@ -10,3 +10,6 @@
 
 - name: Install Yarn
   apt: name=yarn
+
+- name: install Readline Wrapper because node's shell FUCKING SUCKS
+  apt: name=rlwrap

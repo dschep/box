@@ -85,6 +85,9 @@ function rssh-proxy () {
     ssh -R 0.0.0.0:$rport:127.0.0.1:$1 $host "echo tunnel available at $2&&cat"
 }
 
+# node's shell is the fucking worst.
+alias node='env NODE_NO_READLINE=1 rlwrap node'
+
 
 if [ -f ~/.bashrc.local_ext ]; then
     . ~/.bashrc.local_ext
