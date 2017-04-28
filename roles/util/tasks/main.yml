@@ -24,7 +24,7 @@
 
 - pip: name=glances state=latest
 
-- pip: name=ntfy executable=pip state=latest
+- pip: name="ntfy[emoji]" executable=pip state=latest
 - pip: name=jot-notes executable=pip state=latest
 
 - pip: name=horseshit state=latest
