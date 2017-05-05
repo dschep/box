@@ -34,6 +34,7 @@ Plugin 'jnurmine/Zenburn' " pretty colors!
 Plugin 'scrooloose/nerdtree' " File browser
 Plugin 'ciaranm/detectindent' " detect tabstop size from file contents
 Plugin 'embear/vim-localvimrc' " local vimrc files
+Plugin 'wakatime/vim-wakatime' " usage tracking!
 " Filetypes
 Plugin 'fatih/vim-go'
 Plugin 'klen/python-mode'
