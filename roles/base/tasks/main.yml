@@ -10,6 +10,7 @@
   copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
   with_items:
     - bashrc
+    - bashrc.ui
     - bash_profile
     - bash_logout
     - liquidprompt/

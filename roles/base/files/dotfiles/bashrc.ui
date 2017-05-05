@@ -1,0 +1,1 @@
+export GULP_NOTIFY_CMD='ntfy -t gulp send'
