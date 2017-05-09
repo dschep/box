@@ -2,6 +2,7 @@
   package: name={{ item }}
   with_items:
     - build-essential
+    - autoconf
     - libxml2-dev
     - libxslt1-dev
     - libjpeg-dev
