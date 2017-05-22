@@ -4,3 +4,5 @@
     - docker
     - docker-compose
 
+- name: docker python bindings
+  pip: name=docker-py

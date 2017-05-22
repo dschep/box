@@ -18,8 +18,6 @@
     - {role: pkg, pkg: libgtop2-dev}  # for sysmon gnome panel extension
     - peek
     - flyway
-    - portainer
-    - "jupyter-notebook"
     - uihostname
     - gnome
     - build_dep
@@ -28,6 +26,8 @@
     - java
     - devops
     - os-docker
+    - portainer
+    - "jupyter-notebook"
     - netsec
     - virt
     - gui_util
@@ -45,13 +45,13 @@
     - {role: pkg, pkg: arc-theme }
     - {role: pkg, pkg: libgdal-dev }
     - {role: pkg, pkg: calibre }
-    - portainer
     - build_dep
     - python
     - nodejs
     - java
     - devops
     - os-docker
+    - portainer
     - netsec
     - virt
     - gui_util
