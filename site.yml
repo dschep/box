@@ -4,7 +4,7 @@
   roles:
     - {role: ansible_dep, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - {role: debian_sid, when: "{{ ansible_distribution == 'Debian' }}"}
-    - {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
+      #- {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - base
 
 - hosts: ui
