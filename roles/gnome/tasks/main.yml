@@ -64,3 +64,7 @@
 - name: 2 & 3 finger right & middle click
   become_user: "{{ user }}"
   dconf: key=/org/gnome/desktop/peripherals/touchpad/click-method value="'fingers'"
+
+- name: Hack font
+  become_user: "{{ user }}"
+  dconf: key=/org/gnome/desktop/interface/monospace-font-name value="'Hack 10'"

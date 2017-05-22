@@ -19,6 +19,7 @@
     - peek
     - flyway
     - uihostname
+    - {role: pkg, pkg: fonts-hack-otf}
     - gnome
     - build_dep
     - python
@@ -34,17 +35,17 @@
     - browsers
     - util
     - power
-    - {role: pkg, pkg: fonts-hack-otf}
 
 - hosts: argon
   become: yes
   roles:
-    - gnome
     - {role: pkg, pkg: gir1.2-gtop-2.0 } # needed for gnome shell sysmon extension
     - {role: pkg, pkg: libgtop2-dev } # needed for gnome shell sysmon extension
     - {role: pkg, pkg: arc-theme }
     - {role: pkg, pkg: libgdal-dev }
     - {role: pkg, pkg: calibre }
+    - {role: pkg, pkg: fonts-hack-otf}
+    - gnome
     - build_dep
     - python
     - nodejs
@@ -58,7 +59,6 @@
     - browsers
     - util
     - power
-    - {role: pkg, pkg: fonts-hack-otf}
 
 - hosts: vagrant
   become: yes
