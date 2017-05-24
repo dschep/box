@@ -35,6 +35,7 @@
     - browsers
     - util
     - power
+    - hub
 
 - hosts: argon
   become: yes
