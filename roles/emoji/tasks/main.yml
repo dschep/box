@@ -1,0 +1,2 @@
+- apt_repository: repo=ppa:eosrei/fonts update_cache=yes
+- apt: pkg=fonts-emojione-svginot

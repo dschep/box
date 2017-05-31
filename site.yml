@@ -37,6 +37,11 @@
     - power
     - hub
 
+- hosts: ui,argon
+  become: yes
+  roles:
+    - emoji
+
 - hosts: argon
   become: yes
   roles:
