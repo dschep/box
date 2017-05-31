@@ -26,7 +26,7 @@
   pip: name=glances state=latest
 
 - name: install ntfy
-  pip: name="ntfy[emoji]"
+  pip: name="git+https://github.com/dschep/ntfy.git@locked#egg=ntfy"
 - name: install jot
   pip: name=jot-notes executable=pip state=latest
 
