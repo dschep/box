@@ -22,10 +22,13 @@
     - "{{ 'the_silver_searcher' if ansible_distribution in ('CentOS', 'RedHat', 'Fedora') else 'silversearcher-ag' }}"
     - python-dbus # needed for ntfy
 
-- pip: name=glances state=latest
+- name: install glances
+  pip: name=glances state=latest
 
-- pip: name="ntfy[emoji]" executable=pip state=latest
-- pip: name=jot-notes executable=pip state=latest
+- name: install ntfy
+  pip: name="ntfy[emoji]"
+- name: install jot
+  pip: name=jot-notes executable=pip state=latest
 
 - pip: name=horseshit state=latest
 - name: Install horseshit config
