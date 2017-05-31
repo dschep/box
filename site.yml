@@ -7,18 +7,11 @@
       #- {role: apt_upgrade, when: "{{ ansible_distribution in ('Ubuntu', 'Debian') }}"}
     - base
 
-- hosts: ui
+- hosts: ui,argon
   become: yes
   roles:
-    - {role: pkg, pkg: arc-theme }
-    - {role: pkg, pkg: graphviz}
-    - {role: pkg, pkg: gufw}
-    - {role: pkg, pkg: tree}
     - {role: pkg, pkg: gir1.2-gtop-2.0}  # for sysmon gnome panel extension
     - {role: pkg, pkg: libgtop2-dev}  # for sysmon gnome panel extension
-    - peek
-    - flyway
-    - uihostname
     - {role: pkg, pkg: fonts-hack-otf}
     - gnome
     - build_dep
@@ -28,7 +21,6 @@
     - devops
     - os-docker
     - portainer
-    - "jupyter-notebook"
     - netsec
     - virt
     - gui_util
@@ -36,35 +28,24 @@
     - util
     - power
     - hub
+    - emoji
 
-- hosts: ui,argon
+- hosts: ui
   become: yes
   roles:
-    - emoji
+    - "jupyter-notebook"
+    - {role: pkg, pkg: graphviz}
+    - {role: pkg, pkg: gufw}
+    - {role: pkg, pkg: tree}
+    - peek
+    - flyway
+    - uihostname
 
 - hosts: argon
   become: yes
   roles:
-    - {role: pkg, pkg: gir1.2-gtop-2.0 } # needed for gnome shell sysmon extension
-    - {role: pkg, pkg: libgtop2-dev } # needed for gnome shell sysmon extension
-    - {role: pkg, pkg: arc-theme }
     - {role: pkg, pkg: libgdal-dev }
     - {role: pkg, pkg: calibre }
-    - {role: pkg, pkg: fonts-hack-otf}
-    - gnome
-    - build_dep
-    - python
-    - nodejs
-    - java
-    - devops
-    - os-docker
-    - portainer
-    - netsec
-    - virt
-    - gui_util
-    - browsers
-    - util
-    - power
 
 - hosts: vagrant
   become: yes

@@ -45,7 +45,7 @@
 
 - name: flake8
   pip: name={{ item }}
-  with_items: [flake8, flake8-docstrings, 'pydocstyle<2']
+  with_items: [flake8, flake8-docstrings, pydocstyle]
 
 - name: pip-tools
   pip: name=pip-tools
