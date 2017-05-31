@@ -8,13 +8,13 @@
     - python3-pip
     - python-virtualenv
     - virtualenvwrapper
-  when: "{{ ansible_distribution in ('Debian', 'Ubuntu') }}"
+  when: "ansible_distribution in ('Debian', 'Ubuntu')"
 - name: Install Python3 tools (deb)
   apt: pkg={{ item }}
   with_items:
     - python3-venv
     - python3.6-venv
-  when: "{{ (ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('15.10', '>=')) or ansible_distribution == 'Debian' }}"
+  when: "(ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('15.10', '>=')) or ansible_distribution == 'Debian'"
 
 - name: Install Python tools (yum)
   yum: name={{ item }}

@@ -4,7 +4,7 @@
 
 - name: install other arbtt deps (deb)
   apt: pkg=arbtt state=build-dep
-  when: "{{ ansible_distribution in ('Debian', 'Ubuntu') }}"
+  when: "ansible_distribution in ('Debian', 'Ubuntu')"
 
     # TODO
   #- name: install other arbtt deps (yum)
