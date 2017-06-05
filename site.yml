@@ -13,6 +13,7 @@
     - {role: pkg, pkg: gir1.2-gtop-2.0}  # for sysmon gnome panel extension
     - {role: pkg, pkg: libgtop2-dev}  # for sysmon gnome panel extension
     - {role: pkg, pkg: fonts-hack-otf}
+    - {role: pkg, pkg: bats}
     - gnome
     - build_dep
     - python
