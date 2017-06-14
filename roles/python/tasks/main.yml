@@ -43,9 +43,9 @@
 - name: use pip to upgrade itself
   pip: name=pip state=latest
 
-- name: flake8
+- name: python linters/formaters
   pip: name={{ item }}
-  with_items: [flake8, flake8-docstrings, pydocstyle]
+  with_items: [flake8, flake8-docstrings, pydocstyle, yapf]
 
 - name: pip-tools
   pip: name=pip-tools
