@@ -1,0 +1,2 @@
+- name: Install document creation tools
+  package: name=texlive
