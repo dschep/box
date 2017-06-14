@@ -28,7 +28,7 @@
     - browsers
     - util
     - power
-    - hub
+    - git-repo
     - emoji
 
 - hosts: ui

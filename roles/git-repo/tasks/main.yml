@@ -1,0 +1,2 @@
+- name: "Install git-repo"
+  pip: name=git-repo executable=pip3
