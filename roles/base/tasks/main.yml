@@ -18,6 +18,7 @@
     - gitignore
     - inputrc
     - screenrc
+    - serverlessrc
 
 - name: Install gitconfig
   become_user: "{{ user }}"
