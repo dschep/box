@@ -52,6 +52,7 @@
 
 - name: Google Chrome repo
   apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' update_cache=yes
+  filename: 'google-chrome'
   when: ansible_distribution in ('Debian', 'Ubuntu')
 
 - name: Install Google Chrome
