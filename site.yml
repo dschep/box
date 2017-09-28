@@ -38,6 +38,8 @@
     - {role: pkg, pkg: graphviz}
     - {role: pkg, pkg: gufw}
     - {role: pkg, pkg: tree}
+    - {role: pkg, pkg: gradle}
+    - {role: pkg, pkg: 'https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb'}
     - peek
     - flyway
     - uihostname
