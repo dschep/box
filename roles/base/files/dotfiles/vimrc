@@ -32,7 +32,6 @@ Plugin 'gregsexton/MatchTag' " hilight matching html tags
 Plugin 'scrooloose/syntastic' " linting!
 Plugin 'jnurmine/Zenburn' " pretty colors!
 Plugin 'scrooloose/nerdtree' " File browser
-Plugin 'ciaranm/detectindent' " detect tabstop size from file contents
 Plugin 'embear/vim-localvimrc' " local vimrc files
 Plugin 'wakatime/vim-wakatime' " usage tracking!
 Plugin 'mattboehm/vim-accordion' " neat split folding
@@ -128,6 +127,8 @@ endif
 filetype plugin indent on
 " use real tabs for makefiles
 autocmd BufNewFile,BufReadPost Makefile,makefile,*.mk setlocal noexpandtab
+" use 2 spaces for tabs in javascript
+autocmd BufNewFile,BufReadPost *.js setlocal tabstop=2 shiftwidth=2
 " detect json files
 autocmd BufNewFile,BufReadPost *.json setlocal ft=json
 " detect markdown files
@@ -176,12 +177,6 @@ endif
 set guifont=Hack
 
 
-" auto detect indent type
-autocmd BufReadPost * :DetectIndent
-" prefer spaces
-let g:detectindent_preferred_expandtab = 1
-" use 4 spaces
-let g:detectindent_preferred_indent = 4
 
 """ Python
 " ignore pyc
