@@ -35,6 +35,7 @@ Plugin 'scrooloose/nerdtree' " File browser
 Plugin 'ciaranm/detectindent' " detect tabstop size from file contents
 Plugin 'embear/vim-localvimrc' " local vimrc files
 Plugin 'wakatime/vim-wakatime' " usage tracking!
+Plugin 'mattboehm/vim-accordion' " neat split folding
 " Filetypes
 Plugin 'fatih/vim-go'
 Plugin 'klen/python-mode'
@@ -228,3 +229,8 @@ let g:localvimrc_ask=0
 """ JSX in JS files
 """
 let g:jsx_ext_required = 0
+
+"""
+""" use vim-accordion with h splits & automagically
+"""
+let g:accordion_mode="h"
