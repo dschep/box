@@ -30,6 +30,7 @@
     - power
     - git-repo
     - emoji
+    - {role: pkg, pkg: 'https://prerelease.keybase.io/keybase_amd64.deb'}
 
 - hosts: ui
   become: yes
