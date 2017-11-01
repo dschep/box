@@ -13,6 +13,7 @@
       #- ssh-askpass-gnome
     - xclip
     - guake
+    - vim-gtk3
 
 - name: install imgur screenshot script
   get_url: url=https://raw.githubusercontent.com/dschep/img/master/img.sh dest=/usr/bin/img.sh mode=755
