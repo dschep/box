@@ -1,7 +1,13 @@
+- name: KeepassXC repo
+  apt_repository: repo="ppa:phoerious/keepassxc"
+
+- name: remove KeepassX
+  apt: state=absent pkg=keepassx
+
 - name: Install GUI tools
   package: name={{ item }}
   with_items:
-    - keepassx
+    - keepassxc
       #- vim-gnome
     - gitk
     - git-gui
