@@ -30,7 +30,7 @@
     - power
     - git-repo
     - emoji
-    - {role: pkg, pkg: 'https://prerelease.keybase.io/keybase_amd64.deb'}
+    - {role: deb, pkg: 'https://prerelease.keybase.io/keybase_amd64.deb'}
 
 - hosts: ui
   become: yes
@@ -40,7 +40,7 @@
     - {role: pkg, pkg: gufw}
     - {role: pkg, pkg: tree}
     - {role: pkg, pkg: gradle}
-    - {role: pkg, pkg: 'https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb'}
+    - {role: deb, pkg: 'https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb'}
     - peek
     - flyway
     - uihostname

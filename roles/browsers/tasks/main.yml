@@ -40,6 +40,8 @@
 
 - include: mozilla.yml ff_dl_product=firefox-latest ff_dest=/opt/firefox ff_link_name=firefox-mozilla
 - include: mozilla.yml ff_dl_product=firefox-aurora-latest ff_dest=/opt/firefox-de ff_link_name=firefox-developer-edition
+- include: mozilla.yml ff_dl_product=firefox-nightly-latest ff_dest=/opt/firefox-nightly ff_link_name=firefox-nightly
+- include: mozilla.yml ff_dl_product=firefox-beta-latest ff_dest=/opt/firefox-beta ff_link_name=firefox-beta
 
 - name: set default browser (firefox-mozilla)
   alternatives: name=x-www-browser path=/usr/bin/firefox
