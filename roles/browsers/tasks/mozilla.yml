@@ -21,3 +21,6 @@
 
 - name: Make Firefox symlink (/usr/bin/{{ ff_link_name }})
   file: src={{ ff_dest }}/firefox/firefox dest=/usr/bin/{{ ff_link_name }} state=link force=yes
+
+- name: Firefox icon for {{ ff_edition }}
+  template: src=firefox.desktop dest=/usr/share/applications/{{ ff_link_name }}.desktop
