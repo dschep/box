@@ -1,6 +1,9 @@
 [user]
     name = {{ git_name }}
     email = {{ git_email }}
+    {% if git_signingkey %}
+    signingkey = CB416D9B7194A5C2
+    {% endif %}
 [color]
     diff = auto
     status = auto
@@ -17,8 +20,10 @@
     stat = status -sb
 
 [core]
-	excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore
 [push]
-	default = simple
+    default = simple
 [help]
-	autocorrect = 10
+    autocorrect = 10
+[commit]
+    gpgsign = {% if git_signingkey %}true{% else %}false{% endif %}
