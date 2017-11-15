@@ -4,6 +4,7 @@
     - screen
     - vim
     - git
+    - neovim
 
 - name: Install Base dotfiles
   become_user: "{{ user }}"
@@ -19,6 +20,7 @@
     - inputrc
     - screenrc
     - serverlessrc
+    - config/neovim/init.vim
 
 - name: Install gitconfig
   become_user: "{{ user }}"
