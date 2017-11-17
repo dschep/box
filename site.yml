@@ -31,6 +31,7 @@
     - emoji
     - signal
     - {role: deb, pkg: 'https://prerelease.keybase.io/keybase_amd64.deb'}
+    - qownnotes
 
 - hosts: ui
   become: yes
