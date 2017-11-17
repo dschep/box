@@ -20,7 +20,7 @@
     - inputrc
     - screenrc
     - serverlessrc
-    - config/neovim/init.vim
+    - config/nvim/init.vim
 
 - name: Install gitconfig
   become_user: "{{ user }}"
