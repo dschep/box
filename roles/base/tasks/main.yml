@@ -5,6 +5,7 @@
     - vim
     - git
     - neovim
+    - direnv
 
 - name: Install Base dotfiles
   become_user: "{{ user }}"

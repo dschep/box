@@ -120,6 +120,9 @@ LP_SHOW_DIFF=0
 LP_SHORT_PATH=1
 . ~/.liquidprompt/liquidprompt
 PROMPT_COMMAND='_lp_set_prompt;echo -ne "\033]0;$USER@$HOSTNAME:${PWD/#$HOME/\~}\007"'
+if type -p direnv &> /dev/null ; then
+    eval "$(direnv hook bash)"
+fi
 if type -p ntfy &> /dev/null ; then
     eval "$(ntfy shell-integration)"
 fi
