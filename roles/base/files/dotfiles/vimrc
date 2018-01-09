@@ -129,6 +129,8 @@ filetype plugin indent on
 autocmd BufNewFile,BufReadPost Makefile,makefile,*.mk setlocal noexpandtab
 " use 2 spaces for tabs in javascript
 autocmd BufNewFile,BufReadPost *.js setlocal tabstop=2 shiftwidth=2
+" use 2 spaces for tabs in yaml
+autocmd BufNewFile,BufReadPost *.yaml,*.yml setlocal tabstop=2 shiftwidth=2
 " detect json files
 autocmd BufNewFile,BufReadPost *.json setlocal ft=json
 " detect markdown files
@@ -152,7 +154,7 @@ set expandtab
 " disable mixing spaces and \t
 set softtabstop=0
 " set wrapping text width
-set textwidth=79
+set textwidth=99
 
 
 """
