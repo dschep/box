@@ -7,6 +7,13 @@
 
 ###choose editor
 if type -P vim &> /dev/null; then
+    export EDITOR=nvim
+    if type -P nvim-terminal-edit.py &> /dev/null; then
+        alias vim=nvim-terminal-edit.py
+    else
+        alias vim=nvim
+    fi
+elif type -P vim &> /dev/null; then
     export EDITOR=vim
 elif type -P vi &> /dev/null; then
     export EDITOR=vi
@@ -83,6 +90,11 @@ function rssh-proxy () {
     host=${2%:*}
     rport=${2#*:}
     ssh -R 0.0.0.0:$rport:127.0.0.1:$1 $host "echo tunnel available at $2&&cat"
+}
+
+# simple nvim session loader
+function snvim () {
+    nvim -S ~/.vim/sessions/$1.vim
 }
 
 # node's shell is the fucking worst.
