@@ -1,0 +1,61 @@
+#!/bin/bash
+
+#
+# Easily setup up a machine to my liking using ansible. Should work on
+# recent-ish Ubuntu installs (14.04+) and upgrades Debian testing(stretch,
+# currently) to unstable(sid)
+#
+# curl https://dschep.github.io/box/install | bash
+# or
+# wget -qO- https://dschep.github.io/box/install | bash
+#
+# flags:
+# --git-*       Use git+* instead of https, eg: git+ssh git+git or git+http[s]
+#
+# positional arguments:
+# branchname      specify branch to download/checkout (defaults to master)
+#
+# Example
+# curl https://dschep.github.io/box/install | bash -s -- --git-ssh test-branch
+
+set -e
+
+if $(type -p apt-get &> /dev/null); then
+    PKG=apt-get
+    PYDEV="python-dev libssl-dev"
+elif $(type -p dnf &> /dev/null); then
+    PKG=dnf
+    PYDEV=python-devel
+elif $(type -p yum &> /dev/null); then
+    PKG=yum
+    PYDEV=python-devel
+else
+    echo 'No known package manager found' >&2
+    exit 1
+fi
+
+if [[ $1 == --git-* ]]; then
+    type -p git &> /dev/null || sudo $PKG install git
+    proto=${1##*-}
+    shift
+    git clone -b ${1-master} $proto://git@github.com/dschep/box
+    cd box
+else
+    if [ "$(type -P wget)" ]; then
+        cmd='wget -qO-'
+    elif [ "$(type -P curl)" ]; then
+        cmd='curl -s'
+    else
+        echo "No download tool found. Install curl or wget."1>&2
+    fi
+    
+    $cmd https://github.com/dschep/box/archive/${1-master}.tar.gz | tar xz
+    cd box-${1-master}
+fi
+
+
+if ! type -p ansible-playbook &> /dev/null ; then
+    sudo $PKG install -y python-pip $PYDEV ansible
+fi
+
+ansible-playbook -i $HOSTNAME, site.yml
