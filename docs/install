@@ -59,3 +59,21 @@ if ! type -p ansible-playbook &> /dev/null ; then
 fi
 
 ansible-playbook -i $HOSTNAME, site.yml
+
+# Repeating doc at bottom for easy reading when cURLing
+# Easily setup up a machine to my liking using ansible. Should work on
+# recent-ish Ubuntu installs (14.04+) and upgrades Debian testing(stretch,
+# currently) to unstable(sid)
+#
+# curl https://dschep.github.io/box/install | bash
+# or
+# wget -qO- https://dschep.github.io/box/install | bash
+#
+# flags:
+# --git-*       Use git+* instead of https, eg: git+ssh git+git or git+http[s]
+#
+# positional arguments:
+# branchname      specify branch to download/checkout (defaults to master)
+#
+# Example
+# curl https://dschep.github.io/box/install | bash -s -- --git-ssh test-branch
