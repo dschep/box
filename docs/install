@@ -20,7 +20,10 @@
 
 set -e
 
-if $(type -p apt-get &> /dev/null); then
+if $(type -p apt &> /dev/null); then
+    PKG=apt
+    PYDEV="python-dev libssl-dev"
+elif $(type -p apt-get &> /dev/null); then
     PKG=apt-get
     PYDEV="python-dev libssl-dev"
 elif $(type -p dnf &> /dev/null); then
