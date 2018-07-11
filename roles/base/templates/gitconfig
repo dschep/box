@@ -2,7 +2,7 @@
     name = {{ git_name }}
     email = {{ git_email }}
     {% if git_signingkey %}
-    signingkey = CB416D9B7194A5C2
+    signingkey = {{ git_signingkey }}
     {% endif %}
 [color]
     diff = auto
@@ -27,3 +27,15 @@
     autocorrect = 10
 [commit]
     gpgsign = {% if git_signingkey %}true{% else %}false{% endif %}
+[url "git@github.com:"]
+    insteadOf = github:
+[url "git@github.com:"]
+    insteadOf = gh:
+[url "git@gitlab.com:"]
+    insteadOf = gitlab:
+[url "git@gitlab.com:"]
+    insteadOf = gl:
+[url "git@bithubcket.com:"]
+    insteadOf = bithubcket:
+[url "git@bithubcket.com:"]
+    insteadOf = bb:
