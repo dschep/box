@@ -6,7 +6,8 @@
     - git
     - neovim
     - direnv
-
+- file: path=~/.config state=directory
+- file: path=~/.config/nvim state=directory
 - name: Install Base dotfiles
   become_user: "{{ user }}"
   copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
