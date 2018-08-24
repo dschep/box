@@ -65,3 +65,8 @@
     #    - {role: autostart, when: "'DISPLAY' in ansible_env"}
       #- secrets
       #- user
+- hosts: penguin #chrome os linux container
+  become: yes
+  roles:
+    - {role: pkg, pkg: firefox-esr}
+    - {role: pkg, pkg: keepassx}
