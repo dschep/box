@@ -4,6 +4,7 @@
     {% if git_signingkey %}
     signingkey = {{ git_signingkey }}
     {% endif %}
+
 [color]
     diff = auto
     status = auto
@@ -27,6 +28,7 @@
     autocorrect = 10
 [commit]
     gpgsign = {% if git_signingkey %}true{% else %}false{% endif %}
+
 [url "git@github.com:"]
     insteadOf = github:
 [url "git@github.com:"]
