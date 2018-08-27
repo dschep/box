@@ -68,4 +68,4 @@
 
 - name: Hack font
   become_user: "{{ user }}"
-  dconf: key=/org/gnome/desktop/interface/monospace-font-name value="'Hack 10'"
+  dconf: key=/org/gnome/desktop/interface/monospace-font-name value="'Hack {{font_size}}'"
