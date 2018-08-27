@@ -25,7 +25,7 @@
     - config/nvim/init.vim
 
 - name: Install nvim wrapper
-  copy: src=dotfiles/nvim-terminal-edit.py dest=/usr/bin/nvim-terminal-edit.py mode=755
+  copy: src=nvim-terminal-edit.py dest=/usr/bin/nvim-terminal-edit.py mode=755
 
 - name: Install gitconfig
   become_user: "{{ user }}"
