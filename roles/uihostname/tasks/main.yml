@@ -1,4 +1,4 @@
 - name: add locahost.unitedincome.com to hostfile
   lineinfile: dest=/etc/hosts line="127.0.0.1 localhost.unitedincome.com"
-- name: add db-api-dschep.unitedincome.team to hostfile
-  lineinfile: dest=/etc/hosts line="127.0.0.1 db-api-dschep.unitedincome.team"
+- name: add db-api-shared.unitedincome.team to hostfile
+  lineinfile: dest=/etc/hosts line="127.0.0.1 db-api-shared.unitedincome.team"
