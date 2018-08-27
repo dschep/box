@@ -8,10 +8,6 @@
 - hosts: ui,argon
   become: yes
   roles:
-    - {role: pkg, pkg: gir1.2-gtop-2.0}  # for sysmon gnome panel extension
-    - {role: pkg, pkg: libgtop2-dev}  # for sysmon gnome panel extension
-    - {role: pkg, pkg: fonts-hack-otf}
-    - {role: pkg, pkg: bats}
     - gnome
     - build_dep
     - python
@@ -29,44 +25,47 @@
     - git-repo
     - emoji
     - signal
-    - {role: deb, pkg: 'https://prerelease.keybase.io/keybase_amd64.deb'}
     - qownnotes
+  tasks:
+    - package: name={{item}}
+      with_items:
+        - fonts-hack-otf
+        - bats
+    - apt: deb='https://prerelease.keybase.io/keybase_amd64.deb'
 
 - hosts: ui
   become: yes
   roles:
     - "jupyter-notebook"
-    - {role: pkg, pkg: graphviz}
-    - {role: pkg, pkg: gufw}
-    - {role: pkg, pkg: tree}
-    - {role: pkg, pkg: gradle}
-    - {role: deb, pkg: 'https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb'}
     - peek
     - flyway
     - uihostname
+  tasks:
+    - package: name={{item}}
+      with_items:
+        - graphviz
+        - gufw
+        - tree
+        - gradle
+    - apt: deb='https://downloads.slack-edge.com/linux_releases/slack-desktop-3.2.1-amd64.deb'
 
 - hosts: argon
   become: yes
-  roles:
-    - {role: pkg, pkg: libgdal-dev }
-    - {role: pkg, pkg: calibre }
+  tasks:
+    - package: name={{item}}
+      with_items:
+        - libgdal-dev
+        - calibre
 
 - hosts: vagrant
   become: yes
   roles:
     - swapfile
 
-
-# old roles
-      #- docgen
-      #- pihole
-    #    - {role: autorandr, when: "'DISPLAY' in ansible_env"}
-    #      #- {role: arbtt, when: "'DISPLAY' in ansible_env"}
-    #    - {role: autostart, when: "'DISPLAY' in ansible_env"}
-      #- secrets
-      #- user
 - hosts: penguin #chrome os linux container
   become: yes
-  roles:
-    - {role: pkg, pkg: firefox-esr}
-    - {role: pkg, pkg: keepassx}
+  tasks:
+    - package: name={{item}}
+      with_items:
+        - firefox-esr
+        - keepassx
