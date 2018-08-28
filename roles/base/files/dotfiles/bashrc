@@ -8,7 +8,7 @@
 ###choose editor
 if type -P nvim &> /dev/null; then
     export EDITOR=nvim
-    if type -P nvim-terminal-edit.py &> /dev/null; then
+    if type -P nvim-terminal-edit.py &> /dev/null && python -c 'import neovim' &> /dev/null; then
         alias vim=nvim-terminal-edit.py
     else
         alias vim=nvim
