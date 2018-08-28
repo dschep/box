@@ -17,7 +17,7 @@
     - os-docker
     - portainer
     - netsec
-    - virt
+      #- virt - wtf borked on 18.04?
     - gui_util
     - browsers
     - util
