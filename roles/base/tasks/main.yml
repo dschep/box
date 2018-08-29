@@ -16,7 +16,6 @@
     - bashrc.ui
     - bash_profile
     - bash_logout
-    - liquidprompt/
     - vimrc
     - gitignore
     - inputrc
