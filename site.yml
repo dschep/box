@@ -69,3 +69,4 @@
       with_items:
         - firefox-esr
         - keepassx
+        - xclip
