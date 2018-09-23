@@ -33,7 +33,6 @@ Plugin 'scrooloose/syntastic' " linting!
 Plugin 'jnurmine/Zenburn' " pretty colors!
 Plugin 'scrooloose/nerdtree' " File browser
 Plugin 'embear/vim-localvimrc' " local vimrc files
-Plugin 'wakatime/vim-wakatime' " usage tracking!
 Plugin 'mattboehm/vim-accordion' " neat split folding
 " Filetypes
 Plugin 'fatih/vim-go'
