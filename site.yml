@@ -26,6 +26,7 @@
     - emoji
     - signal
     - qownnotes
+    - geo
   tasks:
     - package: name={{item}}
       with_items:

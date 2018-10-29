@@ -1,0 +1,8 @@
+- package: name=marble-qt
+- package: name=g3dviewer
+- name: vectiler deps
+  package: name={{ item }}
+  with_items:
+    - cmake
+    - libcurl4-openssl-dev
+
