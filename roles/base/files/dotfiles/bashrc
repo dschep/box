@@ -44,7 +44,7 @@ set -o vi
 bind -m vi-insert "\C-l":clear-screen
 
 #### bash4 ** support
-shopt -s globstar
+bash --version | grep 'version 4' && shopt -s globstar
 
 # bash completion
 if [ -f /etc/bash_completion ]; then

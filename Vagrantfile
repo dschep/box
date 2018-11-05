@@ -8,21 +8,23 @@ module Host
     if File.exist? '/proc/cpuinfo'
       File.read('/proc/cpuinfo').scan(/^processor\s*:/).size
     else
-      2
+      `sysctl hw.ncpu | cut -d' ' -f2`.to_i
     end
+  rescue
+      2
   end
 
   def ram
-    return `free -m`.split[8].to_i
+    `free -m`.split[8].to_i
   rescue
-    1024
+    `sysctl hw.memsize | cut -d' ' -f2`.to_i / 1024 / 1024
+  rescue
+    2048
   end
 end
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/trusty64"
-  # on old versions of vagrant:
-  # vagrant box add ubuntu/trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.network "private_network", ip: "10.42.42.42"
 
@@ -38,16 +40,21 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--memory", (Host.ram/2).to_s]
     vb.customize ["modifyvm", :id, "--cpus", (Host.cpus/2).to_s]
     # Speed optimization
-    vb.linked_clone = true if Vagrant::VERSION =~ /^1.8/
+    vb.linked_clone = true if Gem::Version.new(Vagrant::VERSION) >= Gem::Version.new('1.8.0')
     # Place in Vagrant group
     vb.customize ["modifyvm", :id, "--groups", "/Vagrant"]
   end
 
-  # disable included ansible.cfg
-  ENV['ANSIBLE_CONFIG'] = "/dev/null"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder "~/code", "/home/vagrant/code", disabled: false
+
+  config.vm.provision "shell",
+    inline: "python --version &> /dev/null || apt install -y python"
 
   config.vm.provision "ansible" do |ansible|
+    ansible.config_file = "ansible-vagrant.cfg"
     ansible.playbook = "site.yml"
     ansible.raw_arguments = ["-e", "user=vagrant"]
+    ansible.compatibility_mode = "2.0"
   end
 end

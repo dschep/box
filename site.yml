@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   roles:
-    - {role: ansible_dep, when: "ansible_distribution in ('Ubuntu', 'Debian')"}
+    - ansible_dep
     - base
 
 - hosts: ui,argon
@@ -71,3 +71,16 @@
         - firefox-esr
         - keepassx
         - xclip
+
+- hosts: MacBook-Pro.localdomain # work mac
+  become: no
+  tasks:
+    - homebrew_cask: name={{ item }}
+      with_items:
+        - google-chrome
+        - firefox
+        - iterm2
+        - virtualbox
+        - keepassxc
+        - xquartz
+        - vagrant

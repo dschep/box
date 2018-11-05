@@ -30,6 +30,19 @@ convenient so it's easier to use `-i hostname,`. It's best to use the real
 hostname instead of localhost because like that the paybook can easily use
 that name to decide what to install.
 
+### Manual install of deps
+#### Linux
+```
+sudo apt install python-pip python-dev libssl-dev ansible
+```
+#### macOS
+```
+# manually run `git` to trigger xcode cli tool installation
+sudo easy_install pip
+sudo pip install ansible
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
 ### Quick install
 This is what the quick install runs.
 ```
@@ -50,9 +63,3 @@ A `Vagrantfile` is included that properly overrides a few options for easily set
  - [ ] multimedia (creation, gimp, inkscape, etc)
  - [ ] multimedia (consume, mplayer, etc)
  - [ ] netstuff (tsocks, rdesktop)
-
-# WIP: RPM distros
-## Fedora
-```
-dnf install dnf-python libselinux-python
-``
