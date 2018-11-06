@@ -4,12 +4,19 @@
 
 - name: Install Yarn Repo Key
   apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg
+  when: ansible_distribution in ('Ubuntu', 'Debian')
 
 - name: Install yarn Repo
   apt_repository: repo="deb https://dl.yarnpkg.com/debian/ stable main" update_cache=yes
+  when: ansible_distribution in ('Ubuntu', 'Debian')
 
 - name: Install Yarn
   apt: name=yarn
+  when: ansible_distribution in ('Ubuntu', 'Debian')
 
 - name: install Readline Wrapper because node's shell FUCKING SUCKS
   apt: name=rlwrap
+  when: ansible_distribution in ('Ubuntu', 'Debian')
+
+- name: Install yarn (mac)
+  homebrew: name=yarn

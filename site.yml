@@ -74,6 +74,8 @@
 
 - hosts: MacBook-Pro.localdomain # work mac
   become: no
+  roles:
+    - nodejs
   tasks:
     - homebrew_cask: name={{ item }}
       with_items:
