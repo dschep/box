@@ -98,7 +98,9 @@ function snvim () {
 }
 
 # node's shell is the fucking worst.
-alias node='env NODE_NO_READLINE=1 rlwrap node'
+if type -p rlwrap &> /dev/null ; then
+    alias node='env NODE_NO_READLINE=1 rlwrap node'
+fi
 
 
 if [ -f ~/.bashrc.local_ext ]; then

@@ -100,3 +100,4 @@
         - pandoc
         - magic-wormhole
         - remind101/formulae/assume-role
+        - rlwrap
