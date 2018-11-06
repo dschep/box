@@ -143,15 +143,22 @@ function dschep_prompt_command {
             PROMPT_BRANCH_COLOR=$(tput setaf 5)
         fi
     fi
+    if [ -z "$ASSUMED_ROLE" ]; then
+        PROMPT_AWS_ROLE_COLOR=
+        PROMPT_AWS_ROLE=''
+    else
+        PROMPT_AWS_ROLE_COLOR=$(tput setaf 3)
+        PROMPT_AWS_ROLE=" ($ASSUMED_ROLE)"
+    fi
 
 }
 if ! [ "$SSH" == "" ] || [ "$(id -u)" -eq 0 ]; then
     PROMPT_USERHOST='\u@\h'
 fi
 PROMPT_COMMAND='dschep_prompt_command;'
-PS1="[$(tput sgr0;tput setaf 2)$PROMPT_USERHOST:$(tput sgr0;tput bold)\W$(tput sgr0)] $PROMPT_BRANCH\\$\$(tput sgr0) "
 PS1="[\[$(tput sgr0;tput setaf 2)\]$PROMPT_USERHOST:\[$(tput sgr0;tput bold)\]\W\[$(tput sgr0)\]]\
 \[\$PROMPT_BRANCH_COLOR\]\$PROMPT_BRANCH\
+\[\$PROMPT_AWS_ROLE_COLOR\]\$PROMPT_AWS_ROLE\
 \[$(tput setaf 5)\]\$PROMPT_ERROR\
 \[$(tput sgr0)\] \[$(tput bold)\]\\$\\[$(tput sgr0)\] "
 
@@ -172,4 +179,10 @@ fi
 
 if type -p thefuck &> /dev/null ; then
     eval $(thefuck --alias)
+fi
+
+if type -p assume-role &> /dev/null ; then
+    assume-role-shell () {
+        (eval $($(which assume-role) $1); bash)
+    }
 fi
