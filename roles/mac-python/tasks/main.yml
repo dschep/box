@@ -1,0 +1,19 @@
+- name: Download python3.6
+  get_url: url=https://www.python.org/ftp/python/3.6.7/python-3.6.7-macosx10.9.pkg dest=/opt/
+  register: py36_download
+  become: yes
+- name: Install python3.6 pkg
+  command: sudo installer -package /opt/python-3.6.7-macosx10.9.pkg -target /
+  args:
+    creates: /Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6
+  become: yes
+
+- name: Download python3.7
+  get_url: url=https://www.python.org/ftp/python/3.7.1/python-3.7.1-macosx10.9.pkg dest=/opt/
+  register: py37_download
+  become: yes
+- name: Install python3.7 pkg
+  command: sudo installer -package /opt/python-3.7.1-macosx10.9.pkg -target /
+  args:
+    creates: /Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7
+  become: yes

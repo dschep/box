@@ -76,6 +76,7 @@
   become: no
   roles:
     - nodejs
+    - mac-python
   tasks:
     - homebrew_cask: name={{ item }}
       with_items:
