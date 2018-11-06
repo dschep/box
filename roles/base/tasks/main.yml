@@ -35,6 +35,9 @@
 - name: Install nvim wrapper
   copy: src=nvim-terminal-edit.py dest=/usr/local/bin/nvim-terminal-edit.py mode=755
 
+- name: Install nvim wrapper
+  copy: src=py dest=/usr/local/bin/py mode=755
+
 - name: Install gitconfig
   become_user: "{{ user }}"
   template: src=gitconfig dest=~/.gitconfig
