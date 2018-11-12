@@ -92,6 +92,9 @@
         - bettertouchtool
         - meld
         - keybase
+        - zoomus
+        - docker
+        - libreoffice
     - homebrew: name={{ item }}
       with_items:
         - htop
@@ -101,3 +104,7 @@
         - magic-wormhole
         - remind101/formulae/assume-role
         - rlwrap
+        - the_silver_searcher
+        - thefuck
+          #- awscli #pip instaed
+          ##pipenv python3.7 pip isntall
