@@ -230,3 +230,7 @@ let g:jsx_ext_required = 0
 """ use vim-accordion with h splits & automagically
 """
 let g:accordion_mode="h"
+
+
+""" shut up vim-go
+let g:go_version_warning = 0
