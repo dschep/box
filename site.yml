@@ -23,7 +23,7 @@
     - util
     - power
     - git-repo
-    - emoji
+      #- emoji
     - signal
     - qownnotes
     - geo
