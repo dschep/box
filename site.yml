@@ -27,7 +27,6 @@
     - signal
     - qownnotes
     - geo
-    - assume-role
   tasks:
     - package: name={{item}}
       with_items:
