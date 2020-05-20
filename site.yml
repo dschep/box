@@ -5,7 +5,7 @@
     - ansible_dep
     - base
 
-- hosts: ui,argon
+- hosts: ui,argon,chlorine
   become: yes
   roles:
     - gnome
@@ -31,6 +31,7 @@
     - package: name={{item}}
       with_items:
         - fonts-hack-otf
+        - magic-wormhole
         - bats
     - apt: deb='https://prerelease.keybase.io/keybase_amd64.deb'
 
@@ -57,6 +58,15 @@
       with_items:
         - libgdal-dev
         - calibre
+
+- hosts: chlorine
+  become: yes
+  tasks:
+    - package: name={{item}}
+      with_items:
+        - openssh-server
+        - exfat-fuse
+        - exfat-utils
 
 - hosts: vagrant
   become: yes

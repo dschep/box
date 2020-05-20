@@ -57,5 +57,5 @@
   when: ansible_distribution in ('Debian', 'Ubuntu')
 
 - name: Install Google Chrome
-  apt: pkg=google-chrome-stable state=installed
+  apt: pkg=google-chrome-stable state=present
   when: ansible_distribution in ('Debian', 'Ubuntu')
