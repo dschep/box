@@ -112,7 +112,7 @@ if [ -f ~/.nvm/nvm.sh ]; then
     . ~/.nvm/nvm.sh
 fi
 
-PATH=$PATH:~/.local/bin
+PATH=$PATH:~/.local/bin:~/Library/Python/3.8/bin
 
 export CDPATH=$HOME/code
 
