@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  become: yes
   roles:
     - ansible_dep
     - base
@@ -35,7 +34,7 @@
         - bats
     - apt: deb='https://prerelease.keybase.io/keybase_amd64.deb'
 
-- hosts: ui
+- hosts: ui #(old work)
   become: yes
   roles:
     - "jupyter-notebook"
@@ -82,7 +81,7 @@
         - keepassx
         - xclip
 
-- hosts: MacBook-Pro.localdomain # work mac
+- hosts: MacBook-Pro.localdomain # old(sls)work mac
   become: no
   roles:
     - nodejs
@@ -115,5 +114,41 @@
         - rlwrap
         - the_silver_searcher
         - thefuck
+          #- awscli #pip instaed
+          ##pipenv python3.7 pip isntall
+
+- hosts: ONXMAPS-L332.localdomain # work mac
+  become: no
+  #roles:
+  #  - nodejs
+  #  - mac-python
+  tasks:
+    - homebrew_cask: name={{ item }}
+      with_items:
+        #- google-chrome
+        #- firefox
+        - iterm2
+        #- virtualbox
+        #- keepassxc
+        #- xquartz
+        #- vagrant
+        #- witch # ditched for just using btt
+        - bettertouchtool
+        - meld
+        #- keybase
+        #- zoomus
+        - docker
+        #- libreoffice
+    - homebrew: name={{ item }}
+      with_items:
+        - htop
+        - httpie
+        - jq
+        #- pandoc
+        - magic-wormhole
+        #- remind101/formulae/assume-role
+        - rlwrap
+        - the_silver_searcher
+        #- thefuck
           #- awscli #pip instaed
           ##pipenv python3.7 pip isntall

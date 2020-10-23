@@ -1,16 +1,16 @@
 - name: Install Base tools (linux)
   package: name={{ item }}
+  become: yes
   with_items:
     - screen
     - vim
     - git
-    - neovim
     - direnv
   when: ansible_distribution != 'MacOSX'
 - name: Install Base tools (mac)
   package: name={{ item }}
   with_items:
-    - neovim
+    - bash
     - direnv
   become: no
   when: ansible_distribution == 'MacOSX'
@@ -19,7 +19,6 @@
 - file: path=~/.config/nvim state=directory
   become: no
 - name: Install Base dotfiles
-  become_user: "{{ user }}"
   copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
   with_items:
     - bashrc
@@ -32,12 +31,6 @@
     - serverlessrc
     - config/nvim/init.vim
 
-- name: Install nvim wrapper
-  copy: src=nvim-terminal-edit.py dest=/usr/local/bin/nvim-terminal-edit.py mode=755
-
-- name: Install nvim wrapper
-  copy: src=py dest=/usr/local/bin/py mode=755
 
 - name: Install gitconfig
-  become_user: "{{ user }}"
   template: src=gitconfig dest=~/.gitconfig
