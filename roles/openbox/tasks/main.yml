@@ -12,4 +12,11 @@
   copy: src=rc.xml dest=~/.config/openbox/rc.xml
 - name: Install openbox dotfiles for lubuntu
   become_user: "{{ user }}"
-  copy: src=rc.xml dest=~/.config/openbox/lubuntu-rc.xml
+  copy: src=rc.xml dest=~/.config/openbox/lxqt-rc.xml
+
+  #- name: qterminal config
+  #  become_user: "{{ user }}"
+  #  copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
+  #  with_items:
+  #    - config/qterminal.org/qterminal.ini
+  #    - config/qterminal.org/color-schemes/Gruvbox_dark.colorscheme

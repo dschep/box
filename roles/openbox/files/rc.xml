@@ -51,7 +51,7 @@
        or workspace from monitor to monitor. -->
   </placement>
   <theme>
-    <name>Numix</name>
+    <name>Lubuntu Arc</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -355,17 +355,17 @@
     <!-- Keybindings for running applications -->
     <keybind key="A-p">
       <action name="Execute">
-        <command>dmenu_run</command>
+        <command>lxqt-runner</command>
       </action>
     </keybind>
     <keybind key="S-A-Return">
       <action name="Execute">
-        <command>xfce4-terminal</command>
+        <command>qterminal</command>
       </action>
     </keybind>
-    <keybind key="C-A-l">
+    <keybind key="A-S-l">
       <action name="Execute">
-        <command>dm-tool lock</command>
+        <command>xscreensaver-command --lock</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">

@@ -30,7 +30,9 @@ Plugin 'mileszs/ack.vim' " ack
 Plugin 'Lokaltog/vim-powerline' " pretty modeline
 Plugin 'gregsexton/MatchTag' " hilight matching html tags
 Plugin 'scrooloose/syntastic' " linting!
-Plugin 'jnurmine/Zenburn' " pretty colors!
+"Plugin 'vim-scripts/Zenburn' " pretty colors!
+"Plugin 'lifepillar/vim-solarized8' " pretty colors!
+Plugin 'morhetz/gruvbox' " pretty colors!
 Plugin 'scrooloose/nerdtree' " File browser
 Plugin 'embear/vim-localvimrc' " local vimrc files
 Plugin 'mattboehm/vim-accordion' " neat split folding
@@ -110,7 +112,11 @@ set laststatus=2
 " don't show mode (shown in vim-powerline)
 set noshowmode
 " Zenburrnn
-colors zenburn
+"colors zenburn
+" sozliarized :/
+set background=dark
+colors gruvbox
+let g:gruvbox_contrast_light='light'
 " highlight current line
 set cursorline
 " highlight last column

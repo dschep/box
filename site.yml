@@ -7,15 +7,24 @@
 
 - hosts: ui,argon,chlorine
   become: yes
+  tasks:
+    - package: name={{item}}
+      with_items:
+        - fonts-hack-otf
+        - magic-wormhole
+        - bats
+        - steam-installer
+        - qgis
+    - apt: deb='https://prerelease.keybase.io/keybase_amd64.deb'
   roles:
-    - gnome
+    - openbox
     - build_dep
     - python
     - nodejs
     - java
     - devops
     - os-docker
-    - portainer
+      #- portainer
     - netsec
       #- virt - wtf borked on 18.04?
     - gui_util
@@ -25,16 +34,7 @@
     - git-repo
       #- emoji
     - signal
-    - qownnotes
     - geo
-  tasks:
-    - package: name={{item}}
-      with_items:
-        - fonts-hack-otf
-        - magic-wormhole
-        - bats
-        - steam-installer
-    - apt: deb='https://prerelease.keybase.io/keybase_amd64.deb'
 
 - hosts: ui
   become: yes
