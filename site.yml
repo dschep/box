@@ -132,6 +132,8 @@
         - meld
         - docker
         - google-cloud-sdk
+        - oracle-jdk
+        - dbeaver-comunity
     - homebrew: name={{ item }}
       with_items:
         - htop
@@ -142,3 +144,4 @@
         - rlwrap
         - the_silver_searcher
         - thefuck
+        - nmap
