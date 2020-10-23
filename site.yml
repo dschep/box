@@ -125,20 +125,13 @@
   tasks:
     - homebrew_cask: name={{ item }}
       with_items:
-        #- google-chrome
-        #- firefox
+        #- google-chrome # preinstalled
+        - firefox
         - iterm2
-        #- virtualbox
-        #- keepassxc
-        #- xquartz
-        #- vagrant
-        #- witch # ditched for just using btt
         - bettertouchtool
         - meld
-        #- keybase
-        #- zoomus
         - docker
-        #- libreoffice
+        - google-cloud-sdk
     - homebrew: name={{ item }}
       with_items:
         - htop
@@ -146,9 +139,6 @@
         - jq
         #- pandoc
         - magic-wormhole
-        #- remind101/formulae/assume-role
         - rlwrap
         - the_silver_searcher
-        #- thefuck
-          #- awscli #pip instaed
-          ##pipenv python3.7 pip isntall
+        - thefuck
