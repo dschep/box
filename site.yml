@@ -145,3 +145,9 @@
         - the_silver_searcher
         - thefuck
         - nmap
+        - black
+        - vim
+        - qgis
+    - pip:
+      become: yes
+      name: ntfy

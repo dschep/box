@@ -110,6 +110,7 @@ fi
 
 if [ -f ~/.nvm/nvm.sh ]; then
     . ~/.nvm/nvm.sh
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
 PATH=$PATH:~/.local/bin:~/Library/Python/3.8/bin
@@ -147,11 +148,11 @@ function dschep_prompt_command {
     fi
 
 }
-if ! [ "$SSH" == "" ] || [ "$(id -u)" -eq 0 ]; then
+if ! [ "$SSH" == "" ] || [ "$(id -u)" -eq 0 ] || grep docker /proc/1/cgroup &> /dev/null ; then
     PROMPT_USERHOST='\u@\h'
 fi
 PROMPT_COMMAND='dschep_prompt_command;'
-PS1="[\[$(tput sgr0;tput setaf 2)\]$PROMPT_USERHOST:\[$(tput sgr0;tput bold)\]\W\[$(tput sgr0)\]]\
+PS1="[\[$(tput sgr0;[ "$(id -u)" -eq 0 ] && tput setaf 1 || tput setaf 2)\]$PROMPT_USERHOST:\[$(tput sgr0;tput bold)\]\W\[$(tput sgr0)\]]\
 \[\$PROMPT_BRANCH_COLOR\]\$PROMPT_BRANCH\
 \[\$PROMPT_AWS_ROLE_COLOR\]\$PROMPT_AWS_ROLE\
 \[$(tput setaf 5)\]\$PROMPT_ERROR\
@@ -161,9 +162,9 @@ PS1="[\[$(tput sgr0;tput setaf 2)\]$PROMPT_USERHOST:\[$(tput sgr0;tput bold)\]\W
 if type -p direnv &> /dev/null ; then
     eval "$(direnv hook bash)"
 fi
-if type -p ntfy &> /dev/null ; then
-    eval "$(ntfy shell-integration)"
-fi
+#if type -p ntfy &> /dev/null ; then
+#    eval "$(ntfy shell-integration)"
+#fi
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
