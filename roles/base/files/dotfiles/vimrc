@@ -57,6 +57,8 @@ endif
 """
 " esc-esc in normal mode to clear search highlight
 nnoremap <ESC><ESC> :noh<CR>
+" esc-esc in terminal mode to switch to normal mode
+tnoremap <ESC><ESC> <C-W>N
 " bind F2 to toggle paste mode
 set pastetoggle=<F2>
 " toggle line numberings with F3
