@@ -148,6 +148,8 @@
         - black
         - vim
         - qgis
+        - git
+        - git-gui
     - pip:
       become: yes
       name: ntfy
