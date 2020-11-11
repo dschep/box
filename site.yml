@@ -134,6 +134,8 @@
         - google-cloud-sdk
         - oracle-jdk
         - dbeaver-comunity
+        - licecap
+        - caffeine
     - homebrew: name={{ item }}
       with_items:
         - htop
