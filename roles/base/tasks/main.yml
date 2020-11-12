@@ -26,11 +26,11 @@
     - bash_logout
     - vimrc
     - gitignore
+    - gitconfig
+    - gitconfig-onx
+    - gitconfig-trailstash
+    - gitconfig-ourstreets
     - inputrc
     - screenrc
     - serverlessrc
     - config/nvim/init.vim
-
-
-- name: Install gitconfig
-  template: src=gitconfig dest=~/.gitconfig
