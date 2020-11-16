@@ -128,6 +128,7 @@
         #- google-chrome # preinstalled
         - firefox
         - iterm2
+        - virtualbox
         - bettertouchtool
         - meld
         - docker
