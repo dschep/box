@@ -76,6 +76,7 @@ elseif has("win32")
     nnoremap <F5> :w\|!%<CR>
 endif
 nnoremap <silent><C-p> :CtrlSpace O<CR>
+nnoremap <silent><C-Space> :CtrlSpace<CR>
 
 
 
