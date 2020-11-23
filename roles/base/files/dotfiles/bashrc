@@ -129,7 +129,7 @@ function dschep_prompt_command {
     else
         PROMPT_ERROR=
     fi
-    echo -ne "\033]0;$USER@$HOSTNAME:${PWD/#$HOME/\~}\007"
+    echo -ne "\033]0;$USER@$HOSTNAME:${PWD/#$HOME/\~}\007" # set terminal title
     PROMPT_BRANCH="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')" 
     if ! [ "$PROMPT_BRANCH" == "" ]; then
         PROMPT_BRANCH=" $PROMPT_BRANCH"
