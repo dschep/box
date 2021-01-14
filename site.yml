@@ -123,6 +123,9 @@
   #  - nodejs
   #  - mac-python
   tasks:
+    - name: Tap a Homebrew repository, state present
+      community.general.homebrew_tap:
+      name: arusahni/git-req
     - homebrew_cask: name={{ item }}
       with_items:
         #- google-chrome # preinstalled
@@ -137,8 +140,12 @@
         - dbeaver-comunity
         - licecap
         - caffeine
+        - inkscape
+        - gimp
+        - vagrant
     - homebrew: name={{ item }}
       with_items:
+        - socat
         - htop
         - httpie
         - jq
@@ -153,6 +160,11 @@
         - qgis
         - git
         - git-gui
+        - gdal
+        - tippecanoe
+        - thefuck
+        - git-req
+
     - pip:
       become: yes
       name: ntfy
