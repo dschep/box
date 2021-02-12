@@ -45,3 +45,16 @@
     insteadOf = bb:
 [pull]
 	rebase = false
+
+
+# @glyph said do this: https://twitter.com/mitsuhiko/status/1360301205449228288
+[protocol "http"]
+allow = never
+[protocol "git"]
+allow = never
+[fetch]
+        fsckObjects = true
+[transfer]
+        fsckObjects = true
+[receive]
+        fsckObjects = true
