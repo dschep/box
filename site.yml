@@ -143,6 +143,7 @@
         - inkscape
         - gimp
         - vagrant
+        - lens
     - homebrew: name={{ item }}
       with_items:
         - socat
