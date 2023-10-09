@@ -1,0 +1,19 @@
+- file: path=~/.config/nvim state=directory recurse=true
+  become: no
+- name: Install dotfiles
+  become: no
+  copy: src={{ item }} dest=~/.{{ item }}
+  with_items:
+    - bashrc
+    - bash_profile
+    - bash_logout
+    - vimrc
+    - gitignore
+    - gitconfig
+    - gitconfig-onx
+    - gitconfig-trailstash
+    - gitconfig-ourstreets
+    - inputrc
+    - screenrc
+    - serverlessrc
+    - config/nvim/init.vim

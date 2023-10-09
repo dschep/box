@@ -1,0 +1,83 @@
+---
+- hosts: atlas
+  become: yes
+  tasks:
+    - docker_compose:
+        project_name: speedtest-tracker
+        definition:
+          version: '3.3'
+          services:
+            speedtest:
+              container_name: speedtest-tracker
+              image: henrywhitaker3/speedtest-tracker
+              ports:
+                - 8765:80
+              volumes:
+                - data:/config
+              environment:
+                - TZ=US/New_York
+                - OOKLA_EULA_GDPR=true
+              logging:
+                driver: "json-file"
+                options:
+                  max-file: "10"
+                  max-size: "200k"
+              restart: unless-stopped
+          volumes:
+            data:
+    - docker_compose:
+        project_name: uptime-kuma
+        definition:
+          version: '3'
+          services:
+            portainer:
+              image: "louislam/uptime-kuma:1"
+              container_name: uptime-kuma
+              restart: unless-stopped
+              volumes:
+                - "data:/app/data"
+              ports:
+                - "3001:3001"
+          volumes:
+            data:
+      #roles:
+      #  - dotfiles
+      #  - docker
+      #  - portainer
+      #  - netdata
+      #tasks:
+      #  - apt:
+      #      pkg:
+      #      -python3-venv
+      #        - git
+      #        - vim
+      #        - maven
+      #        - screen
+      #        - nmap
+      #        - golang-go
+      #        - gopls
+      #        - python3-pip
+      #        - nfs-common
+      #        - pyosmium
+      #        - openjdk-19-jre-headless
+      #        - awscli
+      #        - htop
+      #        - lm-sensors
+      #        - silversearcher-ag
+      #  - pip: name=git+https://github.com/dschep/ntfy
+      #  - name: go-pmtiles
+      #    unarchive:
+      #      remote_src: yes
+      #      src: https://github.com/protomaps/go-pmtiles/releases/download/v1.10.0/go-pmtiles_1.10.0_Linux_x86_64.tar.gz
+      #      exclude:
+      #        - LICENSE
+      #        - README.md
+      #      dest: /usr/local/bin/
+      #  - apt: deb=https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+      #  - apt: deb=https://downloads.rclone.org/v1.64.0/rclone-v1.64.0-linux-amd64.deb
+      #  - apt_repository: repo="deb http://packages.azlux.fr/debian {{ ansible_distribution_release }} main" update_cache=yes state=absent
+      #  - name: ctop
+      #    get_url:
+      #      url: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
+      #      dest: /usr/local/bin/ctop
+      #      mode: 755

@@ -148,7 +148,7 @@ function dschep_prompt_command {
     fi
 
 }
-if ! [ "$SSH" == "" ] || [ "$(id -u)" -eq 0 ] || grep docker /proc/1/cgroup &> /dev/null ; then
+if ! [ "$SSH_CONNECTION" == "" ] || [ "$(id -u)" -eq 0 ] || grep docker /proc/1/cgroup &> /dev/null ; then
     PROMPT_USERHOST='\u@\h'
 fi
 PROMPT_COMMAND='dschep_prompt_command;'
