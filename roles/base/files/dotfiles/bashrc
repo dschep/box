@@ -130,6 +130,9 @@ if [ -f /opt/homebrew/opt/nvm/nvm.sh ]; then
     . /opt/homebrew/opt/nvm/nvm.sh
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
 
 HISTSIZE=9000
 HISTFILESIZE=$HISTSIZE
