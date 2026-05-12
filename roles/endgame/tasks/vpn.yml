@@ -1,5 +1,0 @@
-- name: Install OpenConnect client
-  apt: pkg=openconnect
-
-- name: Install VPN client
-  apt: pkg=network-manager-openconnect-gnome

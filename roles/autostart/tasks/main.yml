@@ -1,9 +1,0 @@
-- name: autostart scripts
-  become_user: "{{ user }}"
-  copy: src=xsessionrc dest=~/.autostart
-
-- file: path=~/.config/autostart state=directory
-  become_user: "{{ user }}"
-- name: autostart .desktop file
-  become_user: "{{ user }}"
-  copy: src=autostart.desktop dest=~/.config/autostart/autostart.desktop
