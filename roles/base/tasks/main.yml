@@ -2,7 +2,7 @@
   package: name={{ item }}
   become: yes
   with_items:
-    - screen
+    - tmux
     - vim
     - git
     - direnv
