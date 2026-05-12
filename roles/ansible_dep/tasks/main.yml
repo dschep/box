@@ -1,5 +1,5 @@
 # pycurl on apt systems
 - name: Install apt_repository dep
   become: yes
-  apt: pkg=python-pycurl
+  apt: pkg=python3-pycurl
   when: ansible_distribution in ('Ubuntu', 'Debian')

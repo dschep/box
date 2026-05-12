@@ -31,3 +31,4 @@
     - gitconfig
     - gitconfig-onx
     - inputrc
+    - tmux.conf
