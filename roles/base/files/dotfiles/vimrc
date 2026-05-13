@@ -33,15 +33,6 @@ Plugin 'vim-autoformat/vim-autoformat'
 
 " tmux integration
 Plugin 'christoomey/vim-tmux-navigator'
-let g:tmux_navigator_no_mappings = 1
-nnoremap <C-w> <nop>
-
-nnoremap <silent><C-w>l :TmuxNavigateRight<cr>
-nnoremap <silent><C-w>j :TmuxNavigateDown<cr>
-nnoremap <silent><C-w>k :TmuxNavigateUp<cr>
-nnoremap <silent><C-w>h :TmuxNavigateLeft<cr>
-"nnoremap <silent> {Previous-Mapping} :<C-U>TmuxNavigatePrevious<cr>
-
 
 call vundle#end()
 
@@ -68,6 +59,14 @@ nnoremap <F3> :set number!<CR>
 " fzf bindings
 nnoremap <silent><C-p> :Files<CR>
 nnoremap <silent><C-Space> :Buffers<CR>
+" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <C-w> <nop>
+nnoremap <silent><C-w>l :TmuxNavigateRight<cr>
+nnoremap <silent><C-w>j :TmuxNavigateDown<cr>
+nnoremap <silent><C-w>k :TmuxNavigateUp<cr>
+nnoremap <silent><C-w>h :TmuxNavigateLeft<cr>
+
 
 
 
