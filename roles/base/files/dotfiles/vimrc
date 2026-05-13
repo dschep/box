@@ -98,10 +98,8 @@ syn on
 set hlsearch
 " set terminal title
 set title
-" always show status line (for vim-powerline)
+" always show status line
 set laststatus=2
-" don't show mode (shown in vim-powerline)
-"set noshowmode
 " gruvbox colorscheme
 set background=dark
 colors gruvbox
@@ -116,7 +114,6 @@ endif
 highlight Normal ctermbg=NONE guibg=NONE
 " and dim inactive splits to match tmux pane highlighting
 hi DimNormal ctermbg=237
-
 augroup ActiveWin | au!
     au WinEnter * setl wincolor=
     au WinLeave * setl wincolor=DimNormal
@@ -174,26 +171,6 @@ endif
 set spell spelloptions=camel
 hi SpellBad cterm=underline
 syn spell toplevel
-
-
-"""
-""" gui options
-"""
-if has("gui_running")
-    " get rid of fluff (menu & toolbar)
-    set guioptions-=m
-    set guioptions-=T
-endif
-" set fonts
-set guifont=Hack
-
-
-
-""" Python
-" ignore pyc
-set wildignore+=*.pyc
-let NERDTreeIgnore = ['\.pyc$']
-
 
 
 """
