@@ -9,47 +9,25 @@
   roles:
     - openbox
     - nvm
-  tasks:
-    - package: name={{item}}
-      with_items:
-        - fonts-hack-otf
-        - magic-wormhole
-        - bats
-    - apt: deb='https://prerelease.keybase.io/keybase_amd64.deb'
-
-- hosts: penguin #chrome os linux container
-  become: yes
-  roles:
-    - nvm
-#  tasks:
-#    - package: name={{item}}
-#      with_items:
-#        - firefox-esr
-#        - keepassx
-#        - xclip
 
 - hosts: 005465.local # work mac
   become: no
-  #  - mac-python
   tasks:
-    - name: Tap a Homebrew repository, state present
-      community.general.homebrew_tap:
     - homebrew_cask: name={{ item }}
       with_items:
         #- google-chrome # preinstalled
-        - nvm # probably just use nvm role tho?
-        - firefox
+        #- firefox
         - iterm2
-        - bettertouchtool
+        #- bettertouchtool
         - meld
         - google-cloud-sdk
-        - oracle-jdk
-        - dbeaver-comunity
+        - dbeaver-community
         - inkscape
         - gimp
         #- virtualbox
     - homebrew: name={{ item }}
       with_items:
+        - nvm # probably just use nvm role tho?
         - socat
         - htop
         - httpie
@@ -57,6 +35,7 @@
         - qgis
         - gdal
         - tippecanoe
-    - pip:
-      become: yes
-      name: ntfy
+    #- name: install ntfy
+    #  become: yes
+    #  community.general.pipx:
+    #    name: ntfy
