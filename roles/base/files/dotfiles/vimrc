@@ -1,9 +1,6 @@
 set nocompatible
 filetype off " turned back on later
 
-" Don't abandon buffers (needed for ctrl-space)
-set hidden
-
 """
 """ vundle
 """
@@ -20,7 +17,8 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'szw/vim-ctrlspace' " file mgmt
+Plugin 'junegunn/fzf' " file mgmt
+Plugin 'junegunn/fzf.vim' " file mgmt
 Plugin 'morhetz/gruvbox' " pretty colors!
 Plugin 'scrooloose/nerdtree' " File browser
 
@@ -67,9 +65,9 @@ set pastetoggle=<F2>
 nnoremap <F3> :set number!<CR>
 
 "" plugins
-" Ctrl-Space bindings
-nnoremap <silent><C-p> :CtrlSpace O<CR>
-nnoremap <silent><C-Space> :CtrlSpace<CR>
+" fzf bindings
+nnoremap <silent><C-p> :Files<CR>
+nnoremap <silent><C-Space> :Buffers<CR>
 
 
 
@@ -119,6 +117,7 @@ endif
 highlight Normal ctermbg=NONE guibg=NONE
 " and dim inactive splits to match tmux pane highlighting
 hi DimNormal ctermbg=237
+
 augroup ActiveWin | au!
     au WinEnter * setl wincolor=
     au WinLeave * setl wincolor=DimNormal
@@ -202,11 +201,3 @@ let NERDTreeIgnore = ['\.pyc$']
 """ ENV customization
 """
 set cdpath=,~/code
-
-
-"""
-""" use ag for finding files with ctrl-space (respects gitignore, etc)
-"""
-if executable("ag")
-  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
