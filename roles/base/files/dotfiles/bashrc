@@ -192,49 +192,45 @@ if type -p thefuck &> /dev/null ; then
     eval $(thefuck --alias)
 fi
 
-## tmux sessions
-function vimux_ {
-        tmux split-window -hb -p 50 vim
+## tmux layouts
+function vimux {
+    if [[ "$TMUX" != "" ]]; then
+        window_name=$(basename $PWD)
+        tmux rename-window "$window_name"
+        tmux split-window -hb -p 50 vim --servername "$window_name"
         tmux select-pane -t 2
         tmux split-window -v -p 50
         tmux select-pane -t 1
-}
-function vimux {
-    if [[ "$TMUX" != "" ]]; then
-        vimux_
-        clear
     else
-        session_name=${1:-$(basename $PWD)}
-        tmux has-session -t "$session_name"
-        if [ $? != 0 ]; then
-            tmux new-session -d -s "$session_name"
-            vimux_
-        fi
-        tmux attach-session -t "$session_name"
+        echo "this function must be run from a shell inside of a tmux session"
     fi
-}
-function vimuxai_ {
-    tmux split-window -hb -p 33 vim
-    tmux select-pane -t 2
-    tmux split-window -h -p 50 claude
-    tmux select-pane -t 2
-    tmux split-window -vb -p 50
-    tmux select-pane -t 1
 }
 function vimuxai {
     if [[ "$TMUX" != "" ]]; then
-        vimuxai_
-        clear
+        window_name=$(basename $PWD)
+        tmux rename-window "$window_name"
+        tmux split-window -hb -p 33 vim --servername "$window_name"
+        tmux select-pane -t 2
+        tmux split-window -h -p 50 claude
+        tmux select-pane -t 2
+        tmux split-window -vb -p 50
+        tmux select-pane -t 1
     else
-        session_name=${1:-$(basename $PWD)}
-        tmux has-session -t "$session_name"
-        if [ $? != 0 ]; then
-            tmux new-session -d -s "$session_name"
-            vimuxai_
-        fi
-        tmux attach-session -t "$session_name"
+        echo "this function must be run from a shell inside of a tmux session"
     fi
 }
+## vim-tmux shortcut
+function vmux {
+    window_name=$(basename $PWD)
+    vim --servername "$window_name" --remote "$@"
+    tmux list-panes -F "#{pane_index} #{pane_current_command}" | grep -Ei "vim" | awk '{print $1}' | xargs -I % tmux select-pane -t %
+}
+function vmux-send {
+    window_name=$(basename $PWD)
+    vim --servername "$window_name" --remote-send "$@"
+    tmux list-panes -F "#{pane_index} #{pane_current_command}" | grep -Ei "vim" | awk '{print $1}' | xargs -I % tmux select-pane -t %
+}
+
 
 
 # fucking macOS
