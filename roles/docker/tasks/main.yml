@@ -1,34 +1,17 @@
-- name: Add Docker repository key (deb)
-  apt_key: url=https://apt.dockerproject.org/gpg validate_certs=no
-  register: add_repository_key
-  ignore_errors: true
-  when: ansible_distribution in ('Ubuntu', 'Debian')
+- name: Add Docker repository key
+  apt_key: url=https://download.docker.com/linux/ubuntu/gpg
 
-# the above can fail..?? So, took this from:
-# https://github.com/angstwad/docker.ubuntu/blob/master/tasks/main.yml#L20
-- name: Alternative | Add Docker repository key ()
-  shell: curl -sSL https://apt.dockerproject.org/gpg | sudo apt-key add -
-  when: add_repository_key|failed and ansible_distribution in ('Ubuntu', 'Debian')
-
-- name: Add Docker repository (deb)
-  apt_repository: repo="deb https://apt.dockerproject.org/repo {{ ansible_distribution.lower() }}-{{ ansible_distribution_release if ansible_distribution_release != 'NA' else 'stretch' }} main" update_cache=yes
-  when: ansible_distribution in ('Ubuntu', 'Debian')
-
-- name: Add Docker repository (rpm)
-  copy:
-    dest: /etc/yum.repos.d/docker.repo
-    content: |
-      [dockerrepo]
-      name=Docker Repository
-      baseurl=https://yum.dockerproject.org/repo/main/{{ ansible_distribution.lower() }}/{{ ansible_distribution_version.split('.')[0] }}
-      enabled=1
-      gpgcheck=1
-      gpgkey=https://yum.dockerproject.org/gpg
-
-  when: ansible_distribution in ('CentOS', 'RedHat', 'Fedora')
+- name: Add Docker repository
+  apt_repository: repo="deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable" update_cache=yes
 
 - name: Install Docker
-  package: name=docker-engine
-
-- name: Install Docker Compose
-  pip: name=docker-compose state=latest
+  package: name={{ item }}
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
+    # python deps for ansible
+    - python3-docker
+    - docker-compose

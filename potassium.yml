@@ -1,0 +1,17 @@
+---
+- hosts: potassium
+  roles:
+    - base
+- hosts: potassium
+  become: yes
+  roles:
+    - openbox
+- hosts: potassium
+  become: yes
+  tasks:
+    - apt: deb=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt: pkg=firefox
+    - apt: pkg=vim
+    - snap: name=signal-desktop
+    - apt: pkg=librsvg2-bin
+    - apt: pkg=gimp

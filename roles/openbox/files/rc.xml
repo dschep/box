@@ -67,7 +67,7 @@
     <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
       <name>sans</name>
-      <size>8</size>
+      <size>16</size>
       <!-- font size in points -->
       <weight>bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -76,7 +76,7 @@
     </font>
     <font place="InactiveWindow">
       <name>sans</name>
-      <size>8</size>
+      <size>16</size>
       <!-- font size in points -->
       <weight>bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -360,7 +360,7 @@
     </keybind>
     <keybind key="S-A-Return">
       <action name="Execute">
-        <command>xfce4-terminal</command>
+        <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="C-A-l">
@@ -368,6 +368,7 @@
         <command>dm-tool lock</command>
       </action>
     </keybind>
+    <!--
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
 	<command>amixer set Master 5%- unmute</command>
@@ -393,6 +394,7 @@
 	<command>xbacklight +10</command>
       </action>
     </keybind>
+    -->
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
