@@ -192,12 +192,23 @@ if type -p thefuck &> /dev/null ; then
     eval $(thefuck --alias)
 fi
 
+VIM_CLIENT_SERVER_SUPPORT=""
+if type -p vim &> /dev/null ; then
+    if vim --version | grep -q +clientserver ; then
+        VIM_CLIENT_SERVER_SUPPORT=t
+    fi
+fi
+
 ## tmux layouts
 function vimux {
     if [[ "$TMUX" != "" ]]; then
         window_name=$(basename $PWD)
         tmux rename-window "$window_name"
-        tmux split-window -hb -p 50 vim --servername "$window_name"
+        if [[ "$VIM_CLIENT_SERVER_SUPPORT" = t ]]; then
+            tmux split-window -hb -p 50 vim --servername "$window_name"
+        else
+            tmux split-window -hb -p 50 vim
+        fi
         tmux select-pane -t 2
         tmux split-window -v -p 50
         tmux select-pane -t 1
@@ -209,7 +220,11 @@ function vimuxai {
     if [[ "$TMUX" != "" ]]; then
         window_name=$(basename $PWD)
         tmux rename-window "$window_name"
-        tmux split-window -hb -p 33 vim --servername "$window_name"
+        if [[ "$VIM_CLIENT_SERVER_SUPPORT" = t ]]; then
+            tmux split-window -hb -p 33 vim --servername "$window_name"
+        else
+            tmux split-window -hb -p 33 vim
+        fi
         tmux select-pane -t 2
         tmux split-window -h -p 50 claude
         tmux select-pane -t 2
