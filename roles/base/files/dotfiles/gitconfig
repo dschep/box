@@ -3,10 +3,10 @@
     email = dschep@gmail.com
 [includeIf "gitdir:~/code/onx/**"]
   path = ./.gitconfig-onx
-[includeIf "gitdir:~/code/trailstash/**"]
-  path = ./.gitconfig-trailstash
-[includeIf "gitdir:~/code/ourstreets/**"]
-  path = ./.gitconfig-ourstreets
+[includeIf "gitdir:~/go/src/github.com/onxmaps/**"]
+  path = ./.gitconfig-onx
+[includeIf "gitdir:~/go/src/github.com/onXmaps/**"]
+  path = ./.gitconfig-onx
 
 [color]
     diff = auto
@@ -27,6 +27,7 @@
     excludesfile = ~/.gitignore
 [push]
     default = simple
+    autoSetupRemote = true
 [help]
     autocorrect = 10
 [commit]

@@ -1,13 +1,6 @@
-# Ansible scripts provision a computer to my tastes
+# Minimal ansible script to provision a computer to my tastes
 
-Easily setup up a machine to my liking using ansible. Should work on
-recent-ish Ubuntu installs (14.04+) and upgrades Debian testing(stretch,
-currently) to unstable(sid).
-
-The included `site.yml` automatically only installs desktop packages when a GUI
-is present. Customization is straightforward with well(hopefully) separated
-roles.
-
+Ruthlessly trimmed down from 532993f
 
 ## Quick Install
 
@@ -36,11 +29,9 @@ that name to decide what to install.
 sudo apt install python-pip python-dev libssl-dev ansible
 ```
 #### macOS
+Using [Homebrew](https://brew.sh/)
 ```
-# manually run `git` to trigger xcode cli tool installation
-sudo easy_install pip
-sudo pip install ansible
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install ansible
 ```
 
 ### Quick install
@@ -48,18 +39,3 @@ This is what the quick install runs.
 ```
 ansible-playbook -i $HOSTNAME, site.yml
 ```
-
-### Install Secrets
-This installs any secrets that are encrypted with ansible-vault
-```
-ansible-playbook -i $HOSTNAME, --ask-vault-pass secrets.yml
-```
-
-### Vagrant
-A `Vagrantfile` is included that properly overrides a few options for easily setting up a development VM. This is useful for making crappy OSes(Windows/MacOS) usable. It includes a private hostonly interface for easy network connectivity. It has the IP `10.42.42.42` which is nice and easy to remember, It just requires setting up a host-only NIC in VBox in that subnet.
-
-### TODO
- - [ ] office
- - [ ] multimedia (creation, gimp, inkscape, etc)
- - [ ] multimedia (consume, mplayer, etc)
- - [ ] netstuff (tsocks, rdesktop)

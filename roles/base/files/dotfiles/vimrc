@@ -1,11 +1,5 @@
 set nocompatible
-filetype off
-
-"""
-""" hidden, for ctrl-space
-"""
-set hidden
-
+filetype off " turned back on later
 
 """
 """ vundle
@@ -23,26 +17,22 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'szw/vim-ctrlspace' " file mgmt
-Plugin 'tpope/vim-fugitive' " git
-Plugin 'Raimondi/delimitMate' " auto matching delimiter (),'',[],etc
-Plugin 'mileszs/ack.vim' " ack
-Plugin 'Lokaltog/vim-powerline' " pretty modeline
-Plugin 'gregsexton/MatchTag' " hilight matching html tags
-Plugin 'scrooloose/syntastic' " linting!
-"Plugin 'vim-scripts/Zenburn' " pretty colors!
-"Plugin 'lifepillar/vim-solarized8' " pretty colors!
+Plugin 'junegunn/fzf' " file mgmt
+Plugin 'junegunn/fzf.vim' " file mgmt
 Plugin 'morhetz/gruvbox' " pretty colors!
 Plugin 'scrooloose/nerdtree' " File browser
-Plugin 'embear/vim-localvimrc' " local vimrc files
-Plugin 'mattboehm/vim-accordion' " neat split folding
-" Filetypes
-Plugin 'fatih/vim-go'
-Plugin 'klen/python-mode'
-Plugin 'tpope/vim-markdown'
-Plugin 'vim-scripts/JSON.vim'
-Plugin 'isRuslan/vim-es6'
-Plugin 'mxw/vim-jsx'
+
+" LSP & autocomplete
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'mattn/vim-lsp-settings'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+
+" Autoformat
+Plugin 'vim-autoformat/vim-autoformat'
+
+" tmux integration
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 
@@ -51,6 +41,7 @@ if vundleInstalled == 1
     echo ""
     PluginInstall
 endif
+
 
 """
 """ Key mappings
@@ -63,20 +54,19 @@ tnoremap <ESC><ESC> <C-W>N
 set pastetoggle=<F2>
 " toggle line numberings with F3
 nnoremap <F3> :set number!<CR>
-" copy and paste to system clipboard
-noremap <A-y> "+y
-noremap <A-p> "+p
-noremap <A-P> "+P
-" make F5 save and execute script
-"   on unix: based off of its shebang line
-"   on windows: by opening it (works for .py etc)
-if has("unix")
-    nnoremap <F5> :exe("if match(getline(1),'^\#!')==0\nw\|exe('!'.getline(1)[2:].' %')\nen")<CR>
-elseif has("win32")
-    nnoremap <F5> :w\|!%<CR>
-endif
-nnoremap <silent><C-p> :CtrlSpace O<CR>
-nnoremap <silent><C-Space> :CtrlSpace<CR>
+
+"" plugins
+" fzf bindings
+nnoremap <silent><C-p> :Files<CR>
+nnoremap <silent><C-Space> :Buffers<CR>
+" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <C-w> <nop>
+nnoremap <silent><C-w>l :TmuxNavigateRight<cr>
+nnoremap <silent><C-w>j :TmuxNavigateDown<cr>
+nnoremap <silent><C-w>k :TmuxNavigateUp<cr>
+nnoremap <silent><C-w>h :TmuxNavigateLeft<cr>
+
 
 
 
@@ -104,19 +94,13 @@ set showmatch
 set t_Co=256
 " Syntax hilighting
 syn on
-" more syntax for python
-let python_highlight_all = 1
 " hilight search results
 set hlsearch
 " set terminal title
 set title
-" always show status line (for vim-powerline)
+" always show status line
 set laststatus=2
-" don't show mode (shown in vim-powerline)
-set noshowmode
-" Zenburrnn
-"colors zenburn
-" sozliarized :/
+" gruvbox colorscheme
 set background=dark
 colors gruvbox
 let g:gruvbox_contrast_light='light'
@@ -126,30 +110,40 @@ set cursorline
 if exists('+colorcolumn')
   set colorcolumn=+1
 endif
+" but use terminal background (for active pane higlighting in tmux)
+highlight Normal ctermbg=NONE guibg=NONE
+" and dim inactive splits to match tmux pane highlighting
+hi DimNormal ctermbg=237
+augroup ActiveWin | au!
+    au WinEnter * setl wincolor=
+    au WinLeave * setl wincolor=DimNormal
+augroup END
 
 
 """
-""" File Options
+""" File type Options
 """
-" full filetype detection
+" full file type detection
 filetype plugin indent on
 " use real tabs for makefiles
 autocmd BufNewFile,BufReadPost Makefile,makefile,*.mk setlocal noexpandtab
-" use 2 spaces for tabs in javascript
+" use 2 spaces for tabs in javascript/typescript/yaml
 autocmd BufNewFile,BufReadPost *.js setlocal tabstop=2 shiftwidth=2
+autocmd BufNewFile,BufReadPost *.ts setlocal tabstop=2 shiftwidth=2
+autocmd BufNewFile,BufReadPost *.yml setlocal tabstop=2 shiftwidth=2
+autocmd BufNewFile,BufReadPost *.yaml setlocal tabstop=2 shiftwidth=2
 " use 2 spaces for tabs in yaml
 autocmd BufNewFile,BufReadPost *.yaml,*.yml setlocal tabstop=2 shiftwidth=2
 " detect json files
 autocmd BufNewFile,BufReadPost *.json setlocal ft=json
 " detect markdown files
 autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
-autocmd BufNewFile,BufReadPost *.md setlocal spell
-autocmd BufNewFile,BufReadPost *.rst setlocal spell
-autocmd BufNewFile,BufReadPost *.txt setlocal spell
-autocmd BufNewFile,BufReadPost *.tex setlocal spell
-autocmd BufNewFile,BufReadPost *.latex setlocal spell
 " use modelines
 set modeline
+" JSX in JS files
+let g:jsx_ext_required = 0
+" more syntax for python
+let python_highlight_all = 1
 
 
 """
@@ -173,73 +167,13 @@ set encoding=utf-8
 if exists('+spellfile')
     set spellfile=~/.vim/spellfile.add
 endif
-
-
-"""
-""" gui options
-"""
-if has("gui_running")
-    " get rid of fluff (menu & toolbar)
-    set guioptions-=m
-    set guioptions-=T
-endif
-" set fonts
-set guifont=Hack
-
-
-
-""" Python
-" ignore pyc
-set wildignore+=*.pyc
-let NERDTreeIgnore = ['\.pyc$']
-
+" spell check
+set spell spelloptions=camel
+hi SpellBad cterm=underline
+syn spell toplevel
 
 
 """
 """ ENV customization
 """
 set cdpath=,~/code
-
-
-"""
-""" disable some pymode defaults
-"""
-let g:pymode_options=0
-let g:pymode_lint_cwindow=0
-let g:pymode_rope_completion=0
-let g:pymode_rope=0
-" all folds open by default
-set foldlevel=99
-
-"""
-""" NeoVim options for moving when in a :terminal
-"""
-if has("nvim")
-  tnoremap <Esc><Esc> <C-\><C-n>
-endif
-
-"""
-""" use ag for finding files with ctrl-space (respects gitignore, etc)
-"""
-if executable("ag")
-  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-
-"""
-""" local vimrc don't ask
-"""
-let g:localvimrc_ask=0
-
-"""
-""" JSX in JS files
-"""
-let g:jsx_ext_required = 0
-
-"""
-""" use vim-accordion with h splits & automagically
-"""
-let g:accordion_mode="h"
-
-
-""" shut up vim-go
-let g:go_version_warning = 0

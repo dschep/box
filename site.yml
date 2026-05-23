@@ -1,170 +1,36 @@
 ---
 - hosts: all
   roles:
+    - ansible_dep
     - base
 
-- hosts: ui,argon,chlorine
-  become: yes
-  roles:
-    - gnome
-    - build_dep
-    - python
-    - nodejs
-    - java
-    - devops
-    - os-docker
-    - portainer
-    - netsec
-      #- virt - wtf borked on 18.04?
-    - gui_util
-    - browsers
-    - util
-    - power
-    - git-repo
-      #- emoji
-    - signal
-    - qownnotes
-    - geo
-  tasks:
-    - package: name={{item}}
-      with_items:
-        - fonts-hack-otf
-        - magic-wormhole
-        - bats
-    - apt: deb='https://prerelease.keybase.io/keybase_amd64.deb'
 
-- hosts: ui #(old work)
-  become: yes
-  roles:
-    - "jupyter-notebook"
-    - peek
-    - flyway
-    - uihostname
-  tasks:
-    - package: name={{item}}
-      with_items:
-        - graphviz
-        - gufw
-        - tree
-        - gradle
-    - apt: deb='https://downloads.slack-edge.com/linux_releases/slack-desktop-3.2.1-amd64.deb'
-
-- hosts: argon
-  become: yes
-  tasks:
-    - package: name={{item}}
-      with_items:
-        - libgdal-dev
-        - calibre
-
-- hosts: chlorine
-  become: yes
-  tasks:
-    - package: name={{item}}
-      with_items:
-        - openssh-server
-        - exfat-fuse
-        - exfat-utils
-
-- hosts: vagrant
-  become: yes
-  roles:
-    - swapfile
-
-- hosts: penguin #chrome os linux container
-  become: yes
-  tasks:
-    - package: name={{item}}
-      with_items:
-        - firefox-esr
-        - keepassx
-        - xclip
-
-- hosts: MacBook-Pro.localdomain # old(sls)work mac
+- hosts: 005465.local # work mac
   become: no
-  roles:
-    - nodejs
-    - mac-python
   tasks:
-    - homebrew_cask: name={{ item }}
-      with_items:
-        - google-chrome
-        - firefox
-        - iterm2
-        - virtualbox
-        - keepassxc
-        - xquartz
-        - vagrant
-        - witch
-        - bettertouchtool
-        - meld
-        - keybase
-        - zoomus
-        - docker
-        - libreoffice
-    - homebrew: name={{ item }}
-      with_items:
-        - htop
-        - httpie
-        - jq
-        - pandoc
-        - magic-wormhole
-        - remind101/formulae/assume-role
-        - rlwrap
-        - the_silver_searcher
-        - thefuck
-          #- awscli #pip instaed
-          ##pipenv python3.7 pip isntall
-
-- hosts: ONXMAPS-L332.localdomain # work mac
-  become: no
-  #roles:
-  #  - nodejs
-  #  - mac-python
-  tasks:
-    - name: Tap a Homebrew repository, state present
-      community.general.homebrew_tap:
-        name: arusahni/git-req
     - homebrew_cask: name={{ item }}
       with_items:
         #- google-chrome # preinstalled
-        - firefox
+        #- firefox
         - iterm2
-        - virtualbox
-        - bettertouchtool
+        #- bettertouchtool
         - meld
-        - docker
         - google-cloud-sdk
-        - oracle-jdk
-        - dbeaver-comunity
-        - licecap
-        - caffeine
+        - dbeaver-community
         - inkscape
         - gimp
-        - vagrant
-        - lens
+        #- virtualbox
     - homebrew: name={{ item }}
       with_items:
+        - nvm # probably just use nvm role tho?
         - socat
         - htop
         - httpie
         - jq
-        #- pandoc
-        - magic-wormhole
-        - rlwrap
-        - the_silver_searcher
-        - thefuck
-        - nmap
-        - black
-        - vim
         - qgis
-        - git
-        - git-gui
         - gdal
         - tippecanoe
-        - thefuck
-        - git-req
-
-    - pip:
-      become: yes
-      name: ntfy
+    #- name: install ntfy
+    #  become: yes
+    #  community.general.pipx:
+    #    name: ntfy

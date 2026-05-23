@@ -15,3 +15,4 @@
     - snap: name=signal-desktop
     - apt: pkg=librsvg2-bin
     - apt: pkg=gimp
+    - apt: pkg=nvm

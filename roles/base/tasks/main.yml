@@ -2,7 +2,7 @@
   package: name={{ item }}
   become: yes
   with_items:
-    - screen
+    - tmux
     - vim
     - git
     - direnv
@@ -10,15 +10,17 @@
 - name: Install Base tools (mac)
   package: name={{ item }}
   with_items:
-    - bash
+    - tmux
+    - vim
+    - git
     - direnv
   become: no
   when: ansible_distribution == 'MacOSX'
-- file: path=~/.config state=directory
-  become: no
-- file: path=~/.config/nvim state=directory
-  become: no
+#- name: ensure ~/.config exits
+#  file: path=~/.config state=directory
+#  become: no
 - name: Install Base dotfiles
+  become: no
   copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
   with_items:
     - bashrc
@@ -28,9 +30,5 @@
     - gitignore
     - gitconfig
     - gitconfig-onx
-    - gitconfig-trailstash
-    - gitconfig-ourstreets
     - inputrc
-    - screenrc
-    - serverlessrc
-    - config/nvim/init.vim
+    - tmux.conf
