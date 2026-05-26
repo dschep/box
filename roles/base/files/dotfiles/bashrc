@@ -122,6 +122,10 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
     . /usr/bin/virtualenvwrapper.sh
 fi
 
+if [ -f ${XDG_CONFIG_HOME}/nvm/nvm.sh ]; then
+    . ${XDG_CONFIG_HOME}/nvm/nvm.sh
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 if [ -f ~/.nvm/nvm.sh ]; then
     . ~/.nvm/nvm.sh
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
