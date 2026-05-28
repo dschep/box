@@ -21,22 +21,22 @@ set -e
 
 PYDEV=""
 if [[ "$(uname)" = Darwin ]]; then
-    PKG=brew
+    PKG="brew install"
     if ! $(type -p brew &> /dev/null); then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 else
     if $(type -p apt &> /dev/null); then
-        PKG=apt
+        PKG="apt install"
         PYDEV="python-dev libssl-dev"
     elif $(type -p apt-get &> /dev/null); then
-        PKG=apt-get
+        PKG="apt-get install"
         PYDEV="python-dev libssl-dev"
     elif $(type -p dnf &> /dev/null); then
-        PKG=dnf
+        PKG="dnf install"
         PYDEV=python-devel
     elif $(type -p yum &> /dev/null); then
-        PKG=yum
+        PKG="yum install"
         PYDEV=python-devel
     elif $(type -p pacman &> /dev/null); then
         PKG="pacman -yS"
@@ -67,7 +67,7 @@ fi
 
 
 if ! type -p ansible-playbook &> /dev/null ; then
-    sudo $PKG install -y python-pip $PYDEV ansible
+    sudo $PKG -y python-pip $PYDEV ansible
 fi
 
 ansible-playbook -i $HOSTNAME, site.yml
