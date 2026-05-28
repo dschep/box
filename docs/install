@@ -39,7 +39,7 @@ else
         PKG="yum install"
         PYDEV=python-devel
     elif $(type -p pacman &> /dev/null); then
-        PKG="pacman -yS"
+        PKG="pacman -yS --noconfirm"
     else
         echo 'No known package manager found' >&2
         exit 1
