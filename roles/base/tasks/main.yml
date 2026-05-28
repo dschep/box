@@ -1,7 +1,8 @@
-- name: Install Base tools (linux)
+- name: Install Base tools
   package: name={{ item }}
   become: yes
   with_items:
+    - bash
     - tmux
     - vim
     - git
@@ -9,12 +10,13 @@
   when: ansible_facts['distribution'] != 'MacOSX'
 - name: Install Base tools (mac)
   package: name={{ item }}
+  become: no
   with_items:
+    - bash
     - tmux
     - vim
     - git
     - direnv
-  become: no
   when: ansible_facts['distribution'] == 'MacOSX'
 #- name: ensure ~/.config exits
 #  file: path=~/.config state=directory

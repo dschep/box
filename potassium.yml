@@ -1,18 +1,24 @@
 ---
 - hosts: potassium
-  roles:
-    - base
-- hosts: potassium
   become: yes
   roles:
+    - base
     - openbox
+    - atkinson_hyperlegible
+    - alacritty
 - hosts: potassium
   become: yes
   tasks:
-    - apt: deb=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - apt: pkg=firefox
-    - apt: pkg=vim
-    - snap: name=signal-desktop
-    - apt: pkg=librsvg2-bin
-    - apt: pkg=gimp
-    - apt: pkg=nvm
+    - name: symlink x-terminal-emulator to alacritty # because arch doesn't do alternates i guess?
+      ansible.builtin.file:
+        src: /usr/bin/alacritty
+        dest: /usr/bin/x-terminal-emulator
+        state: link
+    - package: name={{ item }}
+      with_items:
+        - gimp
+        - inkscape
+        - gimp
+        - firefox
+    - package: name={{ item }}
+        - nvm

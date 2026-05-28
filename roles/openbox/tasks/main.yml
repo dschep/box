@@ -3,13 +3,11 @@
   with_items:
     - openbox
     - dmenu
-    - xbacklight
-    - xcompmgr
 - file: path=~/.config/openbox state=directory
-  become_user: "{{ user }}"
+  become: no
 - name: Install openbox dotfiles
-  become_user: "{{ user }}"
+  become: no
   copy: src=rc.xml dest=~/.config/openbox/rc.xml
 - name: Install openbox dotfiles for lubuntu
-  become_user: "{{ user }}"
+  become: no
   copy: src=rc.xml dest=~/.config/openbox/lubuntu-rc.xml

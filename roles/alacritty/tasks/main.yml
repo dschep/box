@@ -1,0 +1,6 @@
+- name: Install alacritty
+  become: yes
+  package: name=alacritty
+- name: Install alacritty config
+  become: no
+  copy: src=alacritty.toml dest=~/.alacritty.toml
