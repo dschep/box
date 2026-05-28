@@ -6,7 +6,7 @@
     - vim
     - git
     - direnv
-  when: ansible_distribution != 'MacOSX'
+  when: ansible_facts['distribution'] != 'MacOSX'
 - name: Install Base tools (mac)
   package: name={{ item }}
   with_items:
@@ -15,7 +15,7 @@
     - git
     - direnv
   become: no
-  when: ansible_distribution == 'MacOSX'
+  when: ansible_facts['distribution'] == 'MacOSX'
 #- name: ensure ~/.config exits
 #  file: path=~/.config state=directory
 #  become: no
