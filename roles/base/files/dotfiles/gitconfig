@@ -1,6 +1,7 @@
 [user]
     name = Daniel Schep
     email = dschep@gmail.com
+    signingkey = ~/.ssh/id_rsa
 [includeIf "gitdir:~/code/onx/**"]
   path = ./.gitconfig-onx
 [includeIf "gitdir:~/go/src/github.com/onxmaps/**"]
