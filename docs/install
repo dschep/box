@@ -2,8 +2,7 @@
 
 #
 # Easily setup up a machine to my liking using ansible. Should work on
-# recent-ish Ubuntu installs (14.04+) and upgrades Debian testing(stretch,
-# currently) to unstable(sid)
+# recent Ubuntu, Debian, Fedora, & MacOS
 #
 # curl https://dschep.github.io/box/install | bash
 # or
@@ -20,21 +19,29 @@
 
 set -e
 
-if $(type -p apt &> /dev/null); then
-    PKG=apt
-    PYDEV="python-dev libssl-dev"
-elif $(type -p apt-get &> /dev/null); then
-    PKG=apt-get
-    PYDEV="python-dev libssl-dev"
-elif $(type -p dnf &> /dev/null); then
-    PKG=dnf
-    PYDEV=python-devel
-elif $(type -p yum &> /dev/null); then
-    PKG=yum
-    PYDEV=python-devel
+if [[ "$(uname)" = Darwin ]]; then
+    PKG=brew
+    PYDEV=""
+    if ! $(type -p brew &> /dev/null); then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 else
-    echo 'No known package manager found' >&2
-    exit 1
+    if $(type -p apt &> /dev/null); then
+        PKG=apt
+        PYDEV="python-dev libssl-dev"
+    elif $(type -p apt-get &> /dev/null); then
+        PKG=apt-get
+        PYDEV="python-dev libssl-dev"
+    elif $(type -p dnf &> /dev/null); then
+        PKG=dnf
+        PYDEV=python-devel
+    elif $(type -p yum &> /dev/null); then
+        PKG=yum
+        PYDEV=python-devel
+    else
+        echo 'No known package manager found' >&2
+        exit 1
+    fi
 fi
 
 if [[ $1 == --git-* ]]; then
@@ -47,12 +54,12 @@ else
     if [ "$(type -P wget)" ]; then
         cmd='wget -qO-'
     elif [ "$(type -P curl)" ]; then
-        cmd='curl -s'
+        cmd='curl -sL'
     else
         echo "No download tool found. Install curl or wget."1>&2
     fi
     
-    $cmd https://github.com/dschep/box/archive/${1-master}.tar.gz | tar xz
+    $cmd https://github.com/dschep/box/archive/refs/heads/${1-master}.tar.gz | tar xz
     cd box-${1-master}
 fi
 
@@ -65,8 +72,7 @@ ansible-playbook -i $HOSTNAME, site.yml
 
 # Repeating doc at bottom for easy reading when cURLing
 # Easily setup up a machine to my liking using ansible. Should work on
-# recent-ish Ubuntu installs (14.04+) and upgrades Debian testing(stretch,
-# currently) to unstable(sid)
+# recent Ubuntu, Debian, Fedora, & MacOS
 #
 # curl https://dschep.github.io/box/install | bash
 # or
