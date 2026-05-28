@@ -12,7 +12,7 @@
       with_items:
         #- google-chrome # preinstalled
         #- firefox
-        - iterm2
+        - ghostty
         #- bettertouchtool
         - meld
         - google-cloud-sdk
