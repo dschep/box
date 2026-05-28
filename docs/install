@@ -67,7 +67,7 @@ fi
 
 
 if ! type -p ansible-playbook &> /dev/null ; then
-    sudo $PKG -y python-pip $PYDEV ansible
+    sudo $PKG -y python-pip $PYDEV ansible --ask-become-pass
 fi
 
 ansible-playbook -i $HOSTNAME, site.yml

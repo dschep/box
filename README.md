@@ -37,5 +37,5 @@ brew install ansible
 ### Quick install
 This is what the quick install runs.
 ```
-ansible-playbook -i $HOSTNAME, site.yml
+ansible-playbook -i $HOSTNAME, site.yml --ask-become-pass
 ```
