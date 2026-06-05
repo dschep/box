@@ -113,7 +113,7 @@ endif
 " but use terminal background (for active pane higlighting in tmux)
 highlight Normal ctermbg=NONE guibg=NONE
 " and dim inactive splits to match tmux pane highlighting
-hi DimNormal ctermbg=237 ctermfg=247
+hi DimNormal ctermbg=237
 augroup ActiveWin | au!
     au WinEnter * setl wincolor=
     au WinLeave * setl wincolor=DimNormal
