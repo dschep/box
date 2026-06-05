@@ -5,6 +5,7 @@
     - base
     - atkinson_hyperlegible
     - alacritty
+    - nvm
 - hosts: potassium
   become: yes
   tasks:
@@ -14,9 +15,6 @@
         - inkscape
         - gimp
         - firefox
-    - package: name={{ item }}
-      with_items:
-        - nvm
     # kde settings
     # focus follows mouse, 100ms
     # virtual desktops & shortcuts
