@@ -130,6 +130,10 @@ if [ -f ~/.nvm/nvm.sh ]; then
     . ~/.nvm/nvm.sh
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
+if [ -f /usr/share/nvm/nvm.sh ]; then
+    . /usr/share/nvm/nvm.sh
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 if [ -f /opt/homebrew/opt/nvm/nvm.sh ]; then
     . /opt/homebrew/opt/nvm/nvm.sh
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
