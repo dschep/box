@@ -67,10 +67,10 @@ fi
 
 
 if ! type -p ansible-playbook &> /dev/null ; then
-    sudo $PKG -y python-pip $PYDEV ansible --ask-become-pass
+    sudo $PKG -y python-pip $PYDEV ansible
 fi
 
-ansible-playbook -i $HOSTNAME, site.yml
+ansible-playbook -i $HOSTNAME, site.yml --ask-become-pass
 
 # Repeating doc at bottom for easy reading when cURLing
 # Easily setup up a machine to my liking using ansible. Should work on
