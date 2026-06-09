@@ -1,7 +1,8 @@
 ---
 - hosts: all
   roles:
-    - base
+    - dotfiles
+    - base_utils
 
 
 - hosts: 005465.local # work mac

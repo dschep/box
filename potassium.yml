@@ -2,7 +2,8 @@
 - hosts: potassium
   become: yes
   roles:
-    - base
+    - dotfiles
+    - base_utils
     - atkinson_hyperlegible
     - alacritty
 - hosts: potassium
