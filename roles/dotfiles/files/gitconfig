@@ -1,7 +1,15 @@
+# user basics
 [user]
     name = Daniel Schep
     email = dschep@gmail.com
+# sign with ssh
     signingkey = ~/.ssh/id_rsa
+[commit]
+    gpgsign = true
+[gpg]
+	format = ssh
+
+# path-based configs
 [includeIf "gitdir:~/code/onx/**"]
   path = ./.gitconfig-onx
 [includeIf "gitdir:~/go/src/github.com/onxmaps/**"]
@@ -9,10 +17,8 @@
 [includeIf "gitdir:~/go/src/github.com/onXmaps/**"]
   path = ./.gitconfig-onx
 
-[color]
-    diff = auto
-    status = auto
-    branch = auto
+
+# diff/meld config
 [diff]
     tool = meld
 [merge]
@@ -21,18 +27,42 @@
     prompt = false
 [mergetool]
     prompt = false
+
+# aliases
 [alias]
     stat = status -sb
 
-[core]
-    excludesfile = ~/.gitignore
+# some defaults
 [push]
     default = simple
     autoSetupRemote = true
 [help]
     autocorrect = 10
-[commit]
-    gpgsign = false
+[pull]
+	rebase = false
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+
+# add a global gitignore
+[core]
+    excludesfile = ~/.gitignore
+
+
+# @glyph said do this: https://web.archive.org/web/20210211200206/https://twitter.com/glyph/status/1359955841810530304
+[protocol "http"]
+allow = never
+[protocol "git"]
+allow = never
+[fetch]
+        fsckObjects = true
+[transfer]
+        fsckObjects = true
+[receive]
+        fsckObjects = true
+
+# URL shortcuts
 [url "git@github.com:"]
     insteadOf = github:
 [url "git@github.com:"]
@@ -45,18 +75,3 @@
     insteadOf = bitbucket:
 [url "git@bitbucket.com:"]
     insteadOf = bb:
-[pull]
-	rebase = false
-
-
-# @glyph said do this: https://twitter.com/mitsuhiko/status/1360301205449228288
-[protocol "http"]
-allow = never
-[protocol "git"]
-allow = never
-[fetch]
-        fsckObjects = true
-[transfer]
-        fsckObjects = true
-[receive]
-        fsckObjects = true
