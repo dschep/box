@@ -3,6 +3,7 @@
   become: yes
   with_items:
     - bash
+    - zsh
     - tmux
     - vim
     - git
