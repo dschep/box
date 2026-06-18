@@ -145,25 +145,21 @@ fi
 ## tmux layouts
 function vimux {
     if [[ "$TMUX" != "" ]]; then
+        local ratio
+        local window_name
+        ratio=50
+        if [[ "$1" != "" ]]; then
+            ratio=33
+        fi
         window_name=$(basename $PWD)
         tmux rename-window "$window_name"
-        tmux split-window -hb -p 50 vim
+        tmux split-window -hb -p $ratio vim
+        tmux select-pane -t 2
+        if [[ "$1" != "" ]]; then
+            tmux split-window -h -p 50 $1
+        fi
         tmux select-pane -t 2
         tmux split-window -v -p 50
-        tmux select-pane -t 1
-    else
-        echo "this function must be run from a shell inside of a tmux session"
-    fi
-}
-function vimuxai {
-    if [[ "$TMUX" != "" ]]; then
-        window_name=$(basename $PWD)
-        tmux rename-window "$window_name"
-        tmux split-window -hb -p 33 vim
-        tmux select-pane -t 2
-        tmux split-window -h -p 50 claude
-        tmux select-pane -t 2
-        tmux split-window -vb -p 50
         tmux select-pane -t 1
     else
         echo "this function must be run from a shell inside of a tmux session"
