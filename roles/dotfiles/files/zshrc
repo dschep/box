@@ -1,53 +1,50 @@
 # vim: tw=0
 
 # do nothing for noninteractive environments
-#[ -z "$PS1" ] && return
-[[ $- != *i* ]] && return
+[[ -o interactive ]] || return
 
+function _has_command {
+    (( $+commands[$1] ))
+}
 
 ###choose editor
-if type -P vim &> /dev/null; then
+if _has_command vim; then
     export EDITOR=vim
-elif type -P vi &> /dev/null; then
+elif _has_command vi; then
     export EDITOR=vi
 else
     echo 'Vi/Vim not found, EDITOR not set'
 fi
 
 ###choose pager
-if type -P less &> /dev/null; then
+if _has_command less; then
     export PAGER=less
 else
     export PAGER=more
 fi
 
 ###ubuntu calls ack ack-grep
-if type -P ack-grep &> /dev/null; then
+if _has_command ack-grep; then
     alias ack=ack-grep
 fi
 
 #### gnome 256 colors
-if [ "$COLORTERM" == "gnome-terminal" ]; then
+if [[ "$COLORTERM" == "gnome-terminal" ]]; then
     export TERM="xterm-256color"
 fi
 
-
 #### Vi mode & emacs-style clear
-set -o vi
-bind -m vi-insert "\C-l":clear-screen
+bindkey -v
+bindkey -M viins '^L' clear-screen
 
-#### bash4 ** support
-bash --version | grep 'version 4' && shopt -s globstar
-
-# bash completion
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
+#### zsh completion
+autoload -Uz compinit
+compinit
 
 #for ls:
-type -p dircolors > /dev/null && eval $(dircolors -b)
-
+if _has_command dircolors; then
+    eval "$(dircolors -b)"
+fi
 
 #date utilities
 alias today='date +%F'
@@ -59,7 +56,7 @@ alias dotenv='eval $(sed -e "s/^/export /" .env|tr "\n" ";")'
 #default behaviours
 alias grep='grep --color=auto'
 alias df='df -h'
-if ls --version 2> /dev/null | grep GNU > /dev/null; then
+if command ls --version 2> /dev/null | grep GNU > /dev/null; then
     alias ls='ls --indicator-style=slash --human-readable --ignore-backups --color=auto --time-style=long-iso'
 else
     alias ls='ls -p -h -G'
@@ -72,7 +69,7 @@ alias cd..='cd ..'
 alias ll='ls -l'
 alias la='ls -la'
 
-if [ $(type -p dtrx) ]; then
+if _has_command dtrx; then
     alias x=dtrx
 else
     alias x='tar xvf'
@@ -80,19 +77,20 @@ fi
 
 # simple way to do reverse ssh tunnels
 function rssh-proxy () {
-    host=${2%:*}
-    rport=${2#*:}
+    local host=${2%:*}
+    local rport=${2#*:}
     ssh -R 0.0.0.0:$rport:127.0.0.1:$1 $host "echo tunnel available at $2&&cat"
 }
 
 ## docker-compose shortcuts
 function dc {
-  COMPOSE_FILE=$(sed -ne 's/^COMPOSE_FILE=//p' .env)
+  local compose_file
+  compose_file=$(sed -ne 's/^COMPOSE_FILE=//p' .env)
 
-  if [ -z "${COMPOSE_FILE}" ]; then
+  if [[ -z "${compose_file}" ]]; then
     docker compose "$@"
   else
-    docker compose -f "${COMPOSE_FILE}" "$@"
+    docker compose -f "${compose_file}" "$@"
   fi
 }
 function dcswap {
@@ -103,96 +101,114 @@ function dcr {
 }
 
 # node's shell is the fucking worst.
-if type -p rlwrap &> /dev/null ; then
+if _has_command rlwrap ; then
     alias node='env NODE_NO_READLINE=1 rlwrap node'
 fi
 
-PATH=$PATH:~/.local/bin
+path+=("$HOME/.local/bin")
+typeset -U path
+export PATH
 export CDPATH=$HOME/code
 
-if [ -f ~/.bashrc.local_ext ]; then
-    . ~/.bashrc.local_ext
+if [[ -f ~/.zshrc.local_ext ]]; then
+    . ~/.zshrc.local_ext
 fi
 
-if [ -f ~/.bashrc.$HOSTNAME ]; then
-    . ~/.bashrc.$HOSTNAME
+_dschep_host=${HOSTNAME:-$HOST}
+if [[ -f "$HOME/.zshrc.$_dschep_host" ]]; then
+    . "$HOME/.zshrc.$_dschep_host"
 fi
+unset _dschep_host
 
-if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
     . /usr/bin/virtualenvwrapper.sh
 fi
 
-if [ -f ${XDG_CONFIG_HOME}/nvm/nvm.sh ]; then
-    . ${XDG_CONFIG_HOME}/nvm/nvm.sh
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+_dschep_bashcompinit_loaded=0
+function dschep_load_bash_completion {
+    local completion_file="$1"
+
+    [[ -s "$completion_file" ]] || return
+
+    if [[ "$_dschep_bashcompinit_loaded" -eq 0 ]]; then
+        autoload -Uz bashcompinit
+        bashcompinit
+        _dschep_bashcompinit_loaded=1
+    fi
+
+    . "$completion_file"
+}
+
+function dschep_source_nvm {
+    local nvm_sh="$1"
+
+    [[ -f "$nvm_sh" ]] || return
+
+    . "$nvm_sh"
+    dschep_load_bash_completion "$NVM_DIR/bash_completion"
+}
+
+if [[ -n "$XDG_CONFIG_HOME" ]]; then
+    dschep_source_nvm "$XDG_CONFIG_HOME/nvm/nvm.sh"
 fi
-if [ -f ~/.nvm/nvm.sh ]; then
-    . ~/.nvm/nvm.sh
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-if [ -f /usr/share/nvm/nvm.sh ]; then
-    . /usr/share/nvm/nvm.sh
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-if [ -f /opt/homebrew/opt/nvm/nvm.sh ]; then
-    . /opt/homebrew/opt/nvm/nvm.sh
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-if [ -f "$HOME/.cargo/env" ]; then
+dschep_source_nvm "$HOME/.nvm/nvm.sh"
+dschep_source_nvm "/usr/share/nvm/nvm.sh"
+dschep_source_nvm "/opt/homebrew/opt/nvm/nvm.sh"
+
+if [[ -f "$HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
 fi
 
 HISTSIZE=9000
-HISTFILESIZE=$HISTSIZE
-HISTCONTROL=ignorespace:ignoredups
+SAVEHIST=$HISTSIZE
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+setopt hist_ignore_space
+setopt hist_ignore_dups
+setopt no_nomatch
 
+_dschep_prompt_userhost=''
+if [[ -n "$SSH_CONNECTION" || "$EUID" -eq 0 ]] || { [[ -r /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup 2>/dev/null; }; then
+    _dschep_prompt_userhost='%n@%m'
+fi
+
+setopt prompt_subst
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr '%F{magenta}'
+zstyle ':vcs_info:git:*' unstagedstr '%F{magenta}'
+zstyle ':vcs_info:git:*' formats ' %F{green}%c%u%b%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{magenta}%b|%a%f'
 
 function dschep_prompt_command {
-    PROMPT_ERROR=$?
-    if [ "$PROMPT_ERROR" -ne "0" ]; then
-        PROMPT_ERROR=" $PROMPT_ERROR"
-    else
-        PROMPT_ERROR=
-    fi
-    echo -ne "\033]0;$USER@$HOSTNAME:${PWD/#$HOME/\~}\007" # set terminal title
-    PROMPT_BRANCH="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')" 
-    if ! [ "$PROMPT_BRANCH" == "" ]; then
-        PROMPT_BRANCH=" $PROMPT_BRANCH"
-        if !  git status 2>&1| grep -e "modified:" -e  "Your branch is ahead of" -e "new file:"  -e "rename:" -e "deleted:" &> /dev/null; then
-            PROMPT_BRANCH_COLOR=$(tput setaf 2)
-        else
-            PROMPT_BRANCH_COLOR=$(tput setaf 5)
-        fi
-    fi
+    print -Pn "\e]0;%n@%m:%~\a"
+    vcs_info
 }
-if ! [ "$SSH_CONNECTION" == "" ] || [ "$(id -u)" -eq 0 ] || grep docker /proc/1/cgroup &> /dev/null ; then
-    PROMPT_USERHOST='\u@\h'
-fi
-PROMPT_COMMAND='dschep_prompt_command;'
-PS1="[\[$(tput sgr0;[ "$(id -u)" -eq 0 ] && tput setaf 1 || tput setaf 2)\]$PROMPT_USERHOST:\[$(tput sgr0;tput bold)\]\W\[$(tput sgr0)\]]\
-\[\$PROMPT_BRANCH_COLOR\]\$PROMPT_BRANCH\
-\[$(tput setaf 5)\]\$PROMPT_ERROR\
-\[$(tput sgr0)\] \[$(tput bold)\]\\$\\[$(tput sgr0)\] "
 
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd dschep_prompt_command
 
-if type -p direnv &> /dev/null ; then
-    eval "$(direnv hook bash)"
+PROMPT='[%(!.%F{red}.%F{green})${_dschep_prompt_userhost}:%f%B%1~%b]${vcs_info_msg_0_}%F{magenta}%(?.. %?)%f %B%#%b '
+
+if _has_command direnv ; then
+    eval "$(direnv hook zsh)"
 fi
-#if type -p ntfy &> /dev/null ; then
+#if _has_command ntfy ; then
 #    eval "$(ntfy shell-integration)"
 #fi
 
 ## fucking brew
-if [ -f /opt/homebrew/bin/brew ]; then
+if [[ -f /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-if type -p thefuck &> /dev/null ; then
-    eval $(thefuck --alias)
+if _has_command thefuck ; then
+    eval "$(thefuck --alias)"
 fi
 
 VIM_CLIENT_SERVER_SUPPORT=""
-if type -p vim &> /dev/null ; then
+if _has_command vim ; then
     if vim --version | grep -q +clientserver ; then
         VIM_CLIENT_SERVER_SUPPORT=t
     fi
@@ -201,6 +217,7 @@ fi
 ## tmux layouts
 function vimux {
     if [[ "$TMUX" != "" ]]; then
+        local window_name
         window_name=$(basename $PWD)
         tmux rename-window "$window_name"
         if [[ "$VIM_CLIENT_SERVER_SUPPORT" = t ]]; then
@@ -217,6 +234,7 @@ function vimux {
 }
 function vimuxai {
     if [[ "$TMUX" != "" ]]; then
+        local window_name
         window_name=$(basename $PWD)
         tmux rename-window "$window_name"
         if [[ "$VIM_CLIENT_SERVER_SUPPORT" = t ]]; then
@@ -235,20 +253,17 @@ function vimuxai {
 }
 ## vim-tmux shortcut
 function vmux {
+    local window_name
     window_name=$(basename $PWD)
     vim --servername "$window_name" --remote "$@"
     tmux list-panes -F "#{pane_index} #{pane_current_command}" | grep -Ei "vim" | awk '{print $1}' | xargs -I % tmux select-pane -t %
 }
 function vmux-send {
+    local window_name
     window_name=$(basename $PWD)
     vim --servername "$window_name" --remote-send "$@"
     tmux list-panes -F "#{pane_index} #{pane_current_command}" | grep -Ei "vim" | awk '{print $1}' | xargs -I % tmux select-pane -t %
 }
-
-
-
-# fucking macOS
-export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # stupid new docker compose
 export COMPOSE_MENU=false
