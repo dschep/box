@@ -15,6 +15,9 @@
         - inkscape
         - gimp
         - firefox
+        - just
+        - httpie
+        - docker
     # kde settings
     # focus follows mouse, 100ms
     # virtual desktops & shortcuts
