@@ -21,17 +21,6 @@ else
     export PAGER=more
 fi
 
-###ubuntu calls ack ack-grep
-if type -P ack-grep &> /dev/null; then
-    alias ack=ack-grep
-fi
-
-#### gnome 256 colors
-if [ "$COLORTERM" == "gnome-terminal" ]; then
-    export TERM="xterm-256color"
-fi
-
-
 #### Vi mode & emacs-style clear
 set -o vi
 bind -m vi-insert "\C-l":clear-screen
@@ -72,40 +61,13 @@ alias cd..='cd ..'
 alias ll='ls -l'
 alias la='ls -la'
 
-if [ $(type -p dtrx) ]; then
-    alias x=dtrx
-else
-    alias x='tar xvf'
-fi
-
-# simple way to do reverse ssh tunnels
-function rssh-proxy () {
-    host=${2%:*}
-    rport=${2#*:}
-    ssh -R 0.0.0.0:$rport:127.0.0.1:$1 $host "echo tunnel available at $2&&cat"
-}
-
 ## docker-compose shortcuts
 function dc {
-  COMPOSE_FILE=$(sed -ne 's/^COMPOSE_FILE=//p' .env)
-
-  if [ -z "${COMPOSE_FILE}" ]; then
-    docker compose "$@"
-  else
-    docker compose -f "${COMPOSE_FILE}" "$@"
-  fi
-}
-function dcswap {
-    sed -i '' -e "s/^COMPOSE_FILE=.*/COMPOSE_FILE=$1/" .env
+  docker compose "$@"
 }
 function dcr {
     dc run --rm "$@"
 }
-
-# node's shell is the fucking worst.
-if type -p rlwrap &> /dev/null ; then
-    alias node='env NODE_NO_READLINE=1 rlwrap node'
-fi
 
 PATH=$PATH:~/.local/bin
 export CDPATH=$HOME/code
@@ -174,24 +136,10 @@ PS1="[\[$(tput sgr0;[ "$(id -u)" -eq 0 ] && tput setaf 1 || tput setaf 2)\]$PROM
 if type -p direnv &> /dev/null ; then
     eval "$(direnv hook bash)"
 fi
-#if type -p ntfy &> /dev/null ; then
-#    eval "$(ntfy shell-integration)"
-#fi
 
 ## fucking brew
 if [ -f /opt/homebrew/bin/brew ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-if type -p thefuck &> /dev/null ; then
-    eval $(thefuck --alias)
-fi
-
-VIM_CLIENT_SERVER_SUPPORT=""
-if type -p vim &> /dev/null ; then
-    if vim --version | grep -q +clientserver ; then
-        VIM_CLIENT_SERVER_SUPPORT=t
-    fi
 fi
 
 ## tmux layouts
@@ -199,11 +147,7 @@ function vimux {
     if [[ "$TMUX" != "" ]]; then
         window_name=$(basename $PWD)
         tmux rename-window "$window_name"
-        if [[ "$VIM_CLIENT_SERVER_SUPPORT" = t ]]; then
-            tmux split-window -hb -p 50 vim --servername "$window_name"
-        else
-            tmux split-window -hb -p 50 vim
-        fi
+        tmux split-window -hb -p 50 vim
         tmux select-pane -t 2
         tmux split-window -v -p 50
         tmux select-pane -t 1
@@ -215,11 +159,7 @@ function vimuxai {
     if [[ "$TMUX" != "" ]]; then
         window_name=$(basename $PWD)
         tmux rename-window "$window_name"
-        if [[ "$VIM_CLIENT_SERVER_SUPPORT" = t ]]; then
-            tmux split-window -hb -p 33 vim --servername "$window_name"
-        else
-            tmux split-window -hb -p 33 vim
-        fi
+        tmux split-window -hb -p 33 vim
         tmux select-pane -t 2
         tmux split-window -h -p 50 claude
         tmux select-pane -t 2
@@ -229,19 +169,6 @@ function vimuxai {
         echo "this function must be run from a shell inside of a tmux session"
     fi
 }
-## vim-tmux shortcut
-function vmux {
-    window_name=$(basename $PWD)
-    vim --servername "$window_name" --remote "$@"
-    tmux list-panes -F "#{pane_index} #{pane_current_command}" | grep -Ei "vim" | awk '{print $1}' | xargs -I % tmux select-pane -t %
-}
-function vmux-send {
-    window_name=$(basename $PWD)
-    vim --servername "$window_name" --remote-send "$@"
-    tmux list-panes -F "#{pane_index} #{pane_current_command}" | grep -Ei "vim" | awk '{print $1}' | xargs -I % tmux select-pane -t %
-}
-
-
 
 # fucking macOS
 export BASH_SILENCE_DEPRECATION_WARNING=1
