@@ -36,6 +36,7 @@ fi
 #### Vi mode & emacs-style clear
 bindkey -v
 bindkey -M viins '^L' clear-screen
+bindkey -M viins '^R' history-incremental-search-backward
 
 #### zsh completion
 autoload -Uz compinit
