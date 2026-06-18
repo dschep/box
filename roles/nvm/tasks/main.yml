@@ -1,3 +1,3 @@
 - name: Install NVM
-  become_user: "{{ user }}"
+  become: no
   git: repo=https://github.com/creationix/nvm.git dest=~/.nvm update=no
