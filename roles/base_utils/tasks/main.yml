@@ -18,19 +18,3 @@
     - git
     - direnv
   when: ansible_facts['distribution'] == 'MacOSX'
-#- name: ensure ~/.config exits
-#  file: path=~/.config state=directory
-#  become: no
-- name: Install Base dotfiles
-  become: no
-  copy: src=dotfiles/{{ item }} dest=~/.{{ item }}
-  with_items:
-    - bashrc
-    - bash_profile
-    - bash_logout
-    - vimrc
-    - gitignore
-    - gitconfig
-    - gitconfig-onx
-    - inputrc
-    - tmux.conf
