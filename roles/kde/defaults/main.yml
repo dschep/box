@@ -1,0 +1,44 @@
+---
+# Default settings for the KDE configuration role
+
+kde_backup_configs: yes
+
+kde_focus_policy: FocusFollowsMouse
+kde_delay_focus: "true"
+kde_delay_focus_interval: 100
+
+kde_virtual_desktops_count: 9
+
+kde_window_modifier_key: Alt
+
+kde_terminal_application: alacritty
+kde_terminal_service: alacritty.desktop
+
+kde_font_family: "Atkinson Hyperlegible"
+kde_font_general: "{{ kde_font_family }},10,-1,5,50,0,0,0,0,0"
+kde_font_desktop: "{{ kde_font_family }},10,-1,5,50,0,0,0,0,0"
+kde_font_toolbar: "{{ kde_font_family }},10,-1,5,50,0,0,0,0,0"
+kde_font_menu: "{{ kde_font_family }},10,-1,5,50,0,0,0,0,0"
+kde_font_smallest_readable: "{{ kde_font_family }},8,-1,5,50,0,0,0,0,0"
+kde_font_active: "{{ kde_font_family }},10,-1,5,50,0,0,0,0,0"
+
+# Shortcuts
+kde_shortcut_close_window: "Alt+Shift+C,none,Close Window"
+kde_shortcut_maximize_window: "Alt+F,none,Maximize Window"
+kde_shortcut_krunner_run: "Alt+P,none,Run Command"
+kde_shortcut_krunner_launch_1: "Alt+P"
+kde_shortcut_krunner_launch_2: "Alt+P,none,KRunner"
+kde_shortcut_terminal_launch_1: "Alt+Shift+Return,none,Alacritty"
+kde_shortcut_terminal_launch_2: "Alt+Shift+Return,none,Alacritty"
+
+# Shift symbols map for desktop shortcuts
+kde_shift_symbols:
+  1: "!"
+  2: "@"
+  3: "#"
+  4: "$"
+  5: "%"
+  6: "^"
+  7: "&"
+  8: "*"
+  9: "("

@@ -1,0 +1,71 @@
+---
+- name: Ensure ~/.config directory exists
+  become: no
+  file:
+    path: ~/.config
+    state: directory
+    mode: '0755'
+
+- name: Configure general KDE settings
+  become: no
+  ini_file:
+    path: "~/.config/{{ item.file }}"
+    section: "{{ item.group }}"
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+    backup: "{{ kde_backup_configs }}"
+    create: yes
+  loop:
+    # kwinrc settings
+    - { file: 'kwinrc', group: 'Windows', key: 'FocusPolicy', value: '{{ kde_focus_policy }}' }
+    - { file: 'kwinrc', group: 'Windows', key: 'DelayFocus', value: '{{ kde_delay_focus }}' }
+    - { file: 'kwinrc', group: 'Windows', key: 'DelayFocusInterval', value: '{{ kde_delay_focus_interval }}' }
+    - { file: 'kwinrc', group: 'Desktops', key: 'Number', value: '{{ kde_virtual_desktops_count }}' }
+    - { file: 'kwinrc', group: 'VirtualDesktops', key: 'Number', value: '{{ kde_virtual_desktops_count }}' }
+    - { file: 'kwinrc', group: 'MouseBindings', key: 'CommandAllKey', value: '{{ kde_window_modifier_key }}' }
+    # kdeglobals settings
+    - { file: 'kdeglobals', group: 'General', key: 'TerminalApplication', value: '{{ kde_terminal_application }}' }
+    - { file: 'kdeglobals', group: 'General', key: 'TerminalService', value: '{{ kde_terminal_service }}' }
+    - { file: 'kdeglobals', group: 'General', key: 'font', value: '{{ kde_font_general }}' }
+    - { file: 'kdeglobals', group: 'General', key: 'desktopFont', value: '{{ kde_font_desktop }}' }
+    - { file: 'kdeglobals', group: 'General', key: 'toolBarFont', value: '{{ kde_font_toolbar }}' }
+    - { file: 'kdeglobals', group: 'General', key: 'menuFont', value: '{{ kde_font_menu }}' }
+    - { file: 'kdeglobals', group: 'General', key: 'smallestReadableFont', value: '{{ kde_font_smallest_readable }}' }
+    - { file: 'kdeglobals', group: 'WM', key: 'activeFont', value: '{{ kde_font_active }}' }
+    # kglobalshortcutsrc settings
+    - { file: 'kglobalshortcutsrc', group: 'kwin', key: 'Window Close', value: '{{ kde_shortcut_close_window }}' }
+    - { file: 'kglobalshortcutsrc', group: 'kwin', key: 'Window Maximize', value: '{{ kde_shortcut_maximize_window }}' }
+    - { file: 'kglobalshortcutsrc', group: 'krunner', key: 'run command', value: '{{ kde_shortcut_krunner_run }}' }
+    - { file: 'kglobalshortcutsrc', group: 'krunner.desktop', key: '_launch', value: '{{ kde_shortcut_krunner_launch_1 }}' }
+    - { file: 'kglobalshortcutsrc', group: 'org.kde.krunner.desktop', key: '_launch', value: '{{ kde_shortcut_krunner_launch_2 }}' }
+    - { file: 'kglobalshortcutsrc', group: 'alacritty.desktop', key: '_launch', value: '{{ kde_shortcut_terminal_launch_1 }}' }
+    - { file: 'kglobalshortcutsrc', group: 'Alacritty.desktop', key: '_launch', value: '{{ kde_shortcut_terminal_launch_2 }}' }
+  notify:
+    - Reload KWin configuration
+    - Restart shortcuts service
+
+- name: Configure desktop navigation shortcuts
+  become: no
+  ini_file:
+    path: "~/.config/kglobalshortcutsrc"
+    section: "kwin"
+    option: "Switch to Desktop {{ item }}"
+    value: "Alt+{{ item }},none,Switch to Desktop {{ item }}"
+    backup: "{{ kde_backup_configs }}"
+    create: yes
+  loop: "{{ range(1, kde_virtual_desktops_count | int + 1) | list }}"
+  notify:
+    - Restart shortcuts service
+
+- name: Configure window to desktop movement shortcuts
+  become: no
+  ini_file:
+    path: "~/.config/kglobalshortcutsrc"
+    section: "kwin"
+    option: "Window to Desktop {{ item }}"
+    value: "Alt+{{ kde_shift_symbols[item] }},none,Window to Desktop {{ item }}"
+    backup: "{{ kde_backup_configs }}"
+    create: yes
+  loop: "{{ range(1, kde_virtual_desktops_count | int + 1) | list }}"
+  notify:
+    - Restart shortcuts service

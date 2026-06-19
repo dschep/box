@@ -7,6 +7,7 @@
     - atkinson_hyperlegible
     - alacritty
     - fnm
+    - kde
 - hosts: potassium
   become: yes
   tasks:
@@ -21,18 +22,4 @@
         - docker
         - the_silver_searcher
         - wl-clipboard
-    # kde settings
-    # focus follows mouse, 100ms
-    # virtual desktops & shortcuts
-    # modifier key for window movement/resizing - alt
-    # default term - alacritty
-    # close window - alt-shift-c
-    # krunner - alt-p
-    # maximize - alt-f
-    # fonts to atkinson hyperlegible
-    # launch alacritty - alt-shift-enter
-    #
-    #
-    #
-    # rm .config/alacritty/alacritty.toml
-    #
+
