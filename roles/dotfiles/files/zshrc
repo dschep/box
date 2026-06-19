@@ -76,25 +76,27 @@ PROMPT='[%(!.%F{red}.%F{green})${_dschep_prompt_userhost}:%f%B%1~%b]${vcs_info_m
 
 ## tmux layout
 function vimux {
-    if [[ "$TMUX" != "" ]]; then
-        local ratio
-        local window_name
-        ratio=50
-        if [[ "$1" != "" ]]; then
-            ratio=33
-        fi
-        window_name=$(basename $PWD)
-        tmux rename-window "$window_name"
-        tmux split-window -hb -p $ratio vim
-        tmux select-pane -t 2
-        if [[ "$1" != "" ]]; then
-            tmux split-window -h -p 50 $1
-        fi
-        tmux select-pane -t 2
-        tmux split-window -v -p 50
-        tmux select-pane -t 1
-    else
-        echo "this function must be run from a shell inside of a tmux session"
+    if [[ "$TMUX" == "" ]]; then
+        tmux new-session -d
+    fi
+    local ratio
+    local window_name
+    ratio=50
+    if [[ "$1" != "" ]]; then
+        ratio=33
+    fi
+    window_name=$(basename $PWD)
+    tmux rename-window "$window_name"
+    tmux split-window -hb -p $ratio vim
+    tmux select-pane -t 2
+    if [[ "$1" != "" ]]; then
+        tmux split-window -h -p 50 $1
+    fi
+    tmux select-pane -t 2
+    tmux split-window -v -p 50
+    tmux select-pane -t 1
+    if [[ "$TMUX" == "" ]]; then
+        tmux attach
     fi
 }
 
