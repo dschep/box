@@ -4,6 +4,7 @@
   with_items:
     - bash
     - zsh
+    - fzf
     - tmux
     - vim
     - git
@@ -14,6 +15,7 @@
   become: no
   with_items:
     - bash
+    - fzf
     - tmux
     - vim
     - git

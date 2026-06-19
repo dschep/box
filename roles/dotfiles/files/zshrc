@@ -22,10 +22,15 @@ else
     export PAGER=more
 fi
 
-# Vi mode & emacs-style clear/history-search
+# Vi mode & emacs-style clear/history-search using fzf
 bindkey -v
 bindkey -M viins '^L' clear-screen
-bindkey -M viins '^R' history-incremental-search-backward
+if _has_command fzf; then
+  eval "$(fzf --zsh)"
+  bindkey -M viins '^R' fzf-history-widget
+else
+  bindkey -M viins '^R' history-incremental-search-backward
+fi
 
 # zsh completion
 autoload -Uz compinit
