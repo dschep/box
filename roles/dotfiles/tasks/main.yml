@@ -11,7 +11,6 @@
     - vimrc
     - gitignore
     - gitconfig
-    - gitconfig-onx
     - inputrc
     - tmux.conf
     - zshrc
