@@ -79,6 +79,9 @@ set backspace=indent,eol,start
 if exists('+mouse')
     set mouse=a
 endif
+if exists('$TMUX')
+    set ttymouse=xterm2
+endif
 " regex magic
 set magic
 " use incremental search
