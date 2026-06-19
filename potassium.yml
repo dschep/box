@@ -6,7 +6,7 @@
     - base_utils
     - atkinson_hyperlegible
     - alacritty
-    - nvm
+    - fnm
 - hosts: potassium
   become: yes
   tasks:

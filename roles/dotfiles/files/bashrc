@@ -4,8 +4,7 @@
 #[ -z "$PS1" ] && return
 [[ $- != *i* ]] && return
 
-
-###choose editor
+###choose editor & pager
 if type -P vim &> /dev/null; then
     export EDITOR=vim
 elif type -P vi &> /dev/null; then
@@ -13,8 +12,6 @@ elif type -P vi &> /dev/null; then
 else
     echo 'Vi/Vim not found, EDITOR not set'
 fi
-
-###choose pager
 if type -P less &> /dev/null; then
     export PAGER=less
 else
@@ -25,86 +22,18 @@ fi
 set -o vi
 bind -m vi-insert "\C-l":clear-screen
 
-#### bash4 ** support
-bash --version | grep 'version 4' && shopt -s globstar
-
-# bash completion
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-
-#for ls:
-type -p dircolors > /dev/null && eval $(dircolors -b)
-
-
-#date utilities
-alias today='date +%F'
-alias now="date +%FT%T"
-
-#.env utility
-alias dotenv='eval $(sed -e "s/^/export /" .env|tr "\n" ";")'
-
-#default behaviours
-alias grep='grep --color=auto'
-alias df='df -h'
-if ls --version 2> /dev/null | grep GNU > /dev/null; then
-    alias ls='ls --indicator-style=slash --human-readable --ignore-backups --color=auto --time-style=long-iso'
-else
-    alias ls='ls -p -h -G'
-fi
-
-#common mistakes
-alias cd..='cd ..'
-
-#short cuts
-alias ll='ls -l'
-alias la='ls -la'
-
-## docker-compose shortcuts
-function dc {
-  docker compose "$@"
-}
-function dcr {
-    dc run --rm "$@"
-}
-
+# local binary dir
 PATH=$PATH:~/.local/bin
+
+# cd straight to code
 export CDPATH=$HOME/code
 
-if [ -f ~/.bashrc.local_ext ]; then
-    . ~/.bashrc.local_ext
-fi
-
-if [ -f ~/.bashrc.$HOSTNAME ]; then
-    . ~/.bashrc.$HOSTNAME
-fi
-
-if [ -f /usr/bin/virtualenvwrapper.sh ]; then
-    . /usr/bin/virtualenvwrapper.sh
-fi
-
-if [ -f ${XDG_CONFIG_HOME}/nvm/nvm.sh ]; then
-    . ${XDG_CONFIG_HOME}/nvm/nvm.sh
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-if [ -f ~/.nvm/nvm.sh ]; then
-    . ~/.nvm/nvm.sh
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-if [ -f /opt/homebrew/opt/nvm/nvm.sh ]; then
-    . /opt/homebrew/opt/nvm/nvm.sh
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-fi
-
+# history options
 HISTSIZE=9000
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignorespace:ignoredups
 
-
+# prompt & title
 function dschep_prompt_command {
     PROMPT_ERROR=$?
     if [ "$PROMPT_ERROR" -ne "0" ]; then
@@ -131,39 +60,3 @@ PS1="[\[$(tput sgr0;[ "$(id -u)" -eq 0 ] && tput setaf 1 || tput setaf 2)\]$PROM
 \[\$PROMPT_BRANCH_COLOR\]\$PROMPT_BRANCH\
 \[$(tput setaf 5)\]\$PROMPT_ERROR\
 \[$(tput sgr0)\] \[$(tput bold)\]\\$\\[$(tput sgr0)\] "
-
-
-## fucking brew
-if [ -f /opt/homebrew/bin/brew ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-## tmux layouts
-function vimux {
-    if [[ "$TMUX" != "" ]]; then
-        local ratio
-        local window_name
-        ratio=50
-        if [[ "$1" != "" ]]; then
-            ratio=33
-        fi
-        window_name=$(basename $PWD)
-        tmux rename-window "$window_name"
-        tmux split-window -hb -p $ratio vim
-        tmux select-pane -t 2
-        if [[ "$1" != "" ]]; then
-            tmux split-window -h -p 50 $1
-        fi
-        tmux select-pane -t 2
-        tmux split-window -v -p 50
-        tmux select-pane -t 1
-    else
-        echo "this function must be run from a shell inside of a tmux session"
-    fi
-}
-
-# fucking macOS
-export BASH_SILENCE_DEPRECATION_WARNING=1
-
-# stupid new docker compose
-export COMPOSE_MENU=false

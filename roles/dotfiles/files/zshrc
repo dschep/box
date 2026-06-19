@@ -3,11 +3,12 @@
 # do nothing for noninteractive environments
 [[ -o interactive ]] || return
 
+# util func
 function _has_command {
     (( $+commands[$1] ))
 }
 
-###choose editor
+### choose editor & pager
 if _has_command vim; then
     export EDITOR=vim
 elif _has_command vi; then
@@ -15,114 +16,36 @@ elif _has_command vi; then
 else
     echo 'Vi/Vim not found, EDITOR not set'
 fi
-
-###choose pager
 if _has_command less; then
     export PAGER=less
 else
     export PAGER=more
 fi
 
-#### Vi mode & emacs-style clear/history-search
+# Vi mode & emacs-style clear/history-search
 bindkey -v
 bindkey -M viins '^L' clear-screen
 bindkey -M viins '^R' history-incremental-search-backward
 
-#### zsh completion
+# zsh completion
 autoload -Uz compinit
 compinit
 
-#for ls & completion:
+# colors for ls & completion:
 if _has_command dircolors; then
     eval "$(dircolors -b)"
 fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-#date utilities
-alias today='date +%F'
-alias now="date +%FT%T"
-
-#.env utility
-alias dotenv='eval $(sed -e "s/^/export /" .env|tr "\n" ";")'
-
-#default behaviours
-alias grep='grep --color=auto'
-alias df='df -h'
-if command ls --version 2> /dev/null | grep GNU > /dev/null; then
-    alias ls='ls --indicator-style=slash --human-readable --ignore-backups --color=auto --time-style=long-iso'
-else
-    alias ls='ls -p -h -G'
-fi
-
-#common mistakes
-alias cd..='cd ..'
-
-#short cuts
-alias ll='ls -l'
-alias la='ls -la'
-
-## docker-compose shortcuts
-function dc {
-  docker compose "$@"
-}
-function dcr {
-    dc run --rm "$@"
-}
-
+# local binary dir
 path+=("$HOME/.local/bin")
 typeset -U path
 export PATH
+
+# cd straight to code
 export CDPATH=$HOME/code
 
-if [[ -f ~/.zshrc.local_ext ]]; then
-    . ~/.zshrc.local_ext
-fi
-
-_dschep_host=${HOSTNAME:-$HOST}
-if [[ -f "$HOME/.zshrc.$_dschep_host" ]]; then
-    . "$HOME/.zshrc.$_dschep_host"
-fi
-unset _dschep_host
-
-if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
-    . /usr/bin/virtualenvwrapper.sh
-fi
-
-_dschep_bashcompinit_loaded=0
-function dschep_load_bash_completion {
-    local completion_file="$1"
-
-    [[ -s "$completion_file" ]] || return
-
-    if [[ "$_dschep_bashcompinit_loaded" -eq 0 ]]; then
-        autoload -Uz bashcompinit
-        bashcompinit
-        _dschep_bashcompinit_loaded=1
-    fi
-
-    . "$completion_file"
-}
-
-function dschep_source_nvm {
-    local nvm_sh="$1"
-
-    [[ -f "$nvm_sh" ]] || return
-
-    . "$nvm_sh"
-    dschep_load_bash_completion "$NVM_DIR/bash_completion"
-}
-
-if [[ -n "$XDG_CONFIG_HOME" ]]; then
-    dschep_source_nvm "$XDG_CONFIG_HOME/nvm/nvm.sh"
-fi
-dschep_source_nvm "$HOME/.nvm/nvm.sh"
-dschep_source_nvm "/usr/share/nvm/nvm.sh"
-dschep_source_nvm "/opt/homebrew/opt/nvm/nvm.sh"
-
-if [[ -f "$HOME/.cargo/env" ]]; then
-    . "$HOME/.cargo/env"
-fi
-
+# history options
 HISTSIZE=9000
 SAVEHIST=$HISTSIZE
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
@@ -130,13 +53,12 @@ setopt hist_ignore_space
 setopt hist_ignore_dups
 setopt no_nomatch
 
+# prompt
 _dschep_prompt_userhost=''
 if [[ -n "$SSH_CONNECTION" || "$EUID" -eq 0 ]] || { [[ -r /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup 2>/dev/null; }; then
     _dschep_prompt_userhost='%n@%m'
 fi
-
 setopt prompt_subst
-
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git:*' check-for-changes true
@@ -144,21 +66,13 @@ zstyle ':vcs_info:git:*' stagedstr '%F{magenta}'
 zstyle ':vcs_info:git:*' unstagedstr '%F{magenta}'
 zstyle ':vcs_info:git:*' formats ' %F{green}%c%u%b%f'
 zstyle ':vcs_info:git:*' actionformats ' %F{magenta}%b|%a%f'
-
 function dschep_prompt_command {
     print -Pn "\e]0;%n@%m:%~\a"
     vcs_info
 }
-
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd dschep_prompt_command
-
 PROMPT='[%(!.%F{red}.%F{green})${_dschep_prompt_userhost}:%f%B%1~%b]${vcs_info_msg_0_}%F{magenta}%(?.. %?)%f %B%#%b '
-
-## fucking brew
-if [[ -f /opt/homebrew/bin/brew ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
 
 ## tmux layout
 function vimux {
@@ -182,6 +96,50 @@ function vimux {
     else
         echo "this function must be run from a shell inside of a tmux session"
     fi
+}
+
+# load local extensions to zshrc
+if [[ -f ~/.zshrc.local_ext ]]; then
+    . ~/.zshrc.local_ext
+fi
+
+# Setup shell-integrated software
+if _has_command fnm ; then
+    eval "$(fnm env --shell zsh)"
+fi
+if [[ -f "$HOME/.cargo/env" ]]; then
+    . "$HOME/.cargo/env"
+fi
+if [[ -f /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# date utilities
+alias today='date +%F'
+alias now="date +%FT%T"
+
+# default behaviors
+alias grep='grep --color=auto'
+alias df='df -h'
+if command ls --version 2> /dev/null | grep GNU > /dev/null; then
+    alias ls='ls --indicator-style=slash --human-readable --ignore-backups --color=auto --time-style=long-iso'
+else
+    alias ls='ls -p -h -G'
+fi
+
+#common mistakes
+alias cd..='cd ..'
+
+#short cuts
+alias ll='ls -l'
+alias la='ls -la'
+
+## docker-compose shortcuts
+function dc {
+  docker compose "$@"
+}
+function dcr {
+    dc run --rm "$@"
 }
 
 # stupid new docker compose

@@ -1,0 +1,12 @@
+- name: Download and run the official fnm installer script
+  become: no
+  ansible.builtin.shell: |
+    curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir ~/.fnm --skip-shell
+  args:
+    creates: "~/.fnm/fnm"
+- name: Symlink fnm to ~/.local/b9in
+  become: no
+  ansible.builtin.file:
+    src: ~/.fnm/fnm
+    dest: ~/.local/bin/fnm
+    state: link           
