@@ -133,10 +133,6 @@ PS1="[\[$(tput sgr0;[ "$(id -u)" -eq 0 ] && tput setaf 1 || tput setaf 2)\]$PROM
 \[$(tput sgr0)\] \[$(tput bold)\]\\$\\[$(tput sgr0)\] "
 
 
-if type -p direnv &> /dev/null ; then
-    eval "$(direnv hook bash)"
-fi
-
 ## fucking brew
 if [ -f /opt/homebrew/bin/brew ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
