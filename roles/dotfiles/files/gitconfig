@@ -9,10 +9,9 @@
 [gpg]
 	format = ssh
 
-# path-based configs
-[includeIf "gitdir:~/code/onx/**"]
-  path = ./.gitconfig-onx
-
+# local config
+[include]
+  path = ~/.gitconfig.local_ext
 
 # diff/meld config
 [diff]
