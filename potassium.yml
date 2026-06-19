@@ -19,6 +19,7 @@
         - just
         - httpie
         - docker
+        - wl-clipboard
     # kde settings
     # focus follows mouse, 100ms
     # virtual desktops & shortcuts

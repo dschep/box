@@ -12,10 +12,6 @@
 # path-based configs
 [includeIf "gitdir:~/code/onx/**"]
   path = ./.gitconfig-onx
-[includeIf "gitdir:~/go/src/github.com/onxmaps/**"]
-  path = ./.gitconfig-onx
-[includeIf "gitdir:~/go/src/github.com/onXmaps/**"]
-  path = ./.gitconfig-onx
 
 
 # diff/meld config
