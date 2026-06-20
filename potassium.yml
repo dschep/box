@@ -3,7 +3,7 @@
   become: yes
   roles:
     - dotfiles
-    - base_utils
+    #- base_utils # not directly using bc vim vs gvim on arch
     - atkinson_hyperlegible
     - alacritty
     - fnm
@@ -22,4 +22,12 @@
         - docker
         - the_silver_searcher
         - wl-clipboard
+        # base_utils (but s/vim/gvim/)
+        - bash
+        - zsh
+        - fzf
+        - tmux
+        - gvim
+        - git
+        - direnv
 
