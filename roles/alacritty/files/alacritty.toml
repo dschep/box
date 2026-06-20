@@ -1,3 +1,6 @@
+[terminal]
+shell = "tmux"
+
 [font]
 normal = { family = "Atkinson Hyperlegible Mono" }
 
