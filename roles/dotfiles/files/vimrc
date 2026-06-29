@@ -59,6 +59,7 @@ nnoremap <F3> :set number!<CR>
 " fzf bindings
 nnoremap <silent><C-p> :Files<CR>
 nnoremap <silent><C-Space> :Buffers<CR>
+nnoremap <silent><Nul> :Buffers<CR>
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
 nnoremap <C-w> <nop>
