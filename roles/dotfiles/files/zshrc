@@ -25,16 +25,6 @@ fi
 # Vi mode & emacs-style clear/history-search using fzf
 bindkey -v
 bindkey -M viins '^L' clear-screen
-if _has_command fzf; then
-  eval "$(fzf --zsh)"
-  export FZF_DEFAULT_OPTS=$'--color=fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836
-  --color=hl+:#fabd2f,info:#83a598,prompt:#bdae93,pointer:#83a598
-  --color=marker:#a8c4b9,spinner:#fabd2f,header:#a89984,border:#504945
-  --color=gutter:#3c3836'
-  bindkey -M viins '^R' fzf-history-widget
-else
-  bindkey -M viins '^R' history-incremental-search-backward
-fi
 
 # zsh completion
 autoload -Uz compinit
@@ -123,6 +113,15 @@ if [[ -f "$HOME/.cargo/env" ]]; then
 fi
 if [[ -f /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+if _has_command fzf; then
+  eval "$(fzf --zsh)"
+  export FZF_DEFAULT_OPTS=$'--color=fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836
+  --color=hl+:#fabd2f,info:#83a598,prompt:#bdae93,pointer:#83a598
+  --color=marker:#a8c4b9,spinner:#fabd2f,header:#a89984,border:#504945
+  --color=gutter:#3c3836'
+else
+  bindkey -M viins '^R' history-incremental-search-backward
 fi
 
 # date utilities
