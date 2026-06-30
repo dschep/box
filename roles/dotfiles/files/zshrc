@@ -28,7 +28,11 @@ bindkey -M viins '^L' clear-screen
 
 # zsh completion
 autoload -Uz compinit
-compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
 
 # colors for ls & completion:
 if _has_command dircolors; then
