@@ -1,12 +1,14 @@
 ---
+# manual: enable contrib & non-free repos
+# manual: sudo apt install unattended-upgrades && sudo dpkg-reconfigure unattended-upgrades
 - hosts: potassium
   become: yes
   roles:
     - dotfiles
-    #- base_utils # not directly using bc vim vs gvim on arch
+    #- base_utils # not directly using bc vim vs gvim
     - atkinson_hyperlegible
     - alacritty
-    - fnm
+    - fnm # needed to make .local/bin
     - kde
 - hosts: potassium
   become: yes
@@ -16,18 +18,22 @@
         - gimp
         - inkscape
         - gimp
-        - firefox
+        - firefox-esr
         - just
         - httpie
-        - docker
-        - the_silver_searcher
+        #- docker
+        - ripgrep
         - wl-clipboard
+        - chromium
+        - meld
+        - aria2
+        - vlc
         # base_utils (but s/vim/gvim/)
         - bash
         - zsh
         - fzf
         - tmux
-        - gvim
+        - vim-gtk3
         - git
-        - direnv
+        - curl
 

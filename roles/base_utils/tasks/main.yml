@@ -8,7 +8,7 @@
     - tmux
     - vim
     - git
-    - direnv
+    - curl
   when: ansible_facts['distribution'] != 'MacOSX'
 - name: Install Base tools (mac)
   package: name={{ item }}
@@ -19,5 +19,5 @@
     - tmux
     - vim
     - git
-    - direnv
+    - curl
   when: ansible_facts['distribution'] == 'MacOSX'
