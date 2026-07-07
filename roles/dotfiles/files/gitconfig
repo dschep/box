@@ -26,6 +26,7 @@
 # aliases
 [alias]
     stat = status -sb
+    checkout-recent = "!bash -c 'git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always\" | xargs git checkout'"
 
 # some defaults
 [push]
