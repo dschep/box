@@ -27,6 +27,7 @@
         - qgis
         - gdal
         - tippecanoe
+        - grpcurl
     #- name: install ntfy
     #  become: yes
     #  community.general.pipx:
