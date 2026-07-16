@@ -77,27 +77,66 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd dschep_prompt_command
 PROMPT='[%(!.%F{red}.%F{green})${_dschep_prompt_userhost}:%f%B%1~%b]${vcs_info_msg_0_}%F{magenta}%(?.. %?)%f %B%#%b '
 
+zmodload zsh/mathfunc
 ## tmux layout
-function vimux {
+function tmuxl {
     if [[ "$TMUX" == "" ]]; then
         tmux new-session -d
     fi
-    local ratio
-    local window_name
-    ratio=50
-    if [[ "$1" != "" ]]; then
-        ratio=33
+
+    tmux rename-window "$(basename $PWD)"
+
+    # save command for primary panel to run it at the end
+    local one
+    if (( $# > 0 )); then
+        one="$1"
+        shift
+    else
+        one="$SHELL"
     fi
-    window_name=$(basename $PWD)
-    tmux rename-window "$window_name"
-    tmux split-window -hb -p $ratio vim
-    tmux select-pane -t 2
-    if [[ "$1" != "" ]]; then
-        tmux split-window -h -p 50 $1
+
+    # second pane
+    if (( $# > 0 )); then
+        tmux split-window -h $1
+        shift
     fi
-    tmux select-pane -t 2
-    tmux split-window -v -p 50
+
+    if (( $# == 1 )); then
+        # if there's just a 3rd pane, create it and be done
+        tmux split-window $1
+    elif (( $# > 0 )); then
+        # pane 3 & 4 and the math for subsequent panes
+        local middle
+        local right
+        middle=$(( ceil( ( $# + 1 ) / 2. ) ))
+        right=$(( floor( ( $# + 1 ) / 2. ) ))
+
+        tmux split-window -p $(( int( 100 * ( 1 - ( 1 / $middle ) ) ) )) $1
+        shift
+        middle=$(( $middle - 1 ))
+
+        tmux split-window -h -f -p 33 $1
+        shift
+
+        # handle all remaining panes, alternating between adding to left & right
+        while (( $# > 0 )); do
+            if (( ( $(tmux display-message -p '#{window_panes}') % 2 ) == 0 )); then
+                tmux split-window -p $(( int( 100 * ( 1 - ( 1 / $right ) ) ) )) $1
+                right=$(( $right - 1 ))
+                tmux select-pane -L
+            else
+                tmux split-window -p $(( int( 100 * ( 1 - ( 1 / $middle ) ) ) )) $1
+                middle=$(( $middle - 1 ))
+                tmux select-pane -R
+            fi
+            shift
+        done
+    fi
+
+    # reselect the first pane
     tmux select-pane -t 1
+    tmux send-keys "exec $one" C-m
+
     if [[ "$TMUX" == "" ]]; then
         tmux attach
     fi
