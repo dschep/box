@@ -36,10 +36,10 @@
     - { file: 'kglobalshortcutsrc', group: 'kwin', key: 'Window Close', value: '{{ kde_shortcut_close_window }}' }
     - { file: 'kglobalshortcutsrc', group: 'kwin', key: 'Window Maximize', value: '{{ kde_shortcut_maximize_window }}' }
     - { file: 'kglobalshortcutsrc', group: 'krunner', key: 'run command', value: '{{ kde_shortcut_krunner_run }}' }
-    - { file: 'kglobalshortcutsrc', group: 'krunner.desktop', key: '_launch', value: '{{ kde_shortcut_krunner_launch_1 }}' }
-    - { file: 'kglobalshortcutsrc', group: 'org.kde.krunner.desktop', key: '_launch', value: '{{ kde_shortcut_krunner_launch_2 }}' }
-    - { file: 'kglobalshortcutsrc', group: 'alacritty.desktop', key: '_launch', value: '{{ kde_shortcut_terminal_launch_1 }}' }
-    - { file: 'kglobalshortcutsrc', group: 'Alacritty.desktop', key: '_launch', value: '{{ kde_shortcut_terminal_launch_2 }}' }
+    - { file: 'kglobalshortcutsrc', group: 'services][krunner.desktop', key: '_launch', value: '{{ kde_shortcut_krunner_launch_1 }}' }
+    - { file: 'kglobalshortcutsrc', group: 'services][org.kde.krunner.desktop', key: '_launch', value: '{{ kde_shortcut_krunner_launch_2 }}' }
+    - { file: 'kglobalshortcutsrc', group: 'services][alacritty.desktop', key: '_launch', value: '{{ kde_shortcut_terminal_launch_1 }}' }
+    - { file: 'kglobalshortcutsrc', group: 'services][Alacritty.desktop', key: '_launch', value: '{{ kde_shortcut_terminal_launch_2 }}' }
   notify:
     - Reload KWin configuration
     - Restart shortcuts service
