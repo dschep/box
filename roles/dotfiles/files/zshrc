@@ -115,7 +115,7 @@ function tmuxl {
         shift
         middle=$(( $middle - 1 ))
 
-        tmux split-window -h -f -p 33 $2
+        tmux split-window -h -f -p 33 $1
         shift
 
         # handle all remaining panes, alternating between adding to left & right
