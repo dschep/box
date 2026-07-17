@@ -3,7 +3,7 @@
 - hosts: 005465.local # work mac
   become: no
   roles:
-    - fnm
+    - nix
   tasks:
     - homebrew_cask: name={{ item }}
       with_items:
@@ -27,7 +27,7 @@
         - qgis
         - gdal
         - tippecanoe
-        - grpcurl
+        - direnv
     #- name: install ntfy
     #  become: yes
     #  community.general.pipx:
