@@ -1,0 +1,7 @@
+---
+- name: Install Nix (multi-user)
+  become: yes
+  ansible.builtin.shell: |
+    curl -fsSL https://nixos.org/nix/install | sh -s -- --daemon
+  args:
+    creates: /nix

@@ -61,6 +61,10 @@ _dschep_prompt_userhost=''
 if [[ -n "$SSH_CONNECTION" || "$EUID" -eq 0 ]] || { [[ -r /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup 2>/dev/null; }; then
     _dschep_prompt_userhost='%n@%m'
 fi
+_dschep_prompt_nixshell=''
+if [[ -n "$IN_NIX_SHELL" ]]; then
+    _dschep_prompt_nixshell=' %F{blue}(nix-shell)%f'
+fi
 setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
@@ -75,7 +79,7 @@ function dschep_prompt_command {
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd dschep_prompt_command
-PROMPT='[%(!.%F{red}.%F{green})${_dschep_prompt_userhost}:%f%B%1~%b]${vcs_info_msg_0_}%F{magenta}%(?.. %?)%f %B%#%b '
+PROMPT='[%(!.%F{red}.%F{green})${_dschep_prompt_userhost}:%f%B%1~%b]${_dschep_prompt_nixshell}${vcs_info_msg_0_}%F{magenta}%(?.. %?)%f %B%#%b '
 
 zmodload zsh/mathfunc
 ## tmux layout
@@ -148,6 +152,9 @@ if [[ -f ~/.zshrc.local_ext ]]; then
 fi
 
 # Setup shell-integrated software
+if _has_command direnv ; then
+    eval "$(direnv hook zsh)"
+fi
 if _has_command fnm ; then
     eval "$(fnm env --shell zsh)"
 fi

@@ -7,6 +7,7 @@
     - atkinson_hyperlegible
     - alacritty
     - fnm # needed to make .local/bin
+    - nix
     #- kde
 - hosts: potassium
   become: yes
@@ -59,6 +60,7 @@
         - meld
         - aria2
         - vlc
+        - direnv
         # base_utils (but s/vim/gvim/)
         - bash
         - zsh
