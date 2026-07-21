@@ -81,7 +81,7 @@ function dschep_prompt_command {
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd dschep_prompt_command
-PROMPT=$'%F{#cc241d}%B%(?.. %? ⏎ )\n%(!.%K{#cc241d}.%K{#98971a})%F{#282828}${_dschep_prompt_userhost}%K{#d79921}%F{#282828} %B%~ ${_dschep_prompt_nixshell}${vcs_info_msg_0_}%f%k\n%B❯%b '
+PROMPT=$'%F{#cc241d}%B%(?..%? ⏎)\n%(!.%K{#cc241d}.%K{#98971a})%F{#282828}${_dschep_prompt_userhost}%K{#d79921}%F{#282828} %B%~ ${_dschep_prompt_nixshell}${vcs_info_msg_0_}%f%k\n%B❯%b '
 
 zmodload zsh/mathfunc
 ## tmux layout
