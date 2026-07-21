@@ -67,7 +67,7 @@ setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable ALL
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr '%K{#b16286}%F{#282828}'
+zstyle ':vcs_info:git:*' stagedstr '%K{#458588}%F{#282828}'
 zstyle ':vcs_info:git:*' unstagedstr '%K{#b16286}%F{#282828}'
 zstyle ':vcs_info:git:*' formats '%K{#98971a}%F{#282828}%c%u %b %f%k'
 zstyle ':vcs_info:git:*' actionformats '%K{#b16286}%F{#282828}%c%u %b|%a %f%k'
@@ -75,7 +75,7 @@ function dschep_prompt_command {
     print -Pn "\e]0;%n@%m:%~\a"
     _dschep_prompt_nixshell=''
     if [[ -n "$IN_NIX_SHELL" ]]; then
-        _dschep_prompt_nixshell='%K{#458588}%F{#282828} ❄ '
+        _dschep_prompt_nixshell='❄ '
     fi
     vcs_info
 }
