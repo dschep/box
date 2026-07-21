@@ -26,7 +26,7 @@
 # aliases
 [alias]
     stat = status -sb
-    checkout-recent = "!bash -c 'git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always\" | xargs git checkout'"
+    switch-recent = "!bash -c 'git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always\" | xargs git switch'"
     stash-apply = "!bash -c 'git stash list | fzf --delimiter=: --header \"Apply Stash\" --preview \"git stash show -p {1} --color=always\" | cut -d: -f1 | xargs -r git stash apply'"
 
 # some defaults
