@@ -27,6 +27,7 @@ bindkey -v
 bindkey -M viins '^L' clear-screen
 
 # zsh completion
+fpath=(~/.zsh/completions $fpath)
 autoload -Uz compinit
 if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
     compinit
