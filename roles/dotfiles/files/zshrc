@@ -66,21 +66,21 @@ setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable ALL
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr '%K{magenta}%F{black}'
-zstyle ':vcs_info:git:*' unstagedstr '%K{magenta}%F{black}'
-zstyle ':vcs_info:git:*' formats '%K{green}%F{black}%c %u%b %f%k'
-zstyle ':vcs_info:git:*' actionformats '%K{magenta}%F{black} %b|%a %f%k'
+zstyle ':vcs_info:git:*' stagedstr '%K{#b16286}%F{#282828}'
+zstyle ':vcs_info:git:*' unstagedstr '%K{#b16286}%F{#282828}'
+zstyle ':vcs_info:git:*' formats '%K{#98971a}%F{#282828}%c%u %b %f%k'
+zstyle ':vcs_info:git:*' actionformats '%K{#b16286}%F{#282828}%c%u %b|%a %f%k'
 function dschep_prompt_command {
     print -Pn "\e]0;%n@%m:%~\a"
     _dschep_prompt_nixshell=''
     if [[ -n "$IN_NIX_SHELL" ]]; then
-        _dschep_prompt_nixshell='%K{blue}%F{black} ❄ '
+        _dschep_prompt_nixshell='%K{#458588}%F{#282828} ❄ '
     fi
     vcs_info
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd dschep_prompt_command
-PROMPT=$'\n%(!.%K{red}.%K{green})%F{black}${_dschep_prompt_userhost}%K{yellow}%F{black} %B%~ ${_dschep_prompt_nixshell}${vcs_info_msg_0_}%F{black}%K{red}%(?.. %? )%f%k\n%B%#%b '
+PROMPT=$'\n%(!.%K{#cc241d}.%K{#98971a})%F{#282828}${_dschep_prompt_userhost}%K{#d79921}%F{#282828} %B%~ ${_dschep_prompt_nixshell}${vcs_info_msg_0_}%F{#282828}%K{#cc241d}%(?.. %? )%f%k\n%B%#%b '
 
 zmodload zsh/mathfunc
 ## tmux layout
