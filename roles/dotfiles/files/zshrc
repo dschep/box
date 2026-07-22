@@ -154,9 +154,6 @@ if [[ -f ~/.zshrc.local_ext ]]; then
 fi
 
 # Setup shell-integrated software
-if _has_command fnm ; then
-    eval "$(fnm env --shell zsh)"
-fi
 if [[ -f "$HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
 fi

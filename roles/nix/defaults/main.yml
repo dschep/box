@@ -1,0 +1,7 @@
+---
+nix_packages:
+  - fzf
+  - tmux
+  - vim
+  - git
+  - curl
