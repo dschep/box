@@ -2,33 +2,38 @@
 ---
 - hosts: 005465.local # work mac
   become: no
+  vars:
+    #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
+    nix_packages:
+      - curl
+      - direnv
+      - fzf
+      - gdal
+      - git
+      - google-cloud-sdk
+      - imagemagick
+      - jq
+      - nodejs
+      - python3
+      - ripgrep
+      - tmux
+      - vim
+      - hunk
+      - ntfy
   roles:
     - nix
-  tasks:
-    - homebrew_cask: name={{ item }}
-      with_items:
-        #- google-chrome # preinstalled
-        #- firefox
-        - ghostty
-        #- bettertouchtool
-        - meld
-        - google-cloud-sdk
-        - dbeaver-community
-        - inkscape
-        - gimp
-        - mark-text
-        #- virtualbox
-    - homebrew: name={{ item }}
-      with_items:
-        - socat
-        - htop
-        - httpie
-        - jq
-        - qgis
-        - gdal
-        - tippecanoe
-        - direnv
-    #- name: install ntfy
-    #  become: yes
-    #  community.general.pipx:
-    #    name: ntfy
+  #tasks:
+  #  - homebrew_cask: name={{ item }}
+  #    with_items:
+  #      - google-chrome # preinstalled
+  #      - firefox
+  #      - ghostty
+  #      - bettertouchtool
+  #      - meld
+  #      - google-cloud-sdk
+  #      - dbeaver-community
+  #      - inkscape
+  #      - gimp
+  #      - mark-text
+  #      - umd
+  #      - qgis

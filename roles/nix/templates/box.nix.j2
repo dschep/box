@@ -1,0 +1,10 @@
+let
+  nixpkgs = fetchTarball "{{ nixpkgs_url | default('https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz') }}";
+  pkgs = import nixpkgs { config = {}; overlays = []; };
+in
+
+with pkgs; [
+{% for pkg in nix_packages | default([]) %}
+  {{ pkg }}
+{% endfor %}
+]
