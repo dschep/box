@@ -20,6 +20,16 @@
       - vim
       - hunk
       - ntfy
+      - osmium-tool
+      - tippecanoe
+      - gh
+      - pmtiles
+      - htop
+      - httpie
+      - aria2
+      - pandoc
+      - pipx
+      - nur.repos.sikmir.osmosis
   roles:
     - nix
   #tasks:
