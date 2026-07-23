@@ -15,6 +15,7 @@
   become: no
   with_items:
     - bash
+    - zsh
     - fzf
     - tmux
     - vim
