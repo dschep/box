@@ -30,9 +30,16 @@
       - pandoc
       - pipx
       - nur.repos.sikmir.osmosis
+      - codex
   roles:
     - nix
-  #tasks:
+  tasks:
+    - name: Install Claude Code
+      become: no
+      ansible.builtin.shell: |
+        curl -fsSL https://claude.ai/install.sh | bash
+      args:
+        creates: ~/.local/bin/claude
   #  - homebrew_cask: name={{ item }}
   #    with_items:
   #      - google-chrome # preinstalled
