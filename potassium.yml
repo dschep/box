@@ -1,5 +1,5 @@
 ---
-- hosts: potassium
+- hosts: localhost
   become: yes
   vars:
     #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
@@ -18,7 +18,7 @@
     - alacritty
     - nix
     #- kde
-- hosts: potassium
+- hosts: localhost
   become: yes
   tasks:
     - name: Configure apt sources

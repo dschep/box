@@ -1,6 +1,6 @@
 
 ---
-- hosts: 005465.local # work mac
+- hosts: localhost
   become: no
   vars:
     #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
