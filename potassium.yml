@@ -1,15 +1,24 @@
 ---
-- hosts: potassium
+- hosts: localhost
   become: yes
+  vars:
+    #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
+    nix_packages:
+      - imagemagick
+      - jq
+      - nodejs
+      - python3
+      - ntfy
+      - yt-dlp
+      - ripgrep
   roles:
     - dotfiles
     #- base_utils # not directly using bc vim vs gvim
     - atkinson_hyperlegible
     - alacritty
-    - fnm # needed to make .local/bin
     - nix
     #- kde
-- hosts: potassium
+- hosts: localhost
   become: yes
   tasks:
     - name: Configure apt sources
@@ -47,31 +56,24 @@
 
     - package: name={{ item }}
       with_items:
-        - gimp
-        - inkscape
-        - gimp
-        - firefox-esr
-        - just
-        - httpie
-        #- docker
-        - ripgrep
-        - wl-clipboard
-        - chromium
-        - meld
-        - aria2
-        - vlc
-        - direnv
-        # base_utils (but s/vim/gvim/)
-        - bash
         - zsh
-        - fzf
         - tmux
-        - vim-gtk3
+        - direnv
         - git
         - curl
+        - vim-gtk3
 
-    - name: Install yt-dlp
-      ansible.builtin.apt:
-        name: yt-dlp
-        default_release: trixie-backports
-        state: latest
+        - gimp
+        - inkscape
+
+        - vlc
+
+        - firefox-esr
+        - chromium
+
+        #- docker
+
+        - aria2
+        - wl-clipboard
+
+        - meld

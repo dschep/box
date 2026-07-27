@@ -2,6 +2,20 @@
 - name: Install Nix (multi-user)
   become: yes
   ansible.builtin.shell: |
-    curl -fsSL https://nixos.org/nix/install | sh -s -- --daemon
+    if [ ! -d /nix ]; then curl -fsSL https://nixos.org/nix/install | sh -s -- --daemon; fi
   args:
-    creates: /nix
+    creates: /nix/var/nix/profiles/default/bin/nix-env
+
+- name: Render box nix expression
+  become: no
+  ansible.builtin.template:
+    src: box.nix.j2
+    dest: ~/.box.nix
+    mode: '0644'
+  register: box_nix_file
+  when: nix_packages | default([]) | length > 0
+
+- name: Apply nix packages to user profile
+  become: no
+  ansible.builtin.command: /nix/var/nix/profiles/default/bin/nix-env -irf ~/.box.nix
+  when: box_nix_file.changed | default(false)

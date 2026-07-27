@@ -1,34 +1,56 @@
 
 ---
-- hosts: 005465.local # work mac
+- hosts: localhost
   become: no
+  vars:
+    #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
+    nix_packages:
+      - curl
+      - direnv
+      - fzf
+      - gdal
+      - git
+      - google-cloud-sdk
+      - imagemagick
+      - jq
+      - nodejs
+      - python3
+      - ripgrep
+      - tmux
+      - vim
+      - hunk
+      - ntfy
+      - osmium-tool
+      - tippecanoe
+      - gh
+      - pmtiles
+      - htop
+      - httpie
+      - aria2
+      - pandoc
+      - pipx
+      - nur.repos.sikmir.osmosis
+      - codex
   roles:
     - nix
   tasks:
-    - homebrew_cask: name={{ item }}
-      with_items:
-        #- google-chrome # preinstalled
-        #- firefox
-        - ghostty
-        #- bettertouchtool
-        - meld
-        - google-cloud-sdk
-        - dbeaver-community
-        - inkscape
-        - gimp
-        - mark-text
-        #- virtualbox
-    - homebrew: name={{ item }}
-      with_items:
-        - socat
-        - htop
-        - httpie
-        - jq
-        - qgis
-        - gdal
-        - tippecanoe
-        - direnv
-    #- name: install ntfy
-    #  become: yes
-    #  community.general.pipx:
-    #    name: ntfy
+    - name: Install Claude Code
+      become: no
+      ansible.builtin.shell: |
+        curl -fsSL https://claude.ai/install.sh | bash
+      args:
+        creates: ~/.local/bin/claude
+  #  - homebrew_cask: name={{ item }}
+  #    with_items:
+  #      - google-chrome # preinstalled
+  #      - firefox
+  #      - ghostty
+  #      - bettertouchtool
+  #      - meld
+  #      - google-cloud-sdk
+  #      - dbeaver-community
+  #      - inkscape
+  #      - gimp
+  #      - mark-text
+  #      - umd
+  #      - qgis

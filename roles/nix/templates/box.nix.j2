@@ -1,0 +1,13 @@
+let
+  nixpkgs = fetchTarball "{{ nixpkgs_url | default('https://github.com/NixOS/nixpkgs/tarball/nixos-unstable') }}";
+  pkgs = import nixpkgs { config = {}; overlays = []; };
+  nur = import (fetchTarball "{{ nur_url | default('https://github.com/nix-community/NUR/tarball/master') }}") {
+    inherit pkgs;
+  };
+in
+
+with pkgs; [
+{% for pkg in nix_packages | default([]) %}
+  {{ pkg }}
+{% endfor %}
+]
