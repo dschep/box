@@ -60,15 +60,15 @@ setopt no_nomatch
 # prompt
 _dschep_prompt_userhost=''
 if [[ -n "$SSH_CONNECTION" || "$EUID" -eq 0 ]] || { [[ -r /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup 2>/dev/null; }; then
-    _dschep_prompt_userhost=' %n@%m '
+    _dschep_prompt_userhost=' ⚲ %n@%m '
 fi
 _dschep_prompt_nixshell=''
 setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable ALL
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats '%K{#b16286}%F{#282828} %b %f%k%m'
-zstyle ':vcs_info:git:*' actionformats '%K{#b16286}%F{#282828} %b|%a %f%k%m'
+zstyle ':vcs_info:git:*' formats '%K{#b16286}%F{#282828} ⑂ %b %f%k%m'
+zstyle ':vcs_info:git:*' actionformats '%K{#b16286}%F{#282828} ⑂ %b|%a %f%k%m'
 zstyle ':vcs_info:git*+set-message:*' hooks git-st
 function +vi-git-st() {
     local ahead behind
@@ -79,8 +79,8 @@ function +vi-git-st() {
     staged=$(git diff --cached --shortstat|sed -E -e's/ files? changed/!/' -e 's/ insertions?//' -e's/ deletions?//' -e's/[(), ]//g')
     unstaged=$(git diff --shortstat|sed -E -e's/ files? changed/~/' -e 's/ insertions?//' -e's/ deletions?//' -e's/[(), ]//g')
 
-    (( ${#staged} > 0 )) && gitstring+=("%K{#689d6a}%F{#282828} ${staged}")
-    (( ${#unstaged} > 0 )) && gitstring+=("%K{#458588}%F{#282828} ${unstaged}")
+    (( ${#staged} > 0 )) && gitstring+=("%K{#98971a}%F{#282828} ${staged}")
+    (( ${#unstaged} > 0 )) && gitstring+=("%K{#689d6a}%F{#282828} ${unstaged}")
 
     # Capture the commit variance between local and upstream tracking branch
     ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null)
@@ -102,16 +102,48 @@ function +vi-git-st() {
     fi
 }
 function dschep_prompt_command {
+    local laststatus=$?
     print -Pn "\e]0;%n@%m:%~\a"
     _dschep_prompt_nixshell=''
     if [[ -n "$IN_NIX_SHELL" ]]; then
         _dschep_prompt_nixshell='❄ '
     fi
     vcs_info
+    if [ "$timer" ]; then
+        local color
+        if (( laststatus > 0 )); then
+            color="%F{#cc241d}"
+        else
+            color="%F{#98971a}"
+        fi
+
+        local total_secs=$(($SECONDS - $timer))
+
+        local h=$((total_secs / 3600))
+        local m=$(((total_secs % 3600) / 60))
+        local s=$((total_secs % 60))
+
+        if [ $h -gt 0 ]; then
+            duration="${h}h${m}m${s}s"
+        elif [ $m -gt 0 ]; then
+            duration="${m}m${s}s"
+        else
+            duration="${s}s"
+        fi
+
+        _dschep_prompt_ret="${color}┗➜ ${laststatus} in $duration"
+        unset timer
+    else
+        _dschep_prompt_ret=""
+    fi
+}
+function dschep_prompt_timer() {
+  timer=${timer:-$SECONDS}
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd dschep_prompt_command
-PROMPT=$'%F{#cc241d}%B%(?..%? ⏎)\n%(!.%K{#cc241d}.%K{#458588})%F{#282828}${_dschep_prompt_userhost}%K{#d79921}%F{#282828} %B%~ ${_dschep_prompt_nixshell}${vcs_info_msg_0_}%f%k\n%B❯%b '
+add-zsh-hook preexec dschep_prompt_timer
+PROMPT=$'${_dschep_prompt_ret}\n%(!.%K{#cc241d}.%K{#458588})%F{#282828}${_dschep_prompt_userhost}%K{#d79921}%F{#282828} ⛃ %~ ${_dschep_prompt_nixshell}${vcs_info_msg_0_}%F{#a89984}%K{#504945} ⏲ %D %* %f%k\n%B❯%b '
 
 zmodload zsh/mathfunc
 ## tmux layout
