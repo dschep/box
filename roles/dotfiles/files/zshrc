@@ -145,7 +145,7 @@ function dschep_prompt_timer() {
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd dschep_prompt_command
 add-zsh-hook preexec dschep_prompt_timer
-PROMPT=$'${_dschep_prompt_ret}\n%(!.%K{#cc241d}.%K{#458588})%F{#282828}${_dschep_prompt_userhost}%K{#d79921}%F{#282828} ${_dschep_prompt_nixshell} %~ ${vcs_info_msg_0_}%F{#a89984}%k ⏲ %D %* %f%k\n%B❯%b '
+PROMPT=$'${_dschep_prompt_ret}\n%(!.%K{#cc241d}.%K{#458588})%F{#282828}${_dschep_prompt_userhost}%K{#d79921}%F{#282828} ${_dschep_prompt_nixshell} %~ ${vcs_info_msg_0_}%F{#a89984}%k ⏲ %D{%Y-%m-%d} %* %f%k\n%B❯%b '
 
 zmodload zsh/mathfunc
 ## tmux layout
