@@ -67,10 +67,40 @@ setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable ALL
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr '%K{#458588}%F{#282828}'
-zstyle ':vcs_info:git:*' unstagedstr '%K{#b16286}%F{#282828}'
-zstyle ':vcs_info:git:*' formats '%K{#98971a}%F{#282828}%c%u %b %f%k'
-zstyle ':vcs_info:git:*' actionformats '%K{#b16286}%F{#282828}%c%u %b|%a %f%k'
+zstyle ':vcs_info:git:*' formats '%K{#b16286}%F{#282828} %b %f%k%m'
+zstyle ':vcs_info:git:*' actionformats '%K{#b16286}%F{#282828} %b|%a %f%k%m'
+zstyle ':vcs_info:git*+set-message:*' hooks git-st
+function +vi-git-st() {
+    local ahead behind
+    local -a gitstring
+    local unstaged
+    local staged
+
+    staged=$(git diff --cached --shortstat|sed -E -e's/ files? changed/!/' -e 's/ insertions?//' -e's/ deletions?//' -e's/[(), ]//g')
+    unstaged=$(git diff --shortstat|sed -E -e's/ files? changed/~/' -e 's/ insertions?//' -e's/ deletions?//' -e's/[(), ]//g')
+
+    (( ${#staged} > 0 )) && gitstring+=("%K{#689d6a}%F{#282828} ${staged}")
+    (( ${#unstaged} > 0 )) && gitstring+=("%K{#458588}%F{#282828} ${unstaged}")
+
+    # Capture the commit variance between local and upstream tracking branch
+    ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null)
+    behind=$(git rev-list --count HEAD..@{u} 2>/dev/null)
+
+    # Append to the array if values exist
+    (( ahead > 0 || behind > 0 )) && gitstring+=("%K{#d65d0e}%F{#282828}")
+    (( ahead > 0 )) && gitstring+=("▲${ahead}")
+    (( behind > 0 )) && gitstring+=("▼${behind}")
+
+    (( ${#staged} > 0 || ${#unstaged} > 0 || ahead > 0 || behind > 0 )) && gitstring+=("%f%k")
+
+    # Bind the output directly to the miscellaneous string container
+    if (( ${#gitstring} > 0 )); then
+        # Executes if gitstring contains 1 or more elements
+        hook_com[misc]="${(j: :)gitstring}"
+    else
+        hook_com[misc]=""
+    fi
+}
 function dschep_prompt_command {
     print -Pn "\e]0;%n@%m:%~\a"
     _dschep_prompt_nixshell=''
