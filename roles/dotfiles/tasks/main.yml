@@ -6,11 +6,9 @@
   copy: src={{ item }} dest=~/.{{ item }}
   with_items:
     - bashrc
-    - bash_profile
-    - bash_logout
+    - zshrc
     - vimrc
     - gitignore
     - gitconfig
     - inputrc
     - tmux.conf
-    - zshrc
