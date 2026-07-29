@@ -1,6 +1,7 @@
 
 ---
 - hosts: localhost
+  gather_facts: false
   become: no
   vars:
     #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"

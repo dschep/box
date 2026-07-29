@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: false
   become: yes
   vars:
     #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
@@ -13,13 +14,11 @@
       - ripgrep
   roles:
     - dotfiles
-    #- base_utils # not directly using bc vim vs gvim
+    - base_utils
     - atkinson_hyperlegible
     - alacritty
     - nix
     #- kde
-- hosts: localhost
-  become: yes
   tasks:
     - name: Configure apt sources
       ansible.builtin.copy:
@@ -56,12 +55,7 @@
 
     - package: name={{ item }}
       with_items:
-        - zsh
-        - tmux
-        - direnv
-        - git
-        - curl
-        - vim-gtk3
+        - vim-gtk3 # for clipboard support
 
         - gimp
         - inkscape
@@ -70,8 +64,6 @@
 
         - firefox-esr
         - chromium
-
-        #- docker
 
         - aria2
         - wl-clipboard

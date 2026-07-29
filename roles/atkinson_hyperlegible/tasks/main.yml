@@ -1,7 +1,7 @@
 - name: ensure /usr/share/fonts/AtkinsonHyperlegible exits
   become: yes
   file: path=/usr/share/fonts/AtkinsonHyperlegible state=directory
-- name: Install Atkinson Hyperlegible Fonts (linux)
+- name: Install Atkinson Hyperlegible Fonts
   copy: src={{ item }} dest=/usr/share/fonts/AtkinsonHyperlegible/{{ item }}
   become: yes
   with_items:
@@ -13,4 +13,3 @@
     - AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
     - AtkinsonHyperlegibleNext-VariableFont_wght.ttf
     - AtkinsonHyperlegible-Regular.ttf
-  when: ansible_facts['distribution'] != 'MacOSX'

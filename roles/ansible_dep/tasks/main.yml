@@ -2,4 +2,3 @@
 - name: Install apt_repository dep
   become: yes
   apt: pkg=python3-pycurl
-  when: ansible_facts['distribution'] in ('Ubuntu', 'Debian')

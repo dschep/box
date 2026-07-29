@@ -1,6 +1,5 @@
 - name: Install Base tools
   package: name={{ item }}
-  become: yes
   with_items:
     - bash
     - zsh
@@ -9,16 +8,3 @@
     - vim
     - git
     - curl
-  when: ansible_facts['distribution'] != 'MacOSX'
-- name: Install Base tools (mac)
-  package: name={{ item }}
-  become: no
-  with_items:
-    - bash
-    - zsh
-    - fzf
-    - tmux
-    - vim
-    - git
-    - curl
-  when: ansible_facts['distribution'] == 'MacOSX'
