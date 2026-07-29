@@ -34,6 +34,7 @@
       - codex
   roles:
     - nix
+    - dotfiles
   tasks:
     - name: Install Claude Code
       become: no
