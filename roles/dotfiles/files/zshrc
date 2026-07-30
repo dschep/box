@@ -267,3 +267,14 @@ function dcr {
 
 # stupid new docker compose
 export COMPOSE_MENU=false
+
+# Ctrl-P for fzf PID selctor
+fzf-pid-widget() {
+    local pid=$(ps -ef | fzf --height 40% --header-lines=1 --reverse | awk '{print $2}')
+    if [ -n "$pid" ]; then
+        LBUFFER+="$pid"
+    fi
+    zle reset-prompt
+}
+zle -N fzf-pid-widget
+bindkey '^P' fzf-pid-widget
