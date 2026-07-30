@@ -5,3 +5,4 @@
 .cs_files
 .lvimrc
 screenlog.*
+.direnv/

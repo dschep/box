@@ -31,6 +31,7 @@
       - pandoc
       - nur.repos.sikmir.osmosis
       - codex
+      - nix-direnv
   roles:
     - nix
     - dotfiles

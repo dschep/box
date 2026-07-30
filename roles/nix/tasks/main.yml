@@ -19,3 +19,17 @@
   become: no
   ansible.builtin.command: /nix/var/nix/profiles/default/bin/nix-env -irf ~/.box.nix
   when: box_nix_file.changed | default(false)
+
+- name: Ensure direnv config dir exists
+  ansible.builtin.file:
+    path: ~/.config/direnv
+    state: directory
+    mode: '0755'
+    recurse: yes
+- name: Configure nix-direnv
+  become: no
+  ansible.builtin.lineinfile:
+    path: ~/.config/direnv/direnvrc
+    line: 'source $HOME/.nix-profile/share/nix-direnv/direnvrc'
+    state: present
+    create: yes
