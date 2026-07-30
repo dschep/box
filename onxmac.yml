@@ -4,7 +4,7 @@
   gather_facts: false
   become: no
   vars:
-    #nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
+    nixpkgs_url: "https://github.com/NixOS/nixpkgs/tarball/nixos-26.05"
     nix_packages:
       - curl
       - direnv
@@ -16,10 +16,10 @@
       - jq
       - nodejs
       - python3
+      - python3Packages.pip
       - ripgrep
       - tmux
       - vim
-      - hunk
       - ntfy
       - osmium-tool
       - tippecanoe
@@ -29,7 +29,6 @@
       - httpie
       - aria2
       - pandoc
-      - pipx
       - nur.repos.sikmir.osmosis
       - codex
   roles:
