@@ -26,6 +26,10 @@ fi
 bindkey -v
 bindkey -M viins '^L' clear-screen
 
+# zmv
+autoload zmv
+alias mmv='noglob zmv -W'
+
 # zsh completion
 fpath=(~/.zsh/completions $fpath)
 autoload -Uz compinit
