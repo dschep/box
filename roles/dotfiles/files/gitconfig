@@ -70,3 +70,5 @@ allow = never
     insteadOf = bitbucket:
 [url "git@bitbucket.com:"]
     insteadOf = bb:
+[init]
+	defaultBranch = main
