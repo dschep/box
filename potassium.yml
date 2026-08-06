@@ -71,3 +71,8 @@
         - wl-clipboard
 
         - meld
+    - name: Change user shell to zsh
+      ansible.builtin.user:
+        name: dschep
+        shell: /usr/bin/zsh
+      become: true
