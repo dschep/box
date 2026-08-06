@@ -20,7 +20,9 @@
     - alacritty
     - nix
     - role: kde
-      tags: kde
+      tags:
+        - kde
+        - never
   tasks:
     - name: Configure apt sources
       ansible.builtin.copy:
