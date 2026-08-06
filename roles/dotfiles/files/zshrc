@@ -217,6 +217,9 @@ function tmuxl {
 }
 
 # load local extensions to zshrc
+if [[ -f ~/.zshrc.local ]]; then
+    . ~/.zshrc.local
+fi
 if [[ -f ~/.zshrc.local_ext ]]; then
     . ~/.zshrc.local_ext
 fi
