@@ -19,7 +19,8 @@
     - atkinson_hyperlegible
     - alacritty
     - nix
-    #- kde
+    - role: kde
+      tags: kde
   tasks:
     - name: Configure apt sources
       ansible.builtin.copy:
