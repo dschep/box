@@ -12,3 +12,4 @@
     - gitconfig
     - inputrc
     - tmux.conf
+    - fzf-git.sh

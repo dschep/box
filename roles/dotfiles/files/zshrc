@@ -222,6 +222,9 @@ if [[ -f ~/.zshrc.local_ext ]]; then
 fi
 
 # Setup shell-integrated software
+if [[ -f "$HOME/.fzf-git.sh" ]]; then
+    source "$HOME/.fzf-git.sh"
+fi
 if [[ -f "$HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
 fi
