@@ -291,3 +291,14 @@ fzf-pid-widget() {
 }
 zle -N fzf-pid-widget
 bindkey '^P' fzf-pid-widget
+
+# Ctrl-Z for zoxide fzf directory selctor (like ctrl-t but with zoxide)
+zoxide-interactive-widget() {
+    local dir=$(zoxide query --interactive)
+    if [ -n "$dir" ]; then
+        LBUFFER+="$dir"
+    fi
+    zle reset-prompt
+}
+zle -N zoxide-interactive-widget
+bindkey '^Z' zoxide-interactive-widget
