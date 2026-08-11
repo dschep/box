@@ -29,10 +29,12 @@
       - httpie
       - aria2
       - pandoc
-      - nur.repos.sikmir.osmosis
-      - codex
+      #- nur.repos.sikmir.osmosis
+      #- codex
       - nix-direnv
       - zoxide
+      - docker-sbx # for now manually added NIXPKGS_ALLOW_UNFREE=1 to ~/.zshrc.local
+      - jira-cli-go
   roles:
     - nix
     - dotfiles
