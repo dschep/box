@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  gather_facts: false
+  become: no
+  roles:
+    - dotfiles
+    - base_utils

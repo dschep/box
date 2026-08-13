@@ -1,43 +1,43 @@
 #!/bin/bash
 
 #
-# Easily setup up a machine to my liking using ansible. Should work on
-# recent Ubuntu, Debian, Fedora, Arch, & MacOS
+# Easily setup up a machine to my liking using ansible. Bootstrap
+# should work on recent Ubuntu, Debian, Fedora, Arch, Alpine, & MacOS
 #
 # curl https://dschep.github.io/box/install | bash
 # or
 # wget -qO- https://dschep.github.io/box/install | bash
 #
-# flags:
-# --git-*       Use git+* instead of https, eg: git+ssh git+git or git+http[s]
-#
-# positional arguments:
-# branchname      specify branch to download/checkout (defaults to master)
+# arguments are passed to ansible-pull (eg: a playbook name)
 #
 # Example
-# curl https://dschep.github.io/box/install | bash -s -- --git-ssh test-branch
+# curl https://dschep.github.io/box/install | bash -s -- dotfiles.yml
 
-set -e
+set -euo pipefail
 
-PYDEV=""
+
+# determine package manager
+SUDO=""
+PKG=""
 if [[ "$(uname)" = Darwin ]]; then
     PKG="brew install"
     if ! $(type -p brew &> /dev/null); then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 else
+    if [ "$(id -u)" -ne 0 ]; then
+        SUDO="sudo"
+    fi
     if $(type -p apt &> /dev/null); then
         PKG="apt install"
-        PYDEV="python-dev libssl-dev"
     elif $(type -p apt-get &> /dev/null); then
         PKG="apt-get install"
-        PYDEV="python-dev libssl-dev"
     elif $(type -p dnf &> /dev/null); then
         PKG="dnf install"
-        PYDEV=python-devel
     elif $(type -p yum &> /dev/null); then
         PKG="yum install"
-        PYDEV=python-devel
+    elif $(type -p apk &> /dev/null); then
+        PKG="apk add"
     elif $(type -p pacman &> /dev/null); then
         PKG="pacman -yS --noconfirm"
     else
@@ -46,45 +46,32 @@ else
     fi
 fi
 
-if [[ $1 == --git-* ]]; then
-    type -p git &> /dev/null || sudo $PKG install git
-    proto=${1##*-}
-    shift
-    git clone -b ${1-master} $proto://git@github.com/dschep/box
-    cd box
+
+# install ansible & git if necessary
+if ! type -p ansible &> /dev/null ; then
+    $SUDO $PKG -y ansible
+fi
+if ! type -p git &> /dev/null ; then
+    $SUDO $PKG -y git
+fi
+
+
+# run ansible!
+if [ "$(id -u)" -ne 0 ]; then
+    ansible-pull -U https://github.com/dschep/box -K "$@"
 else
-    if [ "$(type -P wget)" ]; then
-        cmd='wget -qO-'
-    elif [ "$(type -P curl)" ]; then
-        cmd='curl -sL'
-    else
-        echo "No download tool found. Install curl or wget."1>&2
-    fi
-    
-    $cmd https://github.com/dschep/box/archive/refs/heads/${1-master}.tar.gz | tar xz
-    cd box-${1-master}
+    ansible-pull -U https://github.com/dschep/box "$@"
 fi
 
 
-if ! type -p ansible-playbook &> /dev/null ; then
-    sudo $PKG -y python-pip $PYDEV ansible
-fi
-
-ansible-playbook -i $HOSTNAME, site.yml --ask-become-pass
-
-# Repeating doc at bottom for easy reading when cURLing
-# Easily setup up a machine to my liking using ansible. Should work on
-# recent Ubuntu, Debian, Fedora, Arch, & MacOS
+# Easily setup up a machine to my liking using ansible. Bootstrap
+# should work on recent Ubuntu, Debian, Fedora, Arch, Alpine, & MacOS
 #
 # curl https://dschep.github.io/box/install | bash
 # or
 # wget -qO- https://dschep.github.io/box/install | bash
 #
-# flags:
-# --git-*       Use git+* instead of https, eg: git+ssh git+git or git+http[s]
-#
-# positional arguments:
-# branchname      specify branch to download/checkout (defaults to master)
+# arguments are passed to ansible-pull (eg: a playbook name)
 #
 # Example
-# curl https://dschep.github.io/box/install | bash -s -- --git-ssh test-branch
+# curl https://dschep.github.io/box/install | bash -s -- dotfiles.yml
