@@ -11,8 +11,6 @@
       - python3
       - ntfy
       - yt-dlp
-      - ripgrep
-      - zoxide
   roles:
     - dotfiles
     - base_utils

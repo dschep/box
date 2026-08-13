@@ -9,3 +9,5 @@
     - git
     - curl
     - direnv
+    - ripgrep
+    - zoxide
