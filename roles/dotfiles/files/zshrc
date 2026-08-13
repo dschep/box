@@ -59,6 +59,9 @@ SAVEHIST=$HISTSIZE
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 setopt hist_ignore_space
 setopt hist_ignore_dups
+setopt share_history
+
+# error on globs that expand to nothing
 setopt no_nomatch
 
 # prompt
