@@ -23,10 +23,14 @@ bind -m vi-insert "\C-l":clear-screen
 
 # prompt
 _dschep_userhost=''
+_dschep_userhost_bg='\033[48;2;69;133;136m'
 if [ -n "$SSH_CONNECTION" ] || [ "$(id -u)" -eq 0 ] || { [ -r /proc/1/cgroup ] && grep -q docker /proc/1/cgroup 2>/dev/null; }; then
     _dschep_userhost=" ⚲ ${USER}@${HOSTNAME} "
 fi
-PS1='\[\033[48;2;69;133;136m\]\[\033[38;2;40;40;40m\]'"${_dschep_userhost}"'\[\033[48;2;215;153;33m\] □ \w \[\033[0m\]\[\033[38;2;168;153;132m\] ⏲ \D{%Y-%m-%d} \t \[\033[0m\]\n❯ '
+if [ "$(id -u)" -eq 0 ]; then
+    _dschep_userhost_bg='\033[48;2;204;36;29m'
+fi
+PS1='\['"${_dschep_userhost_bg}"'\]\[\033[38;2;40;40;40m\]'"${_dschep_userhost}"'\[\033[48;2;215;153;33m\] □ \w \[\033[0m\]\[\033[38;2;168;153;132m\] ⏲ \D{%Y-%m-%d} \t \[\033[0m\]\n❯ '
 
 # load local extensions to bashrc
 if [[ -f ~/.bashrc.local ]]; then
