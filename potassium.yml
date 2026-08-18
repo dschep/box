@@ -6,14 +6,6 @@
   tags:
     - host-specific
   tasks:
-    - package: name=nfs-common state=absent
-    - name: remove nfs mount
-      ansible.posix.mount:
-        path: /mnt/nas
-        src: nas.maplewood.schep.me:/volume1/data
-        fstype: nfs4
-        opts: rw,sync,hard,intr
-        state: absent
     - package: name={{ item }}
       with_items:
         - kio-fuse
