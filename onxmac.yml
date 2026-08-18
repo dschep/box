@@ -36,8 +36,10 @@
       - docker-sbx # for now manually added NIXPKGS_ALLOW_UNFREE=1 to ~/.zshrc.local
       - jira-cli-go
   roles:
-    - nix
-    - dotfiles
+    - role: nix
+      tags: nix
+    - role: dotfiles
+      tags: dotfiles
   tasks:
     - name: Install Claude Code
       become: no
@@ -45,17 +47,20 @@
         curl -fsSL https://claude.ai/install.sh | bash
       args:
         creates: ~/.local/bin/claude
-  #  - homebrew_cask: name={{ item }}
-  #    with_items:
-  #      - google-chrome # preinstalled
-  #      - firefox
-  #      - ghostty
-  #      - bettertouchtool
-  #      - meld
-  #      - google-cloud-sdk
-  #      - dbeaver-community
-  #      - inkscape
-  #      - gimp
-  #      - mark-text
-  #      - umd
-  #      - qgis
+    - homebrew_cask: name={{ item }}
+      tags:
+        - brew
+        - never
+      with_items:
+        - google-chrome # preinstalled
+        - firefox
+        - ghostty
+        - bettertouchtool
+        - meld
+        - google-cloud-sdk
+        - dbeaver-community
+        - inkscape
+        - gimp
+        - mark-text
+        - umd
+        - qgis
