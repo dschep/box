@@ -78,3 +78,9 @@
         name: dschep
         shell: /usr/bin/zsh
       become: true
+    - name: Install Tailscale
+      become: yes
+      ansible.builtin.shell: |
+        curl -fsSL https://tailscale.com/install.sh | sh
+      args:
+        creates: /usr/bin/tailscale

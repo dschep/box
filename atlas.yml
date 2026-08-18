@@ -1,3 +1,28 @@
 ---
 - import_playbook: linux-workstation.yml
-
+- hosts: localhost
+  gather_facts: false
+  become: yes
+  tags:
+    - host-specific
+  tasks:
+    - package: name={{ item }}
+      with_items:
+        - nfs-common
+    - name: Create nas mountpoint
+      ansible.builtin.file:
+        path: /mnt/nas
+        state: directory
+        mode: '0755'
+    - name: Create nas mountpoint
+      ansible.builtin.file:
+        path: /mnt/nas
+        state: directory
+        mode: '0755'
+    - name: Mount nas
+      ansible.posix.mount:
+        path: /mnt/nas
+        src: nas.maplewood.schep.me:/volume1/data
+        fstype: nfs4
+        opts: rw,sync,hard,intr
+        state: mounted
