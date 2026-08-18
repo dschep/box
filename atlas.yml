@@ -3,6 +3,8 @@
 - hosts: localhost
   gather_facts: false
   become: yes
+  roles:
+    - sshd
   tags:
     - host-specific
   tasks:
@@ -26,3 +28,11 @@
         fstype: nfs4
         opts: rw,sync,hard,intr
         state: mounted
+    - name: Add SSH authorized_key
+      ansible.posix.authorized_key:
+        user: dschep
+        state: present
+        key: |
+          ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrwBQUt3iBCLoIy0Fd7oYSsLuYdFxWZuqmTtcgqKZH1W01JpjRZt4pIejyO2TFLWASimbA2EteIilCa2vS5MIyxBfzIWB2AKQ+cEx5d4B+iyJgGO4ZQ/RmpCbqsxQ6qCFvgOeLzYBx/2UlKE6KjWv9S8MvQ+jRf/V5O7U/L52MhhBJtcZruiYugG//AkXBX90GqbvRtqn3JaK5y7LQpX/78rkU9E4TNX+MAfUUs+9kW93c+yZB/XV6wGHFuhocz/Kss231+CdReMKWVJ6a9Omog8elf3K20/jup54UQSixCYII8Vx1Oq+X0Ey69IaHO20/GFCtMXyJ8piZAODQD+0ya0+7wy5osJ98xcT1S8/Y2sNdlbBAkgD2V4RkQd8hn7L8hhJCU8WVErpzH8uCOH/NoM0bFH0pKzFOafiHl65/+/TkAEDniJwlvmCmaeuAvcehcuf3XLEWuX/Iq2anv25gvcDSqe5BqeNnGCVVvXEsl9eXxzVyXI3MfrAcPUNOJBE= dschep@potassium
+          ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCZSo1koZfpDsUvN1LpSUMqP3OX67RALowMEvelm/rzu6GYw5RVZlF94DL8ALzbbfEr+EX4VD01D3ECVPzwzv5tXTgqkGPuFXB6XihsDFBWLKBleE+mILl63PUCFm0l2QXM5D9mAAH/LNlijVO7xAk+nK/48WSIpB6S6BbwYbTdPgyzqtnUe2Hlv4cjac0JGurAyRHN/120ySSogYHTjj/3nR4MeL06oveszuUfC8IHPkOn50hVwdR3QnGDEw9vVjcrABinUVVRjKgCqGST7e1h4zlzn7nmDJ+hJKik/p5ER14/W0MKjWDNU5yyvPfP7paLHnanuwupOaWHnJidqf/25M+pm+vHE+gh/yt7VPsfOXXD+VQqbvFPnqUWVervrwSZLvJ+pf6+mEb8wdo2dRv1I02TxYkQy75cOu5YReegAZKSsQWddzYQlFK2Fe9Icv9wVGgrTN7qWFHongvUvg1Db61fy93cth7ITF5zWWhO7g01py9th5vKQxy7eWlwQuE= dschep@atlas
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOpDl1o5Ib0LHYzt7jCBIlhT6P+55UTx2Wb+ChQDF5Z danielschep@005465.local
