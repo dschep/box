@@ -12,11 +12,13 @@
       - ntfy
       - yt-dlp
   roles:
-    - dotfiles
+    - role: dotfiles
+      tags: dotfiles
     - base_utils
     - atkinson_hyperlegible
     - alacritty
-    - nix
+    - role: nix
+      tags: nix
     - role: kde
       tags:
         - kde

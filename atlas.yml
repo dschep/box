@@ -1,1 +1,3 @@
-linux-workstation.yml
+---
+- import_playbook: linux-workstation.yml
+
