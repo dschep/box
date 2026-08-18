@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#
 # Easily setup up a machine to my liking using ansible. Bootstrap
 # should work on recent Ubuntu, Debian, Fedora, Arch, Alpine, & MacOS
 #
@@ -17,29 +16,28 @@ set -euo pipefail
 
 
 # determine package manager
-SUDO=""
-PKG=""
+PKG_MGR=()
 if [[ "$(uname)" = Darwin ]]; then
-    PKG="brew install"
-    if ! $(type -p brew &> /dev/null); then
+    PKG_MGR=("brew" "install")
+    if ! type -p brew &> /dev/null; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 else
     if [ "$(id -u)" -ne 0 ]; then
-        SUDO="sudo"
+        PKG_MGR=("sudo")
     fi
-    if $(type -p apt &> /dev/null); then
-        PKG="apt install"
-    elif $(type -p apt-get &> /dev/null); then
-        PKG="apt-get install"
-    elif $(type -p dnf &> /dev/null); then
-        PKG="dnf install"
-    elif $(type -p yum &> /dev/null); then
-        PKG="yum install"
-    elif $(type -p apk &> /dev/null); then
-        PKG="apk add"
-    elif $(type -p pacman &> /dev/null); then
-        PKG="pacman -yS --noconfirm"
+    if type -p apt &> /dev/null; then
+        PKG_MGR+=("apt" "install" "-y")
+    elif type -p apt-get &> /dev/null; then
+        PKG_MGR+=("apt-get" "install" "-y")
+    elif type -p dnf &> /dev/null; then
+        PKG_MGR+=("dnf" "install" "-y")
+    elif type -p yum &> /dev/null; then
+        PKG_MGR+=("yum" "install" "-y")
+    elif type -p apk &> /dev/null; then
+        PKG_MGR+=("apk" "add")
+    elif type -p pacman &> /dev/null; then
+        PKG_MGR+=("pacman" "-yS" "--noconfirm")
     else
         echo 'No known package manager found' >&2
         exit 1
@@ -49,10 +47,10 @@ fi
 
 # install ansible & git if necessary
 if ! type -p ansible &> /dev/null ; then
-    $SUDO $PKG -y ansible
+    "${PKG_MGR[@]}" ansible
 fi
 if ! type -p git &> /dev/null ; then
-    $SUDO $PKG -y git
+    "${PKG_MGR[@]}" git
 fi
 
 
