@@ -71,6 +71,8 @@
         - wl-clipboard
 
         - meld
+
+        - qgis
     - name: Change user shell to zsh
       ansible.builtin.user:
         name: dschep
