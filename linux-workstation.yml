@@ -19,6 +19,8 @@
     - alacritty
     - role: nix
       tags: nix
+    - role: user_nix_pkgs
+      tags: nix
     - role: kde
       tags:
         - kde
@@ -75,6 +77,8 @@
         - meld
 
         - kcharselect
+
+        - qgis
     - name: Change user shell to zsh
       ansible.builtin.user:
         name: dschep

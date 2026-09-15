@@ -36,7 +36,9 @@
       - docker-sbx # for now manually added NIXPKGS_ALLOW_UNFREE=1 to ~/.zshrc.local
       - jira-cli-go
   roles:
-    - role: nix
+    - role: determinate_nix_mac
+      tags: nix
+    - role: user_nix_pkgs
       tags: nix
     - role: dotfiles
       tags: dotfiles

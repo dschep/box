@@ -4,4 +4,8 @@
   become: no
   roles:
     - dotfiles
+- hosts: localhost
+  gather_facts: false
+  become: yes
+  roles:
     - base_utils
