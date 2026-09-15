@@ -1,0 +1,36 @@
+---
+- name: Install Determinate nix PKG on macOS
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    pkg_url: "https://install.determinate.systems/determinate-pkg/stable/Universal"
+    download_dest: "/tmp/Determinate.pkg"
+    nix_binary: "/nix/var/nix/profiles/default/bin/nix-env"
+
+  tasks:
+    - name: Check if Nix is already installed
+      ansible.builtin.stat:
+        path: "{{ nix_binary }}"
+      register: nix_stat
+
+    - name: Download the Determinate PKG file
+      ansible.builtin.get_url:
+        url: "{{ pkg_url }}"
+        dest: "{{ download_dest }}"
+        mode: '0644'
+      when: not nix_stat.stat.exists
+
+    - name: Install the PKG file using native macOS installer
+      ansible.builtin.command:
+        cmd: "installer -pkg {{ download_dest }} -target /"
+      become: true
+      when: not nix_stat.stat.exists
+
+    - name: Clean up the downloaded PKG file
+      ansible.builtin.file:
+        path: "{{ download_dest }}"
+        state: absent
+      when: not nix_stat.stat.exists
+
