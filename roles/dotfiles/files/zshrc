@@ -66,7 +66,7 @@ setopt no_nomatch
 
 # prompt
 _dschep_prompt_userhost=''
-if [[ -n "$SSH_CONNECTION" || "$EUID" -eq 0 ]] || { [[ -r /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup 2>/dev/null; }; then
+if [[ -n "$CROC_SSH_SESSION" || -n "$SSH_CONNECTION" || "$EUID" -eq 0 ]] || { [[ -r /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup 2>/dev/null; }; then
     _dschep_prompt_userhost=' ⚲ %n@%m '
 fi
 _dschep_prompt_nixshell=''
