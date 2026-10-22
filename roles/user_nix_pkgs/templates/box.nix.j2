@@ -4,9 +4,18 @@ let
   nur = import (fetchTarball "{{ nur_url | default('https://github.com/nix-community/NUR/tarball/master') }}") {
     inherit pkgs;
   };
+  # eMudhra CA leak, see https://emudhra.we-have-a-problem.com/
+  # (same as NixOS security.pki.caCertificateBlacklist)
+  cacert = pkgs.cacert.override {
+    blacklist = [
+      "Comodo AAA Services root"
+      "emSign ECC Root CA - G3"
+    ];
+  };
 in
 
 with pkgs; [
+  cacert
 {% for pkg in nix_packages | default([]) %}
   {{ pkg }}
 {% endfor %}
