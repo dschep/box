@@ -35,6 +35,7 @@
       - zoxide
       - docker-sbx # for now manually added NIXPKGS_ALLOW_UNFREE=1 to ~/.zshrc.local
       - jira-cli-go
+      - opentofu
   roles:
     - role: determinate_nix_mac
       tags: nix
