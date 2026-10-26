@@ -281,6 +281,21 @@ function dcr {
     dc run --rm "$@"
 }
 
+## misplaced-space git typos: `gi tpush` -> `git push`, `gits witch` -> `git switch`
+function command_not_found_handler {
+    local cmd=$1
+    shift
+    if [[ $cmd == gi && $1 == t?* ]]; then
+        git "${1#t}" "${@:2}"
+        return
+    elif [[ $cmd == git?* && $# -gt 0 ]]; then
+        git "${cmd#git}$1" "${@:2}"
+        return
+    fi
+    print -u2 "zsh: command not found: $cmd"
+    return 127
+}
+
 # stupid new docker compose
 export COMPOSE_MENU=false
 
